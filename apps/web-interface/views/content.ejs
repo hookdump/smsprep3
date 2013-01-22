@@ -1,0 +1,27 @@
+<div class='main' id='admin_content'>
+
+ 	<h1>Review Content</h1>
+	<ul class='nice_list'>
+	<% for(var i=0; i<lessons.length; i++) { %>
+		<% var full_code = lessons[i].test_code + "_" + lessons[i].lesson_code %>
+		<li>
+			<a href='/content/<%=full_code%>'><%=full_code%></a>
+		</li>
+	<% } %>
+	</ul>
+
+	<hr>
+
+ 	<h1>Import Content</h1>
+	<ul class='nice_list'>
+	<% for(var x=0; x<files.length; x++) { %>
+		<% var filename = files[x] %>
+		<% // filename = filename.replace(".html", ".web"); %>
+		<li>
+			<a href='/content/import/<%=filename%>'><%=filename%></a>
+		</li>
+	<% } %>
+	</ul>  
+ 
+</div>
+<div class='page_dashboard'> </div>

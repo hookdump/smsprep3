@@ -1,0 +1,175 @@
+/* line 3, ../sass/style.sass */
+html {
+  height: 100%;
+}
+
+/* line 6, ../sass/style.sass */
+body {
+  height: 100%;
+  background: url("../images/bg_body.png") repeat-x 50% 0;
+  min-width: 960px;
+  background-color: #2d4762;
+  padding-top: 40px;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 300;
+}
+/* line 15, ../sass/style.sass */
+body form {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* line 19, ../sass/style.sass */
+.content {
+  width: 100%;
+  min-height: 100%;
+  /* background: url('../images/bg_content.jpg') no-repeat 50% 0 */
+  background-color: white;
+}
+
+/* line 25, ../sass/style.sass */
+.main_container {
+  margin-top: 0px;
+}
+
+/* line 28, ../sass/style.sass */
+.nav_container {
+  padding-left: 10px;
+}
+
+/* line 32, ../sass/style.sass */
+.navbar-inverse .navbar-inner {
+  background-image: none;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.7);
+}
+
+/* line 37, ../sass/style.sass */
+.main {
+  background-color: rgba(0, 0, 0, 0.07);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  padding: 25px;
+  margin-bottom: 25px;
+  margin-top: 15px;
+  color: black;
+}
+/* line 38, ../sass/style.sass */
+.main h1, .main h2, .main h3, .main h4 {
+  margin-top: 0px;
+}
+/* line 40, ../sass/style.sass */
+.main .first {
+  margin-top: 0px;
+}
+
+/* line 59, ../sass/style.sass */
+.loading {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  width: 100px;
+  height: 100px;
+  margin: 50px auto 0px auto;
+}
+/* line 66, ../sass/style.sass */
+.loading .loading_animation {
+  width: 32px;
+  height: 32px;
+  background: url("../images/ajax-loader.gif") no-repeat center center;
+  top: 50%;
+  margin-top: -16px;
+  display: inline-block;
+  position: relative;
+}
+
+/* line 75, ../sass/style.sass */
+#footer {
+  display: none;
+}
+/* line 77, ../sass/style.sass */
+#footer .footer_block {
+  opacity: 0.4;
+  background-color: rgba(0, 0, 0, 0.6);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  padding: 20px;
+  color: white;
+}
+
+/* line 84, ../sass/style.sass */
+.clearme {
+  clear: both;
+}
+
+/* line 87, ../sass/style.sass */
+.hidden {
+  display: none;
+}
+
+/* line 90, ../sass/style.sass */
+.nice_list {
+  list-style: none;
+  margin: 0px;
+}
+/* line 93, ../sass/style.sass */
+.nice_list li {
+  padding: 0px;
+}
+/* line 95, ../sass/style.sass */
+.nice_list li a {
+  line-height: 40px;
+  margin: 4px;
+  padding: 10px;
+  background-color: #dadada;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+/* line 103, ../sass/style.sass */
+.nice_list .qdetails {
+  margin: -7px 10px 10px 4px;
+  padding: 10px;
+  background-color: #dadada;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/* line 110, ../sass/style.sass */
+.top_button {
+  float: right;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #efefef;
+}
+/* line 121, ../sass/style.sass */
+.top_button:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  text-decoration: none;
+}

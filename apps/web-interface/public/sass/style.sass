@@ -1,0 +1,124 @@
+@import "compass"
+
+html
+  height: 100%
+
+body
+  height: 100%
+  background: url('../images/bg_body.png') repeat-x 50% 0
+  min-width: 960px
+  background-color: #2d4762
+  padding-top: 40px
+  font-family: 'Ubuntu', sans-serif
+  font-weight: 300
+
+  form
+    margin: 0px
+    padding: 0px
+
+.content
+  width: 100%
+  min-height: 100%
+  /* background: url('../images/bg_content.jpg') no-repeat 50% 0 */
+  background-color: #FFFFFF
+
+.main_container
+  margin-top: 0px
+
+.nav_container
+  padding-left: 10px
+
+.navbar-inverse
+  .navbar-inner
+    background-image: none
+    background-color: rgba(0,0,0, 0.4)
+    border: 1px solid rgba(0,0,0, 0.7)
+
+.main
+  h1, h2, h3, h4
+    margin-top: 0px
+  .first
+    margin-top: 0px
+  background-color: rgba(0,0,0, 0.07)
+  border: 1px solid rgba(0,0,0, 0.1)
+  +border-radius(10px)
+  padding: 25px
+  margin-bottom: 25px
+  margin-top: 15px
+  color: black
+
+@mixin nice_font_no_shadow($size: 36px, $line_height: $size)
+  font-family: 'Lobster', cursive
+  font-size: $size
+  line-height: $line_height
+    
+@mixin nice_font($size: 36px, $line_height: $size)
+  +nice_font_no_shadow($size, $line_height)
+  +single-text-shadow(0px, 3px, 3px, rgba(0,0,0, 0.4))
+
+.loading
+  text-align: center
+  background-color: rgba(0,0,0, 0.6)
+  +border-radius(10px)
+  width: 100px
+  height: 100px
+  margin: 50px auto 0px auto
+  .loading_animation
+    width: 32px
+    height: 32px
+    background: url('../images/ajax-loader.gif') no-repeat center center
+    top: 50%
+    margin-top: -16px
+    display: inline-block
+    position: relative
+
+#footer
+  display: none
+  .footer_block
+    opacity: 0.4
+    background-color: rgba(0,0,0, 0.6)
+    +border-radius(10px)
+    padding: 20px
+    color: white
+
+.clearme
+  clear: both
+
+.hidden
+  display: none
+
+.nice_list
+  list-style: none
+  margin: 0px
+  li
+    padding: 0px
+    a
+      line-height: 40px
+      margin: 4px
+      padding: 10px
+      background-color: #DADADA
+      +border-radius(5px)
+      text-decoration: none
+      font-weight: bold
+  .qdetails
+    margin: -7px 10px 10px 4px
+    padding: 10px
+    background-color: #DADADA
+    +border-radius(5px)
+      
+
+.top_button
+  float: right
+
+  padding: 10px
+  background-color: rgba(0,0,0, 0.3)
+  
+  +border-radius(5px)
+  text-decoration: none
+  font-weight: bold
+
+  color: #EFEFEF
+  &:hover
+    background-color: rgba(0,0,0, 0.4)
+    color: #FFFFFF
+    text-decoration: none

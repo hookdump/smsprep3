@@ -1,0 +1,6 @@
+npm-debug.log
+node_modules/
+tmp/
+.sass-cache/
+compass_app_log.txt
+.DS_Store
