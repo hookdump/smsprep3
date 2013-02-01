@@ -24,14 +24,14 @@ passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 passport.deserializeUser(function(id, done) {
-  User.findOne(id, function (err, user) {
+  Lib.User.findOne(id, function (err, user) {
     done(err, user);
   });
 });
 passport.use(new LocalStrategy( function(uname, pass, done) {
 
     console.log("Trying to authenticate..." + uname + ":" + pass);
-    User.findOne({ username: uname }, function(err, user) {
+    Lib.User.findOne({ username: uname }, function(err, user) {
       if (err) { return done(err); }
       if (!user) { return done(null, false, { message: 'Incorrect username.' }); }
       if (!user.validPassword(pass)) { return done(null, false, { message: 'Incorrect password.' }); }
