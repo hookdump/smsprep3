@@ -1,4 +1,4 @@
-var User = require('../lib/models/user');
+var User = require('../../lib/models/user');
 
 exports.init = function(app, config, passport) {
 

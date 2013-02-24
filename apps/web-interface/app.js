@@ -1,6 +1,6 @@
 /*
  * smsPREP 3
- * Core Application
+ * web-interface
  */
 
 var express = require('express')
