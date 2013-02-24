@@ -1,66 +1,32 @@
 var fs = require('fs');
 var jsdom = require('jsdom');
 var jquery = fs.readFileSync(__dirname + "/../../lib/jquery.js").toString();
-
 var _ = require('underscore');
 
-var upload_dir = __dirname + "/public/upload/";
+var htmlImporter = require('./modules/htmlImporter.js');
+
+var usersController = require('./controllers/users.js');
 
 exports.init = function(app, config, lib, passport) {
 
-  app.get('/', function(req, res) {
+  usersController();
 
-    if (req.user) {
-      res.redirect('/dashboard');
-
-    } else {
-      res.render('index', { title: config.title, cur_section: "index" });
-
-    }
-
-  });
-
-  app.get('/login', function(req, res) {
-    res.render('login', { title: config.title });
-  });
-
-  app.post('/login',
-    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login', failureFlash: true } )
-  );
-
-  app.get('/logout', function(req, res){
-    req.logout();
-    res.redirect('/');
-  });
-
-  app.get('/join', function(req, res) {
-    res.render('join', { title: config.title });
-  });
-
-  app.post('/join', function(req, res) {
-    lib.User.createUser( req.body.username, req.body.password, function(err, u, msg) {
-      if (err || !u) {
-        req.flash('error', msg.error);
-        res.redirect('/?err=1');
-      } else {
-        req.flash('success', msg.success);
-        res.redirect('/');
-      }
-    });
-  });
-
+  // Dashboard ----------------------------
   app.get('/dashboard', function(req, res) {
     var info = {};
     res.render('dashboard', { title: config.title, cur_section: "dashboard", info: info });  
   });
 
+  // Students ----------------------------
   app.get('/students', function(req, res) {
     var info = {};
     res.render('students', { title: config.title, cur_section: "students", info: info });  
   });
 
+  // Content ----------------------------
   app.get('/content', function(req, res) {
     // Load lessons:
+    // TODO: Load lessons
     var lessons = [
       {
         test_code: "SAT"
@@ -74,17 +40,22 @@ exports.init = function(app, config, lib, passport) {
       }
     ];
 
-    // List CSV files:
-    fs.readdir(upload_dir, function(err, files) {
+    // List HTML files:
+    fs.readdir(config.upload_dir, function(err, files) {
       console.log( "Listing files..." );
 
-      res.render('content', { title: config.title, cur_section: "content", lessons: lessons, files: files });  
+      var filteredFiles = _(files).reject(function(file) {
+        return (file.match(/[.]/) === null);
+      });
+
+      res.render('content', { title: config.title, cur_section: "content", lessons: lessons, files: filteredFiles });  
     });
     
   });
 
+  // Content: Import ----------------------------
   app.get('/content/import/:filename', function(req, res) {
-    var file = upload_dir + req.params.filename;
+    var file = config.upload_dir + req.params.filename;
     var raw_data = fs.readFileSync(file).toString();
     console.log("Importing " + file);
 
@@ -146,7 +117,7 @@ exports.init = function(app, config, lib, passport) {
     
   });
 
-
+  // Content review ----------------------------
   app.get('/content/:code', function(req, res) {
     var full_code = req.params.code;
     var codes = full_code.split("_");
