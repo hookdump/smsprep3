@@ -1,4 +1,4 @@
-var usersController = function() {
+var usersController = function(app, config, lib, passport) {
   console.log('loading users controller...');
 
   // Main site ----------------------------
