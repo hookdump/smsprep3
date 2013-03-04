@@ -18,6 +18,7 @@ var appConfig = {
       name:   'web-interface'
     , title:  'smsPREP'
     , port: 8080
+    , upload_dir: __dirname + "/public/upload/"
 };
 
 passport.serializeUser(function(user, done) {
