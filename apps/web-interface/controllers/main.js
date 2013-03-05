@@ -13,7 +13,12 @@ var mainController = function(app, config, lib, passport) {
     res.render('students', { title: config.title, cur_section: "students", info: info });  
   });
 
-
 }
 
-module.exports = mainController;
+
+var mainIo = function(socket) {
+  return true;
+}
+
+module.exports.web = mainController;
+module.exports.io  = mainIo;

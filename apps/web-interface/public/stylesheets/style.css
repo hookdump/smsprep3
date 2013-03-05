@@ -161,20 +161,31 @@ body form {
 /* line 114, ../sass/style.sass */
 .top_button {
   float: right;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.3);
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: bold;
-  color: #efefef;
 }
-/* line 125, ../sass/style.sass */
-.top_button:hover {
-  background-color: rgba(0, 0, 0, 0.4);
-  color: white;
-  text-decoration: none;
+
+/* line 117, ../sass/style.sass */
+#import_table {
+  margin-top: 15px;
+}
+/* line 119, ../sass/style.sass */
+#import_table .td1 {
+  width: 80px;
+}
+/* line 121, ../sass/style.sass */
+#import_table .td2 {
+  width: 680px;
+}
+/* line 123, ../sass/style.sass */
+#import_table .td3 {
+  width: 50px;
+}
+/* line 126, ../sass/style.sass */
+#import_table tbody {
+  display: block;
+  height: 250px;
+  overflow: scroll;
+}
+/* line 131, ../sass/style.sass */
+#import_table thead {
+  display: block;
 }

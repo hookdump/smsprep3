@@ -21,7 +21,10 @@
     "connect-flash": "~0.1.0",
     "amqp": "~0.1.4",
     "jsdom": "~0.3.4",
-    "underscore": "~1.4.3"
+    "underscore": "~1.4.3",
+    "socket.io": "~0.9.13",
+    "cli-color": "~0.2.2",
+    "step": "0.0.5"
   },
   "engines": {
     "node": "0.8.x"
