@@ -37,7 +37,11 @@ var contentController = function(app, config, lib, passport) {
 
   // Content: Import ----------------------------
   app.get('/content/import/:filename', function(req, res) {
-    var file = config.upload_dir + req.params.filename;
+
+    console.log('loading import page for ' + req.params.filename);
+
+    // var file = config.upload_dir + req.params.filename;
+    /*
     var raw_data = fs.readFileSync(file).toString();
     console.log("Importing " + file);
 
@@ -45,6 +49,9 @@ var contentController = function(app, config, lib, passport) {
     	console.log("YAY! IM DONE!");
     	res.json({success: true});	
     });
+    */
+
+    res.render('content_import', { title: config.title, cur_section: "content_import", filename: req.params.filename });  
     
   });
 
@@ -92,4 +99,12 @@ var contentController = function(app, config, lib, passport) {
 
 }
 
-module.exports = contentController;
+var contentIo = function(socket) {
+  socket.on('import_file', function (data) {
+    console.log('need to import a file...');
+    console.log(data);
+  });
+}
+
+module.exports.web = contentController;
+module.exports.io  = contentIo;

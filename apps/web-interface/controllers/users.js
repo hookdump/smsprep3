@@ -42,4 +42,9 @@ var usersController = function(app, config, lib, passport) {
 
 }
 
-module.exports = usersController;
+var usersIo = function(socket) {
+  return true;
+}
+
+module.exports.web = usersController;
+module.exports.io  = usersIo;
