@@ -33,4 +33,15 @@ $(document).ready(function() {
     });
   }
 
+  if ( $("#admin_content_import").is("*") ) {
+    console.log("smsprep@content_import");  
+
+    var file = $('#import_filename').text();
+    console.log("processing " + file);
+
+    socket.on('connect', function (data) {
+      socket.emit('content.import', {import_filename: file});
+    });
+  }
+
 });

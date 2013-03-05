@@ -51,7 +51,7 @@ var contentController = function(app, config, lib, passport) {
     });
     */
 
-    res.render('content_import', { title: config.title, cur_section: "content_import", filename: req.params.filename });  
+    res.render('content_import', { title: config.title, cur_section: "content_import", import_filename: req.params.filename });  
     
   });
 
@@ -100,8 +100,8 @@ var contentController = function(app, config, lib, passport) {
 }
 
 var contentIo = function(socket) {
-  socket.on('import_file', function (data) {
-    console.log('need to import a file...');
+  socket.on('content.import', function (data) {
+    console.log('starting file import...');
     console.log(data);
   });
 }

@@ -65,7 +65,7 @@ app.configure(function(){
   // console.log('STATIC ROUTE >>> ' + __dirname + '/public');
   // app.use(express.static(__dirname + '/public'));
 
-  server.use('/public', express.static(__dirname + '/public'));
+  app.use('/public', express.static(__dirname + '/public'));
 
   app.use(passport.initialize());
   app.use(passport.session());
@@ -111,7 +111,7 @@ server.listen(app.get('port'), function(){
 });
 
 // Start io server!
-var ioServer = io.listen(server);
+var ioServer = io.listen(server, {log: false});
 ioServer.sockets.on('connection', function(socket) {
   router.initSocket(socket);
 });
