@@ -29,7 +29,6 @@ passport.serializeUser(function(user, done) {
 });
 passport.deserializeUser(function(id, done) {
   Lib.User.findOne({_id: id}, function (err, user) {
-    log.info( user );
     done(err, user);
   });
 });
@@ -65,9 +64,6 @@ app.configure(function(){
   app.use(compass());
 
   // app.use(require('stylus').middleware(__dirname + '/public'));
-  // console.log('STATIC ROUTE >>> ' + __dirname + '/public');
-  // app.use(express.static(__dirname + '/public'));
-
   app.use('/public', express.static(__dirname + '/public'));
 
   app.use(passport.initialize());
@@ -77,6 +73,8 @@ app.configure(function(){
 
     res.locals.error_flash = req.flash('error');
     res.locals.success_flash = req.flash('success');
+
+    log.route(req.method, req.url);
 
     // current section
     var active_str = " class='active' ";
@@ -89,10 +87,8 @@ app.configure(function(){
     if (req.user) {
       res.locals.username = req.user.username;
       res.locals.loggedin = true;
-      // console.log(" @ signed request: " + req.user.username);
     } else {
       res.locals.loggedin = false;
-      // console.log(" @ guest request");
     }
 
     next();
@@ -109,7 +105,7 @@ app.configure('development', function(){
 
 // Start web server!
 var server = http.createServer(app);
-server.listen(app.get('port'), function(){
+server.listen(app.get('port'), function() {
   log.warn( appConfig.name + " listening to " + app.get('port') );
 });
 
