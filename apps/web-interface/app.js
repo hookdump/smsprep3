@@ -28,24 +28,21 @@ passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 passport.deserializeUser(function(id, done) {
-  Lib.User.findOne(id, function (err, user) {
+  Lib.User.findOne({_id: id}, function (err, user) {
+    log.info( user );
     done(err, user);
   });
 });
 passport.use(new LocalStrategy( function(uname, pass, done) {
+  Lib.User.findOne({ username: uname }, function(err, user) {
+    if (err) { return done(err); }
+    if (!user) { return done(null, false, { message: 'Incorrect username.' }); }
+    if (!user.validPassword(pass)) { return done(null, false, { message: 'Incorrect password.' }); }
 
-    console.log("Trying to authenticate..." + uname + ":" + pass);
-    Lib.User.findOne({ username: uname }, function(err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false, { message: 'Incorrect username.' }); }
-      if (!user.validPassword(pass)) { return done(null, false, { message: 'Incorrect password.' }); }
-
-      console.log("GOT IT! User=" + user.username);
-      return done(null, user);
+    log.success('user ' + user.username + ' authenticated!');
+    return done(null, user);
     });
-
-  }
-));
+}));
 
 // Init Express app configuration
 app.configure(function(){
