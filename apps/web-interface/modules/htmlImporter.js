@@ -36,7 +36,7 @@ importerModule.processRawData = function(raw_data, lib, reporter, callback) {
             var rows_total = rows.length;
             var control_code = '';
             var options_count = 0;
-            var progress_step = Math.round(rows_total/10);
+            var progress_step = Math.round(rows_total/4);
             var progress_counter = 0;
             var qObj = {};
             
