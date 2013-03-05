@@ -24,7 +24,7 @@ var contentController = function(app, config, lib, passport) {
 
     // List HTML files:
     fs.readdir(config.upload_dir, function(err, files) {
-      console.log( "Listing files..." );
+      log.notice('listing files...');
 
       var filteredFiles = _(files).reject(function(file) {
         return (file.match(/[.]/) === null);
@@ -37,22 +37,7 @@ var contentController = function(app, config, lib, passport) {
 
   // Content: Import ----------------------------
   app.get('/content/import/:filename', function(req, res) {
-
-    console.log('loading import page for ' + req.params.filename);
-
-    // var file = config.upload_dir + req.params.filename;
-    /*
-    var raw_data = fs.readFileSync(file).toString();
-    console.log("Importing " + file);
-
-    htmlImporter.processRawData(raw_data, function() {
-    	console.log("YAY! IM DONE!");
-    	res.json({success: true});	
-    });
-    */
-
     res.render('content_import', { title: config.title, cur_section: "content_import", import_filename: req.params.filename });  
-    
   });
 
   // Content review ----------------------------
@@ -99,10 +84,31 @@ var contentController = function(app, config, lib, passport) {
 
 }
 
-var contentIo = function(socket) {
+var contentIo = function(socket, config, lib) {
   socket.on('content.import', function (data) {
-    console.log('starting file import...');
-    console.log(data);
+    var import_filename = data.import_filename;
+    log.notice('starting file import: ' + import_filename);
+
+    var reportProgress = function(value, msg, questions) {
+      log.notice('sending progress: ' + value + '%');
+      socket.emit('content.import.progress', {val: value, msg: msg});
+
+      if (questions) {
+        socket.emit('content.import.questions', {data: questions});
+      }
+    }
+
+    var file = config.upload_dir + import_filename;
+    log.notice('loading file...');
+    var raw_data = fs.readFileSync(file).toString();
+
+    log.notice('processing data...');
+    htmlImporter.processRawData(raw_data, lib, reportProgress, function() {
+      log.success('finished importing! YAY!');
+      socket.emit('content.import.progress', {val: 100, msg: null}) 
+      socket.emit('content.import.finished', {import_filename: import_filename});
+    });
+
   });
 }
 

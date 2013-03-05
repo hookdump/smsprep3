@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+  var alreadyConnected = false;
+
   // IO Socket
   console.log('connecting to io socket...');
   var socket = io.connect('http://localhost');
@@ -40,7 +42,46 @@ $(document).ready(function() {
     console.log("processing " + file);
 
     socket.on('connect', function (data) {
-      socket.emit('content.import', {import_filename: file});
+
+      if (!alreadyConnected) {
+        socket.emit('content.import', {import_filename: file});
+        alreadyConnected = true;
+      }
+
+      socket.on('content.import.progress', function (data) {
+        var progress = data.val + '%';
+        var msg = data.msg;
+
+        console.log('received progress: ' + progress);
+        $('#import_progressbar .bar').width(progress);
+
+        if (msg === '%') msg = 'Importing questions... ' + progress;
+        if (msg != null) {
+          $('#import_msg').text(msg);
+        }
+      });
+
+      socket.on('content.import.questions', function (d) {
+        // console.log('batch:');
+        // console.log(d.data);
+
+        _.each( d.data , function(question_data, id) {
+          var newTd = '<tr><td class="td1">' + id + '</td><td class="td2">' + question_data.t + '</td><td class="td3">' + question_data.s + '</td></tr>';
+          $('#import_tbody').append(newTd);
+        });
+      });
+
+      socket.on('content.import.finished', function (data) {
+
+        setTimeout(function() {
+          $('#import_progressbar').slideUp('fast', function() {
+            $('#import_msg').removeClass('alert-info').addClass('alert-success').text('Import finished!');  
+
+
+          });
+        }, 500);
+        
+      });
     });
   }
 

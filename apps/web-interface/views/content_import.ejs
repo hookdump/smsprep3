@@ -1,9 +1,26 @@
 <div class='main' id='admin_content_import'>
 
-	<a class='top_button' href='/content'>Back to Content</a>
+	<a class='top_button btn btn-info' href='/content'>Back to Content</a>
 	<h1>Importing <%= import_filename %></h1>
 
-	asdasd
+	<div class="progress progress-info progress-striped active" id="import_progressbar">
+		<div class="bar" style="width: 0%"></div>
+	</div>
+
+	<div id='import_msg' class='alert alert-info'></div>
+
+		<table class='table table-striped' id='import_table'>
+			<thead>
+				<tr>
+					<th class='td1'>ID</th>
+					<th class='td2'>Question</th>
+					<th class='td3'>Status</th>
+				</tr>
+			</thead>
+			<tbody id='import_tbody'>
+			</tbody>
+		</table>
+	
 
 	<div class='hidden' id='import_filename'><%= import_filename %></div>
 </div>

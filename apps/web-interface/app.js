@@ -12,6 +12,7 @@ var express         = require('express')
   , passport        = require('passport')
   , LocalStrategy   = require('passport-local').Strategy
   , Lib             = require('../../lib/wrapper')
+  , log_colors      = require('../../lib/log_colors')
   , io              = require('socket.io');
 
 // Set app config variables
@@ -20,6 +21,7 @@ var appConfig = {
     , title:  'smsPREP'
     , port: 8080
     , upload_dir: __dirname + "/public/upload/"
+    , logs: false
 };
 
 passport.serializeUser(function(user, done) {
@@ -39,7 +41,7 @@ passport.use(new LocalStrategy( function(uname, pass, done) {
       if (!user.validPassword(pass)) { return done(null, false, { message: 'Incorrect password.' }); }
 
       console.log("GOT IT! User=" + user.username);
-      done(null, user);
+      return done(null, user);
     });
 
   }
@@ -52,7 +54,11 @@ app.configure(function(){
   app.set('view engine', 'ejs');
   app.set('layout', 'nice_layout');
   app.use(express.favicon());
-  app.use(express.logger('dev'));
+
+  if (appConfig.logs) {
+    app.use(express.logger('dev'));
+  }
+
   app.use(express.bodyParser());
   app.use(express.methodOverride()); 
   app.use(express.cookieParser('huff and puff'));
@@ -107,13 +113,13 @@ app.configure('development', function(){
 // Start web server!
 var server = http.createServer(app);
 server.listen(app.get('port'), function(){
-  console.log("" + appConfig.name + " listening to " + app.get('port'));
+  log.warn( appConfig.name + " listening to " + app.get('port') );
 });
 
 // Start io server!
 var ioServer = io.listen(server, {log: false});
 ioServer.sockets.on('connection', function(socket) {
-  router.initSocket(socket);
+  router.initSocket(socket, appConfig, Lib);
 });
 
 // Load routes

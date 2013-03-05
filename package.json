@@ -23,7 +23,8 @@
     "jsdom": "~0.3.4",
     "underscore": "~1.4.3",
     "socket.io": "~0.9.13",
-    "cli-color": "~0.2.2"
+    "cli-color": "~0.2.2",
+    "step": "0.0.5"
   },
   "engines": {
     "node": "0.8.x"
