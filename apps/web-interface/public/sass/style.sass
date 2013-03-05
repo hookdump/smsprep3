@@ -114,15 +114,19 @@ body
 .top_button
   float: right
 
-  padding: 10px
-  background-color: rgba(0,0,0, 0.3)
+#import_table
+  margin-top: 15px
+  .td1
+    width: 80px
+  .td2
+    width: 680px
+  .td3
+    width: 50px
   
-  +border-radius(5px)
-  text-decoration: none
-  font-weight: bold
+  tbody
+    display: block
+    height: 250px
+    overflow: scroll
 
-  color: #EFEFEF
-  &:hover
-    background-color: rgba(0,0,0, 0.4)
-    color: #FFFFFF
-    text-decoration: none
+  thead
+    display: block
