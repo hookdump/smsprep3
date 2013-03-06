@@ -1,3 +1,5 @@
+REPORTER = 'dot'
+
 install:
 	npm install
 uninstall:
@@ -16,3 +18,11 @@ start_web:
 start_api: 
 	clear
 	node apps/api-interface/app
+
+test:
+	@NODE_ENV=test ./node_modules/.bin/mocha --reporter spec
+
+test-w:
+	@NODE_ENV=test ./node_modules/.bin/mocha --reporter spec --growl --watch
+
+.PHONY: test test-w

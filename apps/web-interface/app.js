@@ -15,6 +15,8 @@ var express         = require('express')
   , log_colors      = require('../../lib/log_colors')
   , io              = require('socket.io');
 
+var myenv = process.env.NODE_ENV || 'development';
+
 // Set app config variables
 var appConfig = {
       name:   'web-interface'
@@ -29,7 +31,6 @@ passport.serializeUser(function(user, done) {
 });
 passport.deserializeUser(function(id, done) {
   Lib.User.findOne({_id: id}, function (err, user) {
-    log.info( user );
     done(err, user);
   });
 });
@@ -65,9 +66,6 @@ app.configure(function(){
   app.use(compass());
 
   // app.use(require('stylus').middleware(__dirname + '/public'));
-  // console.log('STATIC ROUTE >>> ' + __dirname + '/public');
-  // app.use(express.static(__dirname + '/public'));
-
   app.use('/public', express.static(__dirname + '/public'));
 
   app.use(passport.initialize());
@@ -77,6 +75,8 @@ app.configure(function(){
 
     res.locals.error_flash = req.flash('error');
     res.locals.success_flash = req.flash('success');
+
+    log.route(req.method, req.url);
 
     // current section
     var active_str = " class='active' ";
@@ -89,10 +89,8 @@ app.configure(function(){
     if (req.user) {
       res.locals.username = req.user.username;
       res.locals.loggedin = true;
-      // console.log(" @ signed request: " + req.user.username);
     } else {
       res.locals.loggedin = false;
-      // console.log(" @ guest request");
     }
 
     next();
@@ -109,12 +107,30 @@ app.configure('development', function(){
 
 // Start web server!
 var server = http.createServer(app);
-server.listen(app.get('port'), function(){
+server.listen(app.get('port'), function() {
   log.warn( appConfig.name + " listening to " + app.get('port') );
 });
 
 // Start io server!
 var ioServer = io.listen(server, {log: false});
+
+if (myenv === 'production') {
+  ioServer.configure('production', function() {
+    log.info('configuring IO server for production...')
+    ioServer.enable('browser client minification');  // send minified client
+    ioServer.enable('browser client etag');          // apply etag caching logic based on version number
+    ioServer.enable('browser client gzip');          // gzip the file
+    ioServer.set('log level', 1);                    // reduce logging
+    ioServer.set('transports', [                     // enable all transports (optional if you want flashsocket)
+        'websocket'
+      , 'flashsocket'
+      , 'htmlfile'
+      , 'xhr-polling'
+      , 'jsonp-polling'
+    ]);
+  });
+}
+
 ioServer.sockets.on('connection', function(socket) {
   router.initSocket(socket, appConfig, Lib);
 });
