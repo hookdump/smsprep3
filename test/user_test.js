@@ -1,5 +1,6 @@
 var should = require("should")
 var basepath = '../';
+var keep		= false;
 
 describe('User', function() {
 
@@ -8,28 +9,36 @@ describe('User', function() {
 		
 	beforeEach(function(done) {
 		// add some test data    
-		Lib.User.createUser("test_user", "pass", function(err, doc, msg) {
+		Lib.User.createUser("test", "foo", function(err, doc, msg) {
 			curUser = doc;
 			done();
 		});
 	});
 
 	afterEach(function(done){
-		// delete all the user records    
-		Lib.User.remove({}, function() { done(); });
+		if (keep) {
+			done();
+		} else {
+			Lib.User.remove({}, function() { done(); });
+		}		
 	});
 
 		
 	it('create a new user', function() {
-		Lib.User.createUser("test_user_2", "pass", function(err, created, msg) {
+		Lib.User.createUser("test2", "foo", function(err, created, msg) {
 			should.not.exist(err);
-			created['username'].should.equal("test_user_2");
-			created['password'].should.equal("pass");
+			created['username'].should.equal("test2");
+			created['password'].should.equal("foo");
 		});
 	});
 
-	it('forbid registering existing username', function() {
-		Lib.User.createUser("test_user", "pass", function(err, created, msg) {
+	it('validate password', function() {
+		curUser.validPassword("foo").should.be.true;
+		curUser.validPassword("bar").should.be.false;
+	})
+
+	it('forbid duplicated usernames', function() {
+		Lib.User.createUser("test", "foo", function(err, created, msg) {
 			should.not.exist(err);
 			created.should.be.false;
 			msg.should
