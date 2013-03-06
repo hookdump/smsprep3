@@ -1,0 +1,1 @@
+NODE_ENV=production sudo forever start apps/web-interface/app.js

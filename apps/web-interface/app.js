@@ -15,6 +15,8 @@ var express         = require('express')
   , log_colors      = require('../../lib/log_colors')
   , io              = require('socket.io');
 
+var myenv = process.env.NODE_ENV || 'development';
+
 // Set app config variables
 var appConfig = {
       name:   'web-interface'
@@ -111,6 +113,24 @@ server.listen(app.get('port'), function() {
 
 // Start io server!
 var ioServer = io.listen(server, {log: false});
+
+if (myenv === 'production') {
+  ioServer.configure('production', function() {
+    log.info('configuring IO server for production...')
+    ioServer.enable('browser client minification');  // send minified client
+    ioServer.enable('browser client etag');          // apply etag caching logic based on version number
+    ioServer.enable('browser client gzip');          // gzip the file
+    ioServer.set('log level', 1);                    // reduce logging
+    ioServer.set('transports', [                     // enable all transports (optional if you want flashsocket)
+        'websocket'
+      , 'flashsocket'
+      , 'htmlfile'
+      , 'xhr-polling'
+      , 'jsonp-polling'
+    ]);
+  });
+}
+
 ioServer.sockets.on('connection', function(socket) {
   router.initSocket(socket, appConfig, Lib);
 });
