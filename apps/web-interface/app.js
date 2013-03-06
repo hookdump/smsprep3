@@ -117,11 +117,11 @@ var ioServer = io.listen(server, {log: false});
 if (myenv === 'production') {
   ioServer.configure('production', function() {
     log.info('configuring IO server for production...')
-    io.enable('browser client minification');  // send minified client
-    io.enable('browser client etag');          // apply etag caching logic based on version number
-    io.enable('browser client gzip');          // gzip the file
-    io.set('log level', 1);                    // reduce logging
-    io.set('transports', [                     // enable all transports (optional if you want flashsocket)
+    ioServer.enable('browser client minification');  // send minified client
+    ioServer.enable('browser client etag');          // apply etag caching logic based on version number
+    ioServer.enable('browser client gzip');          // gzip the file
+    ioServer.set('log level', 1);                    // reduce logging
+    ioServer.set('transports', [                     // enable all transports (optional if you want flashsocket)
         'websocket'
       , 'flashsocket'
       , 'htmlfile'
