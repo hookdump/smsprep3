@@ -1,5 +1,5 @@
 var mainController = function(app, config, lib, passport) {
-  console.log('loading main controller...');
+  log.loading('main controllers');
 
   // Dashboard ----------------------------
   app.get('/dashboard', function(req, res) {

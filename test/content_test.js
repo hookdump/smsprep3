@@ -37,7 +37,6 @@ describe('Question', function() {
 	});
 
 	afterEach( function(done) {
-		// delete all the user records    
 		if (keep) {
 			done();
 		} else {

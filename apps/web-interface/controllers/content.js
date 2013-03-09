@@ -3,7 +3,7 @@ var fs = require('fs');
 var htmlImporter = require('../modules/htmlImporter.js');
 
 var contentController = function(app, config, lib, passport) {
-  console.log('loading content controller...');
+  log.loading('content controllers');
 
   // Content ----------------------------
   app.get('/content', function(req, res) {
