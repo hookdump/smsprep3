@@ -8,19 +8,10 @@ var contentController = function(app, config, lib, passport) {
   // Content ----------------------------
   app.get('/content', function(req, res) {
     // Load lessons:
-    // TODO: Load lessons
-    var lessons = [
-      {
-        test_code: "SAT"
-        , lesson_code: "FRACTIONS"
-        , questions: []
-      },
-      {
-        test_code: "SAT"
-        , lesson_code: "EXPONENTIALS"
-        , questions: []
-      }
-    ];
+    var lessons = [];
+    lib.Content.Lesson.findAll(function(err, loadedLessons) {
+      lessons = loadedLessons;
+    });
 
     // List HTML files:
     fs.readdir(config.upload_dir, function(err, files) {
@@ -90,7 +81,7 @@ var contentIo = function(socket, config, lib) {
     log.notice('starting file import: ' + import_filename);
 
     var reportProgress = function(value, msg, questions) {
-      log.notice('sending progress: ' + value + '%');
+      log.notice('importing: ' + value + '%');
       socket.emit('content.import.progress', {val: value, msg: msg});
 
       if (questions) {
@@ -104,7 +95,7 @@ var contentIo = function(socket, config, lib) {
 
     log.notice('processing data...');
     htmlImporter.processRawData(raw_data, lib, reportProgress, function() {
-      log.success('finished importing! YAY!');
+      log.success('import completed!');
       socket.emit('content.import.progress', {val: 100, msg: null}) 
       socket.emit('content.import.finished', {import_filename: import_filename});
     });

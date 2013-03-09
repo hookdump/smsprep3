@@ -44,6 +44,7 @@ $(document).ready(function() {
     socket.on('connect', function (data) {
 
       if (!alreadyConnected) {
+        // don't trigger import on socket reconnection
         socket.emit('content.import', {import_filename: file});
         alreadyConnected = true;
       }
@@ -62,11 +63,9 @@ $(document).ready(function() {
       });
 
       socket.on('content.import.questions', function (d) {
-        // console.log('batch:');
-        // console.log(d.data);
-
         _.each( d.data , function(question_data, id) {
-          var newTd = '<tr><td class="td1">' + id + '</td><td class="td2">' + question_data.t + '</td><td class="td3">' + question_data.s + '</td></tr>';
+          var newTd = '<tr><td class="td1">' + id + '</td><td class="td2">' + question_data.t + '</td>';
+          newTd += '<td class="td3">' + question_data.s + '</td></tr>';
           $('#import_tbody').append(newTd);
         });
       });
