@@ -3,9 +3,9 @@
  	<h1>Review Content</h1>
 	<ul class='nice_list'>
 	<% for(var i=0; i<lessons.length; i++) { %>
-		<% var full_code = lessons[i].test_code + "_" + lessons[i].lesson_code %>
+		<% var str_code = lessons[i].code %>
 		<li>
-			<a href='/content/<%=full_code%>'><%=full_code%></a>
+			<a href='/content/<%=str_code%>'><%=str_code%></a>
 		</li>
 	<% } %>
 	</ul>

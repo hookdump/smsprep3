@@ -8,6 +8,7 @@ var contentController = function(app, config, lib, passport) {
   // Content ----------------------------
   app.get('/content', function(req, res) {
     // Load lessons:
+    log.notice('loading lessons...');
     var lessons = [];
     lib.Content.Lesson.findAll(function(err, loadedLessons) {
       lessons = loadedLessons;
