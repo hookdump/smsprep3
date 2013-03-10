@@ -1,13 +1,14 @@
 var should 		= require("should")
 var _ 			= require("underscore")
 var basepath 	= '../';
-var keep		= false;
+var keep		= true;
 
 describe('Question', function() {
 	var Lib = require(basepath + 'lib/wrapper');
 	var curQuestion = null;
 	var testData = null;
 	var testOptions = null;
+	var lessonsArr = null;
 		
 	beforeEach(function(done) {
 		// add some test data    
@@ -21,6 +22,9 @@ describe('Question', function() {
 				, correct: false
 			}
 		];
+
+		lessonsArr = ['LESSON1', 'LESSON2'];
+
 		testData = {
 			text: 'What is this question?'
 			, qoptions: testOptions
@@ -28,6 +32,7 @@ describe('Question', function() {
 				correct: 'Congrats!'
 				, incorrect: 'Oh no!'
 			}
+			, lessons: lessonsArr
 		};
 
 		Lib.Content.Question.upsertQuestion('TEST001', testData, function(err, doc) {
@@ -65,7 +70,7 @@ describe('Question', function() {
 		var updatedQuestion = {};
 
 		it('returns the updated question', function(done) {
-			Lib.Content.Question.upsertQuestion('TEST001', testData2, function(err, doc) {
+			Lib.Content.Question.upsertQuestion('TEST001', testData2, [], function(err, doc) {
 				updatedQuestion = doc;
 				done();
 			});

@@ -20,6 +20,8 @@ importerModule.processRawData = function(raw_data, lib, reporter, callback) {
             log.info('getting started...');
             var $ = window.jQuery;
             var mapping = {};
+            var lessonCodes = ['LESSON', 'LESSON2', 'LESSON3'];
+            var lessonCols = [];
 
             reporter(10, 'Initializing parser...', null);  // Progress report * * * *
             
@@ -65,7 +67,14 @@ importerModule.processRawData = function(raw_data, lib, reporter, callback) {
                     options_count = +control_code.substring(10);
                   }
 
+                  // Set the mapping
                   mapping[ el ] = id;
+
+                  // Store the LESSON column ids in a separate array
+                  if (lessonCodes.indexOf( el ) > -1) {
+                    lessonCols.push(id);
+                  }
+
                 });
 
                 log.success("mapping done! =>");
@@ -105,6 +114,14 @@ importerModule.processRawData = function(raw_data, lib, reporter, callback) {
                   newQuestion.qoptions.push(qopt);
                 }
 
+                // Fetch lessons...
+                var lessons = [];
+                _.each(lessonCols, function(lcol) {
+                  var strLesson = cur_row[ lcol ];
+                  if (strLesson) lessons.push(strLesson);
+                })
+                newQuestion['lessons'] = lessons;
+                  
                 // Store question!
                 lib.Content.Question.upsertQuestion(univ_id, newQuestion, group());
                 

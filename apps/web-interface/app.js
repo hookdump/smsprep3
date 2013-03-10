@@ -12,7 +12,6 @@ var express         = require('express')
   , passport        = require('passport')
   , LocalStrategy   = require('passport-local').Strategy
   , Lib             = require('../../lib/wrapper')
-  , log_colors      = require('../../lib/log_colors')
   , io              = require('socket.io');
 
 var myenv = process.env.NODE_ENV || 'development';
@@ -108,7 +107,8 @@ app.configure('development', function(){
 // Start web server!
 var server = http.createServer(app);
 server.listen(app.get('port'), function() {
-  log.warn( appConfig.name + " listening to " + app.get('port') );
+  var now = new Date();
+  log.warn( "starting " + appConfig.name + " in port " + app.get('port') + " - " + now );
 });
 
 // Start io server!

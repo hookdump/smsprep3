@@ -1,8 +1,0 @@
-#!/bin/bash
-echo "Fetching logs for: $1"
-logfile=`sudo forever --plain list | perl -pe 's/\e\[?.*?[\@-~]//g' | grep $1 | awk '{ print $8 }'`
-if [ -n "$logfile" ]; then
-    echo "Loading logs..."; tail -n 35 -f ${logfile}
-else
-	echo "I cannot find an active forever process like $1"
-fi
