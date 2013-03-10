@@ -5,19 +5,22 @@ uninstall:
 	@sudo rm -r node_modules
 	@sudo npm cache clean
 
-start_core: 
+_core:
 	@sudo forever -w start ./apps/smsprep-core/app.js
-start_sms:
+_sms:
 	@sudo forever -w start ./apps/sms-interface/app.js
-start web: 
+_web:
 	@sudo forever -w start ./apps/web-interface/app.js
-start_api: 
+_api:
 	@sudo forever -w start ./apps/api-interface/app.js
+
+lweb:
+	@./logs web
 
 ls:
 	@sudo forever list
 
-stop_all:
+stopall:
 	@sudo forever stopall
 
 test:
