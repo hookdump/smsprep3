@@ -70,7 +70,7 @@ describe('Question', function() {
 		var updatedQuestion = {};
 
 		it('returns the updated question', function(done) {
-			Lib.Content.Question.upsertQuestion('TEST001', testData2, [], function(err, doc) {
+			Lib.Content.Question.upsertQuestion('TEST001', testData2, function(err, doc) {
 				updatedQuestion = doc;
 				done();
 			});
