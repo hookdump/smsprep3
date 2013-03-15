@@ -14,7 +14,7 @@ describe('Question', function() {
 		// add some test data    
 		testOptions = [
 			{
-				text: 'I am right'
+				text: 'I am right\nqweqweqwe'
 				, correct: true
 			},
 			{

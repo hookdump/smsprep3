@@ -1,29 +1,38 @@
 var _ = require('underscore');
 var fs = require('fs');
 var htmlImporter = require('../modules/htmlImporter.js');
+var Step = require('step');
 
 var contentController = function(app, config, lib, passport) {
   log.loading('content controllers');
 
   // Content ----------------------------
   app.get('/content', function(req, res) {
-    // Load lessons:
-    log.notice('loading lessons...');
-    var lessons = [];
-    lib.Content.Lesson.findAll(function(err, loadedLessons) {
-      lessons = loadedLessons;
-    });
 
-    // List HTML files:
-    fs.readdir(config.upload_dir, function(err, files) {
-      log.notice('listing files...');
+    Step(
 
-      var filteredFiles = _(files).reject(function(file) {
-        return (file.match(/[.]/) === null);
-      });
+      function _loadLessons() {
 
-      res.render('content', { title: config.title, cur_section: "content", lessons: lessons, files: filteredFiles });  
-    });
+        // Load lessons:
+        log.notice('loading lessons...');
+        lib.Content.Lesson.findAll(this);
+
+      },
+      function _loadFiles(err, loadedLessons) {      
+
+        // List HTML files:
+        fs.readdir(config.upload_dir, function(err, files) {
+          log.notice('listing files...');
+
+          var filteredFiles = _(files).reject(function(file) {
+            return (file.match(/[.]/) === null);
+          });
+
+          res.render('content', { title: config.title, cur_section: "content", lessons: loadedLessons, files: filteredFiles });  
+        });
+      }
+
+    );
     
   });
 
@@ -33,48 +42,48 @@ var contentController = function(app, config, lib, passport) {
   });
 
   // Content review ----------------------------
-  app.get('/content/:code', function(req, res) {
+  app.get('/content/lesson/:code', function(req, res) {
     var full_code = req.params.code;
-    var codes = full_code.split("_");
+    var codes = full_code.split("-");
     var code_data = {
       full_code: full_code
       , test_code: codes[0]
       , lesson_code: codes[1]
     };
 
-    var questions = [
-      {
-        text: "What is 2+2?"
-        , id: "1"
-        , options: [
-          {text: "5", correct: false}
-          , {text: "7", correct: false}
-          , {text: "4", correct: true}
-        ]
-        , feedback: {
-          "correct": "Yeah! That was easy, wasn't it?"
-          , "incorrect": "Nooo! 2+2 equals 4 because blah blah blah"
-        }
-      },
-      {
-        text: "What is 10+5?"
-        , id: "2"
-        , options: [
-          {text: "15", correct: true}
-          , {text: "17", correct: false}
-          , {text: "5", correct: false}
-        ]
-        , feedback: {
-          "correct": "Yeah! That was easy, wasn't it?"
-          , "incorrect": "Nooo! 10 + 5 equals 15 because blah blah blah"
-        }
-      }
-    ];
+    var lessonQuestions = lib.Content.Lesson.loadQuestions({code: full_code}, function(err, qs) {
 
-    res.render('content_detail', { title: config.title, cur_section: "content_detail", codes: code_data, questions: questions });  
+      log.warn('questions:');
+      log.warn( qs );
+      res.render('content_detail', { title: config.title, cur_section: "content_detail", codes: code_data, questions: qs });  
+    });
+    
   });
 
+  // Content review ----------------------------
+  app.get('/content/question/:code', function(req, res) {
+   /*
+    var full_code = req.params.code;
+    var codes = full_code.split("-");
+    var code_data = {
+      full_code: full_code
+      , test_code: codes[0]
+      , lesson_code: codes[1]
+    };
+
+    var lessonQuestions = lib.Content.Lesson.loadQuestions({code: full_code}, function(err, qs) {
+
+      log.warn('questions:');
+      log.warn( qs );
+      res.render('content_detail', { title: config.title, cur_section: "content_detail", codes: code_data, questions: qs });  
+    });
+    */  
+  });
+  
+
 }
+
+
 
 var contentIo = function(socket, config, lib) {
   socket.on('content.import', function (data) {

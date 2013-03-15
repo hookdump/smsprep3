@@ -31,6 +31,14 @@ $(document).ready(function() {
     		ev.preventDefault();
     		$(listItem).find('.qdetails').slideToggle('fast');
     	});
+
+      $(listItem).find("em").click(function(ev) {
+        ev.preventDefault();
+        var curLesson = $('#current_lesson').text();
+        var curQuestion = $(this).text();
+        var route = '/content/question/' + curQuestion;
+        window.location = route;
+      });
     	
     });
   }

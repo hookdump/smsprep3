@@ -52,7 +52,9 @@ importerModule.processRawData = function(raw_data, lib, reporter, callback) {
 
               var cur_row =[];
               $(tr_el).find("td").each(function(td_id, td_el) {
-                cur_row.push( $(td_el).text() );
+                var txt = $(td_el).html();
+                txt = txt.replace(/<br>|<br \/>/g, '\n');
+                cur_row.push( txt );
               });
 
               if (tr_id === 0) {
@@ -121,6 +123,9 @@ importerModule.processRawData = function(raw_data, lib, reporter, callback) {
                   if (strLesson) lessons.push(strLesson);
                 })
                 newQuestion['lessons'] = lessons;
+
+                // Fetch category...
+                newQuestion['category'] = cur_row[ mapping['QCAT'] ];
                   
                 // Store question!
                 lib.Content.Question.upsertQuestion(univ_id, newQuestion, group());
@@ -146,11 +151,13 @@ importerModule.processRawData = function(raw_data, lib, reporter, callback) {
             this(null);
 
           },
+          function updateLessons(err, res) {
+            log.error('importing questions', err);
+            log.warn( res );
+            lib.Content.Lesson.updateLessons(this);
+          },
           function finish(err) {
-            if (err) {
-              log.error('error!');
-              log.error( err );
-            }
+            log.error('updating lessons', err);
             log.info('finishing importing...');
             reporter( 100, '%' );  // Progress report * * * *
             // console.log( rows[0] );

@@ -5,10 +5,11 @@
 	<% for(var i=0; i<lessons.length; i++) { %>
 		<% var str_code = lessons[i].code %>
 		<li>
-			<a href='/content/<%=str_code%>'><%=str_code%></a>
+			<div class='bar f'><a href='/content/lesson/<%=str_code%>'><%=str_code%></a></div>
 		</li>
 	<% } %>
 	</ul>
+	<div class='clear'> </div>
 
 	<hr>
 
@@ -18,10 +19,11 @@
 		<% var filename = files[x] %>
 		<% // filename = filename.replace(".html", ".web"); %>
 		<li>
-			<a href='/content/import/<%=filename%>'><%=filename%></a>
+			<div class='bar f'><a href='/content/import/<%=filename%>'><%=filename%></a></div>
 		</li>
 	<% } %>
-	</ul>  
+	</ul> 
+	<div class='clear'> </div> 
  
 </div>
 <div class='page_dashboard'> </div>

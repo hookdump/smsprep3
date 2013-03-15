@@ -16,6 +16,10 @@ body
     margin: 0px
     padding: 0px
 
+hr
+  border: 0px
+  border-top: 1px solid #CCCCCC
+
 .content
   width: 100%
   min-height: 100%
@@ -92,20 +96,37 @@ body
   display: none
 
 .nice_list
+  display: block
   list-style: none
+  clear: both
   margin: 0px
   li
     padding: 0px
-    a
-      line-height: 40px
+    .f
+      float: left
+    .bar
+      line-height: 22px
       margin: 4px
-      padding: 10px
+      padding: 6px 8px
       background-color: #DADADA
       +border-radius(5px)
-      text-decoration: none
       font-weight: bold
+      display: inline-block
+      a
+        text-decoration: none
+      em
+        background-color: #999999
+        color: white
+        +border-radius(4px)
+        font-style: normal
+        font-size: 10px
+        padding: 4px
+        margin-right: 4px
+        cursor: pointer
+        &:hover
+          background-color: #333399
   .qdetails
-    margin: -7px 10px 10px 4px
+    margin: -9px 10px 10px 4px
     padding: 10px
     background-color: #DADADA
     +border-radius(5px)
@@ -130,3 +151,6 @@ body
 
   thead
     display: block
+
+.clear
+  clear: both
