@@ -36,7 +36,7 @@ $(document).ready(function() {
         ev.preventDefault();
         var curLesson = $('#current_lesson').text();
         var curQuestion = $(this).text();
-        var route = '/content/question/' + curQuestion;
+        var route = '/content/' + curLesson + '/' + curQuestion;
         window.location = route;
       });
     	

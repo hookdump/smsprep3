@@ -1,0 +1,46 @@
+<div class='main' id='admin_content_detail'>
+
+	<a class='top_button btn btn-info' href='/content/<%= current_lesson %>'>&laquo; Back to Lesson</a>
+	<a class='top_button btn btn-info' href='/content'>&laquo; Back to Content</a>
+	
+	<h1><%= question_data.universalId %></h1>
+
+	<form class='form-horizontal'>
+
+		<div class='control-group'>
+			<label class='control-label' for='field1'>Field1</label>
+			<div class='controls'>
+				<input type='text' id='field1' placeholder='Email' />
+			</div>
+		</div>
+
+		<div class='control-group'>
+			<label class='control-label' for='field2'>Field2</label>
+			<div class='controls'>
+				<input type='text' id='field2' placeholder='asdasd :D' />
+			</div>
+		</div>
+
+
+		<% for(var i=0; i<question_data.qoptions; i++) { %>
+			<% var qo = question_data.qoptions[i] %>
+			<%=qo%>
+			<div class='control-group'>
+				<label class='control-label' for='qo<%=i%>'>Option <%=i%></label>
+				<div class='controls'>
+					<input type='text' id='qo<%=i%>' value='<%=qo.text%>' />
+				</div>
+			</div>
+		<% } %>
+
+
+		<div class='control-group'>
+			<div class='controls'>
+				<button type='submit' class='btn'>Save</button>
+			</div>
+		</div>
+
+
+	</form>
+
+</div>

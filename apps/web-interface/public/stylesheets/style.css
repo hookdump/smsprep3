@@ -196,36 +196,37 @@ hr {
 /* line 135, ../sass/style.sass */
 .top_button {
   float: right;
+  margin-left: 14px;
 }
 
-/* line 138, ../sass/style.sass */
+/* line 139, ../sass/style.sass */
 #import_table {
   margin-top: 15px;
 }
-/* line 140, ../sass/style.sass */
+/* line 141, ../sass/style.sass */
 #import_table .td1 {
   width: 80px;
 }
-/* line 142, ../sass/style.sass */
+/* line 143, ../sass/style.sass */
 #import_table .td2 {
   width: 680px;
 }
-/* line 144, ../sass/style.sass */
+/* line 145, ../sass/style.sass */
 #import_table .td3 {
   width: 50px;
 }
-/* line 147, ../sass/style.sass */
+/* line 148, ../sass/style.sass */
 #import_table tbody {
   display: block;
   height: 250px;
   overflow: scroll;
 }
-/* line 152, ../sass/style.sass */
+/* line 153, ../sass/style.sass */
 #import_table thead {
   display: block;
 }
 
-/* line 155, ../sass/style.sass */
+/* line 156, ../sass/style.sass */
 .clear {
   clear: both;
 }

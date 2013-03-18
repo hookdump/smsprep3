@@ -42,8 +42,8 @@ var contentController = function(app, config, lib, passport) {
   });
 
   // Content review ----------------------------
-  app.get('/content/lesson/:code', function(req, res) {
-    var full_code = req.params.code;
+  app.get('/content/:lesson', function(req, res) {
+    var full_code = req.params.lesson;
     var codes = full_code.split("-");
     var code_data = {
       full_code: full_code
@@ -52,32 +52,18 @@ var contentController = function(app, config, lib, passport) {
     };
 
     var lessonQuestions = lib.Content.Lesson.loadQuestions({code: full_code}, function(err, qs) {
-
-      log.warn('questions:');
-      log.warn( qs );
       res.render('content_detail', { title: config.title, cur_section: "content_detail", codes: code_data, questions: qs });  
     });
     
   });
 
   // Content review ----------------------------
-  app.get('/content/question/:code', function(req, res) {
-   /*
-    var full_code = req.params.code;
-    var codes = full_code.split("-");
-    var code_data = {
-      full_code: full_code
-      , test_code: codes[0]
-      , lesson_code: codes[1]
-    };
-
-    var lessonQuestions = lib.Content.Lesson.loadQuestions({code: full_code}, function(err, qs) {
-
-      log.warn('questions:');
-      log.warn( qs );
-      res.render('content_detail', { title: config.title, cur_section: "content_detail", codes: code_data, questions: qs });  
+  app.get('/content/:lesson/:question', function(req, res) {
+    var unversalId = req.params.question;
+    var lesson = req.params.lesson;
+    lib.Content.Question.load(unversalId, function(err, qdata) {
+      res.render('question_detail', { title: config.title, cur_section: "question_detail", question_data: qdata, current_lesson: lesson });  
     });
-    */  
   });
   
 
