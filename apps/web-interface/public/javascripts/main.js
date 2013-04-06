@@ -3,8 +3,8 @@ $(document).ready(function() {
   var alreadyConnected = false;
 
   // IO Socket
-  console.log('connecting to io socket...');
-  var socket = io.connect('http://localhost');
+  console.log('connecting to io socket (2)...');
+  var socket = io.connect(null);
   socket.on('connect', function (data) {
     console.log('io socket connected!');
   });

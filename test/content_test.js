@@ -6,7 +6,7 @@ var keep		= true;
 describe('Question', function() {
 	var Lib = require(basepath + 'lib/wrapper');
 	var curQuestion = null;
-	var testData = null;
+	var testData = null, testDataInvalid = null;
 	var testOptions = null;
 	var lessonsArr = null;
 		
@@ -22,15 +22,23 @@ describe('Question', function() {
 				, correct: false
 			}
 		];
-
 		lessonsArr = ['LESSON1', 'LESSON2'];
-
 		testData = {
 			text: 'What is this question?'
 			, qoptions: testOptions
 			, feedback: {
 				correct: 'Congrats!'
 				, incorrect: 'Oh no!'
+			}
+			, lessons: lessonsArr
+		};
+
+		testDataInvalid = {
+			text: 'My invalid question????^'
+			, qoptions: testOptions
+			, feedback: {
+				correct: 'Congrats invalidirili!'
+				, incorrect: 'Oh no invalidyyyy!'
 			}
 			, lessons: lessonsArr
 		};
@@ -53,6 +61,7 @@ describe('Question', function() {
 	describe('creation', function() {
 		it('returns the created question', function() {
 			should.exist(curQuestion);
+			curQuestion.valid.should.be.true;
 		});
 		
 		it('the returned object is valid', function() {
@@ -61,6 +70,18 @@ describe('Question', function() {
 			curQuestion.feedback.correct.should.equal( testData.feedback.correct );
 			curQuestion.feedback.incorrect.should.equal( testData.feedback.incorrect );
 			curQuestion.qoptions.should.have.length( testData.qoptions.length );
+		});
+
+		it('should detect invalid symbols and disable the question', function(done) {
+			var invalidQ = {};
+			Lib.Content.Question.upsertQuestion('TEST00X', testDataInvalid, function(err, doc) {
+				invalidQ = doc;
+
+				invalidQ.universalId.should.equal('TEST00X');
+				invalidQ.valid.should.be.false;
+
+				done();
+			});
 		});
 	});
 

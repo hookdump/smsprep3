@@ -155,3 +155,24 @@ hr
 
 .clear
   clear: both
+
+.qoption-edit
+  height: 35px
+  label
+    float: left
+    +border-radius(4px)
+    padding: 5px 18px 5px 8px
+    margin-right: -10px
+    cursor: pointer
+    &.qo_correct
+      background-color: #008800
+      color: white
+      &:hover
+        background-color: #00AA00
+    &.qo_incorrect
+      background-color: #880000
+      color: white
+      &:hover
+        background-color: #AA0000
+  input
+    display: inline-block

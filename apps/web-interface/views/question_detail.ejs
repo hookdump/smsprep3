@@ -7,36 +7,49 @@
 
 	<form class='form-horizontal'>
 
+		<!-- 
+			Options
+			Lessons
+			Feedback
+		-->
+
 		<div class='control-group'>
-			<label class='control-label' for='field1'>Field1</label>
+			<label class='control-label' for='qtext'>Question Text</label>
 			<div class='controls'>
-				<input type='text' id='field1' placeholder='Email' />
+				<textarea name='qtext' rows='4' id='qtext' style='width: 600px'><%= question_data.text %></textarea>
 			</div>
 		</div>
 
 		<div class='control-group'>
-			<label class='control-label' for='field2'>Field2</label>
+			<label class='control-label' for='field2'>Options</label>
 			<div class='controls'>
-				<input type='text' id='field2' placeholder='asdasd :D' />
-			</div>
-		</div>
+				<div class='options_container'>
+					
+					<% for(var i=0; i<question_data.qoptions.length; i++) { %>
+						<% var qo = question_data.qoptions[i] %>
+						<% var qo_class = (qo.correct) ? 'qo_correct' : 'qo_incorrect'; %>
+						<% var qo_letter = String.fromCharCode(65+i); %>
+						
+						<div class='qoption-edit'>
+							<label class='<%=qo_class%>' ><%=qo_letter%></label>
+							<input type='text' name='qo_text[]' value='<%=qo.text%>' />
+						</div>
+					<% } %>
 
+					<input type='button' value='Add option' class='btn' />
 
-		<% for(var i=0; i<question_data.qoptions; i++) { %>
-			<% var qo = question_data.qoptions[i] %>
-			<%=qo%>
-			<div class='control-group'>
-				<label class='control-label' for='qo<%=i%>'>Option <%=i%></label>
-				<div class='controls'>
-					<input type='text' id='qo<%=i%>' value='<%=qo.text%>' />
 				</div>
+
 			</div>
-		<% } %>
+		</div>
+
+
+
 
 
 		<div class='control-group'>
 			<div class='controls'>
-				<button type='submit' class='btn'>Save</button>
+				<button type='submit' class='btn btn-primary'>Save question</button>
 			</div>
 		</div>
 

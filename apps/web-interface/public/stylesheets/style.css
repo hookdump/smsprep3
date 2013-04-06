@@ -230,3 +230,42 @@ hr {
 .clear {
   clear: both;
 }
+
+/* line 159, ../sass/style.sass */
+.qoption-edit {
+  height: 35px;
+}
+/* line 161, ../sass/style.sass */
+.qoption-edit label {
+  float: left;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  padding: 5px 18px 5px 8px;
+  margin-right: -10px;
+  cursor: pointer;
+}
+/* line 167, ../sass/style.sass */
+.qoption-edit label.qo_correct {
+  background-color: #008800;
+  color: white;
+}
+/* line 170, ../sass/style.sass */
+.qoption-edit label.qo_correct:hover {
+  background-color: #00aa00;
+}
+/* line 172, ../sass/style.sass */
+.qoption-edit label.qo_incorrect {
+  background-color: #880000;
+  color: white;
+}
+/* line 175, ../sass/style.sass */
+.qoption-edit label.qo_incorrect:hover {
+  background-color: #aa0000;
+}
+/* line 177, ../sass/style.sass */
+.qoption-edit input {
+  display: inline-block;
+}
