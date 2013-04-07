@@ -1,5 +1,31 @@
+help:
+	@echo ""
+	@echo "smsPREP Building Script"
+	@echo "-----------------------"
+	@echo ""
+	@echo "install: 	Install the required modules"
+	@echo "uninstall: 	Clean up the installed modules"
+
+	@echo ""
+
+	@echo "core:		Start the core module"
+	@echo "sms:		Start the sms module"
+	@echo "web:		Start the web module"
+	@echo "api:		Start the api module"
+
+	@echo ""
+
+	@echo "lcore, lsms, lweb, lapi: Tail the logs in real time"
+
+	@echo ""
+
+	@echo "ls: 		List the running services"
+	@echo "stopall: 	Stop all the running services"
+	@echo "test: 		Run tests"
+	@echo "test-w: 	Run tests in Watch Mode"
+
 install:
-	npm install
+	@sudo npm install
 
 uninstall:
 	@sudo rm -r node_modules
