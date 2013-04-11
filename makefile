@@ -50,16 +50,16 @@ api:
 
 lcore:
 	@echo 'loading core logs...'
-	@tail -f ~/.forever/core.log
+	@tail -f -n 0 ~/.forever/core.log
 lsms:
 	@echo 'loading sms logs...'
-	@tail -f ~/.forever/sms.log
+	@tail -f -n 0 ~/.forever/sms.log
 lweb:
 	@echo 'loading web logs...'
-	@tail -f ~/.forever/web.log
+	@tail -f -n 0 ~/.forever/web.log
 lapi:
 	@echo 'loading api logs...'
-	@tail -f ~/.forever/api.log
+	@tail -f -n 0 ~/.forever/api.log
 
 ls:
 	@sudo forever list

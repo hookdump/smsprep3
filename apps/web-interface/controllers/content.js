@@ -65,6 +65,20 @@ var contentController = function(app, config, lib, passport) {
       res.render('question_detail', { title: config.title, cur_section: "question_detail", question_data: qdata, current_lesson: lesson });  
     });
   });
+
+  app.post('/content/:lesson/:question', function(req, res) {
+    var unversalId = req.params.question;
+    var lesson = req.params.lesson;
+    var questionData = req.body.questionData;
+
+    lib.Content.Question.upsertQuestion(unversalId, questionData, function(err, qdata) {
+      if (err) {
+        res.json({success: false, error: err});
+      } else {
+        res.json({success: true});  
+      }
+    });
+  });
   
 
 }

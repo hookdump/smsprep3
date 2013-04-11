@@ -1,59 +1,72 @@
-<div class='main' id='admin_content_detail'>
+<div class='main' id='admin_question_detail'>
 
-	<a class='top_button btn btn-info' href='/content/<%= current_lesson %>'>&laquo; Back to Lesson</a>
-	<a class='top_button btn btn-info' href='/content'>&laquo; Back to Content</a>
+	<a class='top_button btn btn-info back-to-lesson' href='/content/<%= current_lesson %>'>&laquo; Back to Lesson</a>
+	<a class='top_button btn btn-info back-to-content' href='/content'>&laquo; Back to Content</a>
 	
 	<h1><%= question_data.universalId %></h1>
 
-	<form class='form-horizontal'>
+	<!-- 
+		Options
+		Lessons
+		Feedback
+	-->
 
-		<!-- 
-			Options
-			Lessons
-			Feedback
-		-->
+	<div class='control-group'>
+		<label class='control-label' for='qtext'>Question Text</label>
+		<div class='controls'>
+			<textarea name='qtext' rows='3' id='qtext' style='width: 875px'><%= question_data.text %></textarea>
+		</div>
 
-		<div class='control-group'>
-			<label class='control-label' for='qtext'>Question Text</label>
+		<div width='50%' style='float: right'>
+			<label class='control-label' for='qincorrect_feedback'>Incorrect Feedback</label>
 			<div class='controls'>
-				<textarea name='qtext' rows='4' id='qtext' style='width: 600px'><%= question_data.text %></textarea>
+				<textarea name='qtext' rows='8' id='qincorrect_feedback' style='width: 400px'><%= question_data.feedback.incorrect %></textarea>
 			</div>
 		</div>
 
-		<div class='control-group'>
-			<label class='control-label' for='field2'>Options</label>
-			<div class='controls'>
-				<div class='options_container'>
+		<label class='control-label' for='qcorrect_feedback'>Correct Feedback</label>
+		<div class='controls'>
+			<textarea name='qtext' rows='8' id='qcorrect_feedback' style='width: 400px'><%= question_data.feedback.correct %></textarea>
+		</div>
+
+	</div>
+
+
+	<div class='control-group'>
+		<label class='control-label' for='sel_lessons'>Lessons</label>
+		<div class='controls'>
+			<input type='hidden' multiple name='sel_lessons' id='sel_lessons'></input>
+		</div>
+	</div>
+
+	<div class='control-group'>
+		<label class='control-label' for='field2'>Options</label>
+		<div class='controls'>
+			<div class='options_container'>
+				
+				<% for(var i=0; i<question_data.qoptions.length; i++) { %>
+					<% var qo = question_data.qoptions[i] %>
+					<% var qo_class = (qo.correct) ? 'qo_correct' : 'qo_incorrect'; %>
+					<% var qo_letter = String.fromCharCode(65+i); %>
 					
-					<% for(var i=0; i<question_data.qoptions.length; i++) { %>
-						<% var qo = question_data.qoptions[i] %>
-						<% var qo_class = (qo.correct) ? 'qo_correct' : 'qo_incorrect'; %>
-						<% var qo_letter = String.fromCharCode(65+i); %>
-						
-						<div class='qoption-edit'>
-							<label class='<%=qo_class%>' ><%=qo_letter%></label>
-							<input type='text' name='qo_text[]' value='<%=qo.text%>' />
-						</div>
-					<% } %>
+					<div class='qoption-edit'>
+						<label class='<%=qo_class%>' ><%=qo_letter%></label>
+						<input type='text' name='qo_text[]' value='<%=qo.text%>' />
+					</div>
+				<% } %>
 
-					<input type='button' value='Add option' class='btn' />
-
-				</div>
+				<input type='button' value='Add option' class='btn' />
 
 			</div>
+
 		</div>
+	</div>
 
-
-
-
-
-		<div class='control-group'>
-			<div class='controls'>
-				<button type='submit' class='btn btn-primary'>Save question</button>
-			</div>
+	<div class='control-group submit-controls'>
+		<div class='controls'>
+			<button type='button' class='btn btn-danger cancel-button'>Cancel</button>
+			<button type='button' class='btn btn-primary save-button'>Save question</button>
 		</div>
-
-
-	</form>
+	</div>
 
 </div>

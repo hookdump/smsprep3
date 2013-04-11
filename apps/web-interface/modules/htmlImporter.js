@@ -160,10 +160,11 @@ importerModule.processRawData = function(raw_data, lib, reporter, callback) {
             log.error('updating lessons', err);
             log.info('finishing importing...');
             reporter( 100, '%' );  // Progress report * * * *
-            // console.log( rows[0] );
             
+            // console.log( rows[0] );
             // console.log("Now got " + $(rows).length + " rows");
             // console.log( $(r).html() ); // outputs Hello World
+            
             callback();
           }
         );
