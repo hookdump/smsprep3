@@ -35,7 +35,11 @@
 	<div class='control-group'>
 		<label class='control-label' for='sel_lessons'>Lessons</label>
 		<div class='controls'>
-			<input type='hidden' multiple name='sel_lessons' id='sel_lessons'></input>
+			<select multiple name='sel_lessons' id='sel_lessons'>
+				<% for(var x=0; x<lessons.length; x++) { %>
+					<option value="<%=lessons[x]%>"><%=lessons[x]%></option>
+				<% } %>
+			</select>
 		</div>
 	</div>
 

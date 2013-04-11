@@ -8,7 +8,7 @@ help:
 
 	@echo ""
 
-	@echo "core:		Start the core module"
+	@echo "core:	Start the core module"
 	@echo "sms:		Start the sms module"
 	@echo "web:		Start the web module"
 	@echo "api:		Start the api module"
@@ -33,19 +33,19 @@ uninstall:
 
 core:
 	@sudo forever -s stop smsprep-core
-	@sudo forever --uid smsprep-core -a -l core.log start ./apps/smsprep-core/app.js
+	@sudo forever --uid smsprep-core -a -l core.log -w start ./apps/smsprep-core/app.js
 	@make lcore
 sms:
 	@sudo forever -s stop sms-interface
-	@sudo forever --uid sms-interface -a -l sms.log start ./apps/sms-interface/app.js
+	@sudo forever --uid sms-interface -a -l sms.log -w start ./apps/sms-interface/app.js
 	@make lsms
 web:
 	@sudo forever -s stop web-interface
-	@sudo forever --uid web-interface -a -l web.log start ./apps/web-interface/app.js
+	@sudo forever --uid web-interface -a -l web.log -w start ./apps/web-interface/app.js
 	@make lweb
 api:
 	@sudo forever -s stop api-interface
-	@sudo forever --uid api-interface -a -l api.log start ./apps/api-interface/app.js
+	@sudo forever --uid api-interface -a -l api.log -w start ./apps/api-interface/app.js
 	@make lapi
 
 lcore:

@@ -61,9 +61,16 @@ var contentController = function(app, config, lib, passport) {
   app.get('/content/:lesson/:question', function(req, res) {
     var unversalId = req.params.question;
     var lesson = req.params.lesson;
-    lib.Content.Question.load(unversalId, function(err, qdata) {
-      res.render('question_detail', { title: config.title, cur_section: "question_detail", question_data: qdata, current_lesson: lesson });  
+    var lessons = [];
+
+    lib.Content.Lesson.findAllCodes(function(err, data) {
+      lessons = data;
+
+      lib.Content.Question.load(unversalId, function(err, qdata) {
+        res.render('question_detail', { title: config.title, cur_section: "question_detail", question_data: qdata, current_lesson: lesson, lessons: lessons });  
+      });
     });
+
   });
 
   app.post('/content/:lesson/:question', function(req, res) {

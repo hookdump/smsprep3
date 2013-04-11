@@ -78,8 +78,8 @@ $(document).ready(function() {
       , escapeMarkup: function (m) { return m; }
       // , data: [{id:0,text:'enhancement'},{id:1,text:'bug'},{id:2,text:'duplicate'},{id:3,text:'invalid'},{id:4,text:'wontfix'}]
     };
-    $("#sel_lessons").select2(sel2config);
     */
+    $("#sel_lessons").select2(sel2config);
 
     $(".cancel-button").click(function(ev) {
       ev.preventDefault();      
