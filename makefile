@@ -33,19 +33,19 @@ uninstall:
 
 core:
 	@sudo forever -s stop smsprep-core
-	@sudo forever --uid smsprep-core -a -l core.log -w start ./apps/smsprep-core/app.js
+	@sudo forever --uid smsprep-core -a -l core.log -w --minUptime 5000 start ./apps/smsprep-core/app.js
 	@make lcore
 sms:
 	@sudo forever -s stop sms-interface
-	@sudo forever --uid sms-interface -a -l sms.log -w start ./apps/sms-interface/app.js
+	@sudo forever --uid sms-interface -a -l sms.log -w --minUptime 5000 start ./apps/sms-interface/app.js
 	@make lsms
 web:
 	@sudo forever -s stop web-interface
-	@sudo forever --uid web-interface -a -l web.log -w start ./apps/web-interface/app.js
+	@sudo forever --uid web-interface -a -l web.log -w --minUptime 5000 start ./apps/web-interface/app.js
 	@make lweb
 api:
 	@sudo forever -s stop api-interface
-	@sudo forever --uid api-interface -a -l api.log -w start ./apps/api-interface/app.js
+	@sudo forever --uid api-interface -a -l api.log -w --minUptime 5000 start ./apps/api-interface/app.js
 	@make lapi
 
 lcore:
