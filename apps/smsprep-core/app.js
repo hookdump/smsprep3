@@ -6,7 +6,8 @@
 var express = require('express')
   , http = require('http')
   , app = express()
-  , Lib = require('../../lib/wrapper');
+  , Lib = require('../../lib/wrapper')
+  , bus = require('servicebus').bus({log: log.rabbit});
 
 // Set app config variables
 var appConfig = {
@@ -31,6 +32,11 @@ app.configure('development', function(){
 // Load routes
 var router = require('./routes');
 router.init(app, appConfig, Lib);
+
+// Subscribe to bus events
+bus.subscribe('smsprep.sms.in', function (event) {
+  log.info(event);
+});
 
 // Start server!
 http.createServer(app).listen(app.get('port'), function() {
