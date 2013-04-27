@@ -284,3 +284,8 @@ hr {
 .qoption-edit input {
   display: inline-block;
 }
+
+/* line 181, ../sass/style.sass */
+#sel_lessons {
+  width: 700px;
+}

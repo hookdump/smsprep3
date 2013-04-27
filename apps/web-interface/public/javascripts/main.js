@@ -50,35 +50,10 @@ $(document).ready(function() {
     var lessonListUrl = '/';
     var selectionListUrl = '/';
 
-    /*
     var sel2config = {
-      placeholder: 'Select lessons'
-      , minimumInputLength: 0
-      , multiple: true
-      , width: 500
-      , ajax: {
-        url: lessonListUrl
-        , dataType: 'jsonp'
-        , data: function(term, page) {
-          return {
-            q: term
-            , page_limit: 10
-          };
-        }
-        , results: function(data, page) {
-          return {results: data.lessons};
-        }
-      }
-      , initSelection: function(element, callback) {
-
-      }
-      , formatResult: {}
-      , formatSelection: {}
-      , dropdownCssClass: ''
-      , escapeMarkup: function (m) { return m; }
-      // , data: [{id:0,text:'enhancement'},{id:1,text:'bug'},{id:2,text:'duplicate'},{id:3,text:'invalid'},{id:4,text:'wontfix'}]
+      width: 'element'
     };
-    */
+
     $("#sel_lessons").select2(sel2config);
 
     $(".cancel-button").click(function(ev) {
@@ -109,13 +84,34 @@ $(document).ready(function() {
       var updateObj = {};
       updateObj['text'] = myQuestionText;
       updateObj['qoptions'] = myAnswers;
+      
 
       // 3. Lessons!
+      var lessonsList = $('#sel_lessons').val().toString();
+      var lessonsArray = lessonsList.split(',');
+      updateObj['lessons'] = lessonsArray;
 
-      // TO-DO: Reset valid flag? perhaps instead of bool it should be a byte
+      // 4. Reset valid flag? perhaps instead of bool it should be a byte
       // updateObj['valid'] = false;
 
-      // TO-DO: Feedback!
+      // 5. Feedback!
+      var myCorrectFeedback = $("#qcorrect_feedback").text();
+      var myIncorrectFeedback = $("#qincorrect_feedback").text();
+      updateObj['feedback'] = {
+        'correct': myCorrectFeedback
+        , 'incorrect': myIncorrectFeedback
+      };
+
+      var curLesson     = $('#info_lesson').text();
+      var curQuestion   = $('#info_question').text();
+
+      $.ajax({
+        type: "POST",
+        url: "/content/" + curLesson + "/" + curQuestion,
+        data: { questionData: updateObj }
+      }).done(function( msg ) {
+        alert( "Data Saved: " + msg );
+      });
 
     });
 
