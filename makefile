@@ -25,27 +25,27 @@ help:
 	@echo "test-w: 	Run tests in Watch Mode"
 
 install:
-	@sudo npm install
+	@npm install
 
 uninstall:
-	@sudo rm -r node_modules
-	@sudo npm cache clean
+	@rm -r node_modules
+	@npm cache clean
 
 core:
-	@sudo forever -s stop smsprep-core
-	@sudo forever --uid smsprep-core -a -l core.log -w --minUptime 5000 start ./apps/smsprep-core/app.js
+	@forever -s stop smsprep-core
+	@forever --uid smsprep-core -a -l core.log -w --minUptime 5000 start ./apps/smsprep-core/app.js
 	@make lcore
 sms:
-	@sudo forever -s stop sms-interface
-	@sudo forever --uid sms-interface -a -l sms.log -w --minUptime 5000 start ./apps/sms-interface/app.js
+	@forever -s stop sms-interface
+	@forever --uid sms-interface -a -l sms.log -w --minUptime 5000 start ./apps/sms-interface/app.js
 	@make lsms
 web:
-	@sudo forever -s stop web-interface
-	@sudo forever --uid web-interface -a -l web.log -w --minUptime 5000 start ./apps/web-interface/app.js
+	@forever -s stop web-interface
+	@forever --uid web-interface -a -l web.log -w --minUptime 5000 start ./apps/web-interface/app.js
 	@make lweb
 api:
-	@sudo forever -s stop api-interface
-	@sudo forever --uid api-interface -a -l api.log -w --minUptime 5000 start ./apps/api-interface/app.js
+	@forever -s stop api-interface
+	@forever --uid api-interface -a -l api.log -w --minUptime 5000 start ./apps/api-interface/app.js
 	@make lapi
 
 lcore:
@@ -62,10 +62,10 @@ lapi:
 	@tail -f -n 0 ~/.forever/api.log
 
 ls:
-	@sudo forever list
+	@forever list
 
 stopall:
-	@sudo forever stopall
+	@forever stopall
 
 test:
 	@NODE_ENV=test ./node_modules/.bin/mocha --reporter spec
