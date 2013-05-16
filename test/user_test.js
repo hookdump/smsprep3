@@ -3,10 +3,11 @@ var basepath = '../';
 var keep		= false;
 
 describe('User', function() {
-
+	global.beQuiet = true;
+	
 	var Lib = require(basepath + 'lib/wrapper');
 	var curUser = null;
-		
+
 	beforeEach(function(done) {
 		// add some test data    
 		Lib.User.createUser("test", "foo", function(err, doc, msg) {
