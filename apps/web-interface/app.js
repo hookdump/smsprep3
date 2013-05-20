@@ -14,13 +14,11 @@ var express         = require('express')
   , Lib             = require('../../lib/wrapper')
   , io              = require('socket.io');
 
-var myenv = process.env.NODE_ENV || 'development';
-
 // Set app config variables
 var appConfig = {
       name:   'web-interface'
     , title:  'smsPREP'
-    , port: 8080
+    , port: Lib.Config.services.web.port
     , upload_dir: __dirname + "/public/upload/"
     , logs: false
 };
@@ -114,7 +112,8 @@ server.listen(app.get('port'), function() {
 // Start io server!
 var ioServer = io.listen(server, {log: false});
 
-if (myenv === 'production') {
+// Optimize Socket.IO for production
+if (Lib.Config.env === 'production') {
   ioServer.configure('production', function() {
     log.info('configuring IO server for production...')
     ioServer.enable('browser client minification');  // send minified client

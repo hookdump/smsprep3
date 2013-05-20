@@ -11,7 +11,7 @@ var express = require('express')
 // Set app config variables
 var appConfig = {
       name:   'api-interface'
-    , port: 3001
+    , port:   Lib.Config.services.api.port
 };
 
 // Init Express app configuration

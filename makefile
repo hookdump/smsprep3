@@ -1,3 +1,5 @@
+ENV = "development"
+
 help:
 	@echo ""
 	@echo "smsPREP Building Script"
@@ -8,14 +10,15 @@ help:
 
 	@echo ""
 
-	@echo "core:	Start the core module"
+	@echo "core:		Start the core module"
 	@echo "sms:		Start the sms module"
 	@echo "web:		Start the web module"
 	@echo "api:		Start the api module"
+	@echo "bouncy:		Start the listener module"
 
 	@echo ""
 
-	@echo "lcore, lsms, lweb, lapi: Tail the logs in real time"
+	@echo "lcore, lsms, lweb, lapi, lbouncy: Tail the logs in real time"
 
 	@echo ""
 
@@ -33,20 +36,19 @@ uninstall:
 
 core:
 	@forever -s stop smsprep-core
-	@forever --uid smsprep-core -a -l core.log -w --minUptime 5000 start ./apps/smsprep-core/app.js
-	@make lcore
+	@NODE_ENV=$(ENV) forever --uid smsprep-core -a -l core.log -w --minUptime 5000 start ./apps/smsprep-core/app.js
 sms:
 	@forever -s stop sms-interface
-	@forever --uid sms-interface -a -l sms.log -w --minUptime 5000 start ./apps/sms-interface/app.js
-	@make lsms
+	@NODE_ENV=$(ENV) forever  --uid sms-interface -a -l sms.log -w --minUptime 5000 start ./apps/sms-interface/app.js
 web:
 	@forever -s stop web-interface
-	@forever --uid web-interface -a -l web.log -w --minUptime 5000 start ./apps/web-interface/app.js
-	@make lweb
+	@NODE_ENV=$(ENV) forever  --uid web-interface -a -l web.log -w --minUptime 5000 start ./apps/web-interface/app.js
 api:
 	@forever -s stop api-interface
-	@forever --uid api-interface -a -l api.log -w --minUptime 5000 start ./apps/api-interface/app.js
-	@make lapi
+	@NODE_ENV=$(ENV) forever  --uid api-interface -a -l api.log -w --minUptime 5000 start ./apps/api-interface/app.js
+bouncy:
+	@sudo forever -s stop smsprep-bouncy
+	@NODE_ENV=$(ENV) sudo forever  --uid smsprep-bouncy -a -l bouncy.log -w --minUptime 5000 start ./apps/bouncy/app.js
 
 lcore:
 	@echo 'loading core logs...'
@@ -60,12 +62,9 @@ lweb:
 lapi:
 	@echo 'loading api logs...'
 	@tail -f -n 0 ~/.forever/api.log
-
-ls:
-	@forever list
-
-stopall:
-	@forever stopall
+lbouncy:
+	@echo 'loading bouncy logs...'
+	@sudo tail -f -n 0 ~/.forever/bouncy.log
 
 test:
 	@NODE_ENV=test ./node_modules/.bin/mocha --reporter spec

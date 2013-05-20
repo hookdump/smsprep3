@@ -11,7 +11,7 @@ var express = require('express')
 // Set app config variables
 var appConfig = {
       name:   'sms-interface'
-    , port: 3000
+    , port:   Lib.Config.services.sms.port
 };
 
 // Init Express app configuration

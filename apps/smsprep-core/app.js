@@ -12,7 +12,7 @@ var express = require('express')
 // Set app config variables
 var appConfig = {
       name:   'smsprep-core'
-    , port: 5000
+    , port:   Lib.Config.services.core.port
 };
 
 // Init Express app configuration
@@ -41,5 +41,5 @@ bus.subscribe('smsprep.sms.in', function (event) {
 // Start server!
 http.createServer(app).listen(app.get('port'), function() {
   var now = new Date();
-  log.warn( "starting " + appConfig.name + " in port " + app.get('port') + " - " + now );
+  log.warn( "starting [" + Lib.Config.env + "] " + appConfig.name + " in port " + app.get('port') + " - " + now );
 });
