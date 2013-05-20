@@ -26,7 +26,11 @@
     "cli-color": "~0.2.2",
     "step": "0.0.5",
     "mocha": "~1.8.1",
-    "should": "~1.2.2"
+    "should": "~1.2.2",
+    "nodemon": "~0.7.6",
+    "servicebus": "~0.1.0",
+    "moment": "~2.0.0",
+    "bouncy": "~3.1.1"
   },
   "engines": {
     "node": "0.8.x"

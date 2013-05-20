@@ -1,4 +1,5 @@
 @import "compass"
+@import "layout"
 
 html
   height: 100%
@@ -15,6 +16,10 @@ body
   form
     margin: 0px
     padding: 0px
+
+hr
+  border: 0px
+  border-top: 1px solid #CCCCCC
 
 .content
   width: 100%
@@ -92,20 +97,37 @@ body
   display: none
 
 .nice_list
+  display: block
   list-style: none
+  clear: both
   margin: 0px
   li
     padding: 0px
-    a
-      line-height: 40px
+    .f
+      float: left
+    .bar
+      line-height: 22px
       margin: 4px
-      padding: 10px
+      padding: 6px 8px
       background-color: #DADADA
       +border-radius(5px)
-      text-decoration: none
       font-weight: bold
+      display: inline-block
+      a
+        text-decoration: none
+      em
+        background-color: #999999
+        color: white
+        +border-radius(4px)
+        font-style: normal
+        font-size: 10px
+        padding: 4px
+        margin-right: 4px
+        cursor: pointer
+        &:hover
+          background-color: #333399
   .qdetails
-    margin: -7px 10px 10px 4px
+    margin: -9px 10px 10px 4px
     padding: 10px
     background-color: #DADADA
     +border-radius(5px)
@@ -113,6 +135,7 @@ body
 
 .top_button
   float: right
+  margin-left: 14px
 
 #import_table
   margin-top: 15px
@@ -130,3 +153,30 @@ body
 
   thead
     display: block
+
+.clear
+  clear: both
+
+.qoption-edit
+  height: 35px
+  label
+    float: left
+    +border-radius(4px)
+    padding: 5px 18px 5px 8px
+    margin-right: -10px
+    cursor: pointer
+    &.qo_correct
+      background-color: #008800
+      color: white
+      &:hover
+        background-color: #00AA00
+    &.qo_incorrect
+      background-color: #880000
+      color: white
+      &:hover
+        background-color: #AA0000
+  input
+    display: inline-block
+
+#sel_lessons
+  width: 700px

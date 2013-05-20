@@ -1,18 +1,20 @@
 <div class='main' id='admin_content_detail'>
 
-	<a class='top_button btn btn-info' href='/content'>Back to Content</a>
-	<h1><%= codes.test_code %> &raquo; <%= codes.lesson_code %></h1>
+	<a class='top_button btn btn-info' href='/content'>&laquo; Back to Content</a>
+	<div class='hidden' id='current_lesson'><%= codes.full_code %></div>
+	<h1><%= codes.test_code %></h1>
+	<h2>&raquo; <%= codes.lesson_code %></h2>
 
 	<ul class='nice_list' id='questions_list'>
 	<% for(var i=0; i<questions.length; i++) { %>
 		<% var q = questions[i]; %>
 		<li>
-			<a href='#'><%= q.text %></a>
+			<div class='bar'><em><%= q.universalId %></em> <a href='#'><%= q.text %></a></div>
 			<div class='qdetails hidden'>
 				<ul class='options'>
 
-				<% for(var o=0; o<q.options.length; o++) { %>
-					<% var cur_o = q.options[o]; %>
+				<% for(var o=0; o<q.qoptions.length; o++) { %>
+					<% var cur_o = q.qoptions[o]; %>
 					<li>
 						<%= cur_o.text %>
 						<% if (cur_o.correct) { %>

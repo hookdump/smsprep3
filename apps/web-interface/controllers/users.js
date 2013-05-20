@@ -1,5 +1,5 @@
 var usersController = function(app, config, lib, passport) {
-  console.log('loading users controller...');
+  log.loading('users controllers');
 
   // Main site ----------------------------
   app.get('/', function(req, res) {
