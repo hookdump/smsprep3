@@ -4,3 +4,4 @@ tmp/
 .sass-cache/
 compass_app_log.txt
 .DS_Store
+apps/web-interface/public/upload/

@@ -20,6 +20,8 @@ importerModule.processRawData = function(raw_data, lib, reporter, callback) {
             log.info('getting started...');
             var $ = window.jQuery;
             var mapping = {};
+            var lessonCodes = ['LESSON', 'LESSON2', 'LESSON3'];
+            var lessonCols = [];
 
             reporter(10, 'Initializing parser...', null);  // Progress report * * * *
             
@@ -50,7 +52,9 @@ importerModule.processRawData = function(raw_data, lib, reporter, callback) {
 
               var cur_row =[];
               $(tr_el).find("td").each(function(td_id, td_el) {
-                cur_row.push( $(td_el).text() );
+                var txt = $(td_el).html();
+                txt = txt.replace(/<br>|<br \/>/g, '\n');
+                cur_row.push( txt );
               });
 
               if (tr_id === 0) {
@@ -65,7 +69,14 @@ importerModule.processRawData = function(raw_data, lib, reporter, callback) {
                     options_count = +control_code.substring(10);
                   }
 
+                  // Set the mapping
                   mapping[ el ] = id;
+
+                  // Store the LESSON column ids in a separate array
+                  if (lessonCodes.indexOf( el ) > -1) {
+                    lessonCols.push(id);
+                  }
+
                 });
 
                 log.success("mapping done! =>");
@@ -105,6 +116,17 @@ importerModule.processRawData = function(raw_data, lib, reporter, callback) {
                   newQuestion.qoptions.push(qopt);
                 }
 
+                // Fetch lessons...
+                var lessons = [];
+                _.each(lessonCols, function(lcol) {
+                  var strLesson = cur_row[ lcol ];
+                  if (strLesson) lessons.push(strLesson);
+                })
+                newQuestion['lessons'] = lessons;
+
+                // Fetch category...
+                newQuestion['category'] = cur_row[ mapping['QCAT'] ];
+                  
                 // Store question!
                 lib.Content.Question.upsertQuestion(univ_id, newQuestion, group());
                 
@@ -129,17 +151,20 @@ importerModule.processRawData = function(raw_data, lib, reporter, callback) {
             this(null);
 
           },
+          function updateLessons(err, res) {
+            log.error('importing questions', err);
+            log.warn( res );
+            lib.Content.Lesson.updateLessons(this);
+          },
           function finish(err) {
-            if (err) {
-              log.error('error!');
-              log.error( err );
-            }
+            log.error('updating lessons', err);
             log.info('finishing importing...');
             reporter( 100, '%' );  // Progress report * * * *
-            // console.log( rows[0] );
             
+            // console.log( rows[0] );
             // console.log("Now got " + $(rows).length + " rows");
             // console.log( $(r).html() ); // outputs Hello World
+            
             callback();
           }
         );

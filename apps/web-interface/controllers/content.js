@@ -1,37 +1,38 @@
 var _ = require('underscore');
 var fs = require('fs');
 var htmlImporter = require('../modules/htmlImporter.js');
+var Step = require('step');
 
 var contentController = function(app, config, lib, passport) {
-  console.log('loading content controller...');
+  log.loading('content controllers');
 
   // Content ----------------------------
   app.get('/content', function(req, res) {
-    // Load lessons:
-    // TODO: Load lessons
-    var lessons = [
-      {
-        test_code: "SAT"
-        , lesson_code: "FRACTIONS"
-        , questions: []
+
+    Step(
+
+      function _loadLessons() {
+
+        // Load lessons:
+        log.notice('loading lessons...');
+        lib.Content.Lesson.findAll(this);
+
       },
-      {
-        test_code: "SAT"
-        , lesson_code: "EXPONENTIALS"
-        , questions: []
+      function _loadFiles(err, loadedLessons) {      
+
+        // List HTML files:
+        fs.readdir(config.upload_dir, function(err, files) {
+          log.notice('listing files...');
+
+          var filteredFiles = _(files).reject(function(file) {
+            return (file.match(/[.]/) === null);
+          });
+
+          res.render('content', { title: config.title, cur_section: "content", lessons: loadedLessons, files: filteredFiles });  
+        });
       }
-    ];
 
-    // List HTML files:
-    fs.readdir(config.upload_dir, function(err, files) {
-      log.notice('listing files...');
-
-      var filteredFiles = _(files).reject(function(file) {
-        return (file.match(/[.]/) === null);
-      });
-
-      res.render('content', { title: config.title, cur_section: "content", lessons: lessons, files: filteredFiles });  
-    });
+    );
     
   });
 
@@ -41,48 +42,55 @@ var contentController = function(app, config, lib, passport) {
   });
 
   // Content review ----------------------------
-  app.get('/content/:code', function(req, res) {
-    var full_code = req.params.code;
-    var codes = full_code.split("_");
+  app.get('/content/:lesson', function(req, res) {
+    var full_code = req.params.lesson;
+    var codes = full_code.split("-");
     var code_data = {
       full_code: full_code
       , test_code: codes[0]
       , lesson_code: codes[1]
     };
 
-    var questions = [
-      {
-        text: "What is 2+2?"
-        , id: "1"
-        , options: [
-          {text: "5", correct: false}
-          , {text: "7", correct: false}
-          , {text: "4", correct: true}
-        ]
-        , feedback: {
-          "correct": "Yeah! That was easy, wasn't it?"
-          , "incorrect": "Nooo! 2+2 equals 4 because blah blah blah"
-        }
-      },
-      {
-        text: "What is 10+5?"
-        , id: "2"
-        , options: [
-          {text: "15", correct: true}
-          , {text: "17", correct: false}
-          , {text: "5", correct: false}
-        ]
-        , feedback: {
-          "correct": "Yeah! That was easy, wasn't it?"
-          , "incorrect": "Nooo! 10 + 5 equals 15 because blah blah blah"
-        }
-      }
-    ];
-
-    res.render('content_detail', { title: config.title, cur_section: "content_detail", codes: code_data, questions: questions });  
+    var lessonQuestions = lib.Content.Lesson.loadQuestions({code: full_code}, function(err, qs) {
+      res.render('content_detail', { title: config.title, cur_section: "content_detail", codes: code_data, questions: qs });  
+    });
+    
   });
 
+  // Content review ----------------------------
+  app.get('/content/:lesson/:question', function(req, res) {
+    var unversalId = req.params.question;
+    var lesson = req.params.lesson;
+    var lessons = [];
+
+    lib.Content.Lesson.findAllCodes(function(err, data) {
+      lessons = data;
+
+      lib.Content.Question.load(unversalId, function(err, qdata) {
+        res.render('question_detail', { title: config.title, cur_section: "question_detail", question_data: qdata, current_lesson: lesson, lessons: lessons });  
+      });
+    });
+
+  });
+
+  app.post('/content/:lesson/:question', function(req, res) {
+    var unversalId = req.params.question;
+    var lesson = req.params.lesson;
+    var questionData = req.body.questionData;
+
+    lib.Content.Question.upsertQuestion(unversalId, questionData, function(err, qdata) {
+      if (err) {
+        res.json({success: false, error: err});
+      } else {
+        res.json({success: true});  
+      }
+    });
+  });
+  
+
 }
+
+
 
 var contentIo = function(socket, config, lib) {
   socket.on('content.import', function (data) {
@@ -90,7 +98,7 @@ var contentIo = function(socket, config, lib) {
     log.notice('starting file import: ' + import_filename);
 
     var reportProgress = function(value, msg, questions) {
-      log.notice('sending progress: ' + value + '%');
+      log.notice('importing: ' + value + '%');
       socket.emit('content.import.progress', {val: value, msg: msg});
 
       if (questions) {
@@ -104,7 +112,7 @@ var contentIo = function(socket, config, lib) {
 
     log.notice('processing data...');
     htmlImporter.processRawData(raw_data, lib, reportProgress, function() {
-      log.success('finished importing! YAY!');
+      log.success('import completed!');
       socket.emit('content.import.progress', {val: 100, msg: null}) 
       socket.emit('content.import.finished', {import_filename: import_filename});
     });

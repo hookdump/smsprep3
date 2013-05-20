@@ -11,7 +11,7 @@ var express = require('express')
 // Set app config variables
 var appConfig = {
       name:   'sms-interface'
-    , port: 3000
+    , port:   Lib.Config.services.sms.port
 };
 
 // Init Express app configuration
@@ -33,6 +33,7 @@ var router = require('./routes');
 router.init(app, appConfig, Lib);
 
 // Start server!
-http.createServer(app).listen(app.get('port'), function(){
-  console.log(appConfig.name + " listening to " + app.get('port'));
+http.createServer(app).listen(app.get('port'), function() {
+  var now = new Date();
+  log.warn( "starting " + appConfig.name + " in port " + app.get('port') + " - " + now );
 });

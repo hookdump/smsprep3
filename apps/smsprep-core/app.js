@@ -6,12 +6,13 @@
 var express = require('express')
   , http = require('http')
   , app = express()
-  , Lib = require('../../lib/wrapper');
+  , Lib = require('../../lib/wrapper')
+  , bus = require('servicebus').bus({log: log.rabbit});
 
 // Set app config variables
 var appConfig = {
       name:   'smsprep-core'
-    , port: 5000
+    , port:   Lib.Config.services.core.port
 };
 
 // Init Express app configuration
@@ -32,7 +33,13 @@ app.configure('development', function(){
 var router = require('./routes');
 router.init(app, appConfig, Lib);
 
+// Subscribe to bus events
+bus.subscribe('smsprep.sms.in', function (event) {
+  log.info(event);
+});
+
 // Start server!
-http.createServer(app).listen(app.get('port'), function(){
-  console.log(appConfig.name + " listening to " + app.get('port'));
+http.createServer(app).listen(app.get('port'), function() {
+  var now = new Date();
+  log.warn( "starting [" + Lib.Config.env + "] " + appConfig.name + " in port " + app.get('port') + " - " + now );
 });

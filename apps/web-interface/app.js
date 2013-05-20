@@ -12,16 +12,13 @@ var express         = require('express')
   , passport        = require('passport')
   , LocalStrategy   = require('passport-local').Strategy
   , Lib             = require('../../lib/wrapper')
-  , log_colors      = require('../../lib/log_colors')
   , io              = require('socket.io');
-
-var myenv = process.env.NODE_ENV || 'development';
 
 // Set app config variables
 var appConfig = {
       name:   'web-interface'
     , title:  'smsPREP'
-    , port: 8080
+    , port: Lib.Config.services.web.port
     , upload_dir: __dirname + "/public/upload/"
     , logs: false
 };
@@ -108,13 +105,15 @@ app.configure('development', function(){
 // Start web server!
 var server = http.createServer(app);
 server.listen(app.get('port'), function() {
-  log.warn( appConfig.name + " listening to " + app.get('port') );
+  var now = new Date();
+  log.warn( "starting " + appConfig.name + " in port " + app.get('port') + " - " + now );
 });
 
 // Start io server!
 var ioServer = io.listen(server, {log: false});
 
-if (myenv === 'production') {
+// Optimize Socket.IO for production
+if (Lib.Config.env === 'production') {
   ioServer.configure('production', function() {
     log.info('configuring IO server for production...')
     ioServer.enable('browser client minification');  // send minified client
