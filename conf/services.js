@@ -36,6 +36,10 @@ module.exports = {
 		}
 	},
 	production: {
+		'web-www': {
+			domain: 'www.smsprep.com'
+			, port: 8000
+		}, 
 		'web': {
 			domain: 'smsprep.com'
 			, port: 8000
