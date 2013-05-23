@@ -5,23 +5,23 @@ exports.init = function(app, config, lib) {
   });
 
   // Student start
-  app.get('/:partner/:uid/start', function(req, res) {
-    res.json({success: true, queryReceived: req.query});
+  app.post('/:partner/:uid/start', function(req, res) {
+    res.json({success: true, queryReceived: req.body});
   });
 
   // Student edit
-  app.get('/:partner/:uid/edit', function(req, res) {
-    res.json({success: true, queryReceived: req.query});
+  app.post('/:partner/:uid/edit', function(req, res) {
+    res.json({success: true, queryReceived: req.body});
   });
 
   // Student activate
-  app.get('/:partner/:uid/activate', function(req, res) {
-    res.json({success: true, queryReceived: req.query});
+  app.post('/:partner/:uid/activate', function(req, res) {
+    res.json({success: true, queryReceived: req.body});
   });
 
   // Student deactivate
-  app.get('/:partner/:uid/deactivate', function(req, res) {
-    res.json({success: true, queryReceived: req.query});
+  app.post('/:partner/:uid/deactivate', function(req, res) {
+    res.json({success: true, queryReceived: req.body});
   });
 
   // Student status check
@@ -38,13 +38,13 @@ exports.init = function(app, config, lib) {
   });
 
   // Student reconfirmation
-  app.get('/:partner/:uid/reconfirmation', function(req, res) {
-    res.json({success: true, queryReceived: req.query});
+  app.post('/:partner/:uid/reconfirmation', function(req, res) {
+    res.json({success: true, queryReceived: req.body});
   });
 
   // Custom message
-  app.get('/:partner/:uid/send', function(req, res) {
-    res.json({success: true, queryReceived: req.query});
+  app.post('/:partner/:uid/send', function(req, res) {
+    res.json({success: true, queryReceived: req.body});
   });
 
 }
