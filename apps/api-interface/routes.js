@@ -1,7 +1,7 @@
 exports.init = function(app, config, lib) {
 
   app.get('/', function(req, res) {
-    res.json({hello: true});
+    res.json({success: true, message: "Welcome to smsPREP API v2.1"});
   });
 
   app.get('/msg/:phone/:message', function(req, res) {
