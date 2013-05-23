@@ -1,7 +1,6 @@
 var _ = require('underscore');
 var fs = require('fs');
 var Step = require('step');
-var bus = require('servicebus').bus({log: log.rabbit});
 
 var smsController = function(app, config, lib) {
   log.loading('sms controller');
@@ -22,7 +21,7 @@ var smsController = function(app, config, lib) {
         res.json({success: false, error: err.toString()});
       } else {
         if (student) {
-          bus.publish('smsprep.sms.in', {phone: phone, msg: msg});
+          lib.Bus.publish('smsprep.sms.in', {phone: phone, msg: msg});
           res.json({success: true});
         } else {
           res.json({success: false, error: "Student #" + phone + " does not exist!"});
