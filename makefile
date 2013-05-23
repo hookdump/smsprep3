@@ -31,24 +31,25 @@ install:
 	@npm install
 
 uninstall:
-	@rm -r node_modules
-	@npm cache clean
+	@sudo rm -r node_modules > /dev/null 2>&1
+	@npm cache clean > /dev/null 2>&1
+	@sudo npm cache clean > /dev/null 2>&1
 
 core:
-	@forever -s stop smsprep-core
-	@NODE_ENV=$(ENV) forever --uid smsprep-core -a -l core.log -w --minUptime 5000 start ./apps/smsprep-core/app.js
+	@forever -s stop smsprep-core > /dev/null 2>&1
+	@NODE_ENV=$(ENV) forever --uid smsprep-core -a -l core.log --minUptime 5000 start ./apps/smsprep-core/app.js
 sms:
-	@forever -s stop sms-interface
-	@NODE_ENV=$(ENV) forever  --uid sms-interface -a -l sms.log -w --minUptime 5000 start ./apps/sms-interface/app.js
+	@forever -s stop sms-interface > /dev/null 2>&1
+	@NODE_ENV=$(ENV) forever  --uid sms-interface -a -l sms.log --minUptime 5000 start ./apps/sms-interface/app.js
 web:
-	@forever -s stop web-interface
-	@NODE_ENV=$(ENV) forever  --uid web-interface -a -l web.log -w --minUptime 5000 start ./apps/web-interface/app.js
+	@forever -s stop web-interface > /dev/null 2>&1
+	@NODE_ENV=$(ENV) forever  --uid web-interface -a -l web.log --minUptime 5000 start ./apps/web-interface/app.js
 api:
-	@forever -s stop api-interface
-	@NODE_ENV=$(ENV) forever  --uid api-interface -a -l api.log -w --minUptime 5000 start ./apps/api-interface/app.js
+	@forever -s stop api-interface > /dev/null 2>&1
+	@NODE_ENV=$(ENV) forever  --uid api-interface -a -l api.log --minUptime 5000 start ./apps/api-interface/app.js
 bouncy:
-	@sudo forever -s stop smsprep-bouncy
-	@NODE_ENV=$(ENV) sudo forever  --uid smsprep-bouncy -a -l bouncy.log -w --minUptime 5000 start ./apps/bouncy/app.js
+	@sudo forever -s stop smsprep-bouncy > /dev/null 2>&1
+	@NODE_ENV=$(ENV) sudo forever  --uid smsprep-bouncy -a -l bouncy.log --minUptime 5000 start ./apps/bouncy/app.js
 
 lcore:
 	@echo 'loading core logs...'
