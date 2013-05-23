@@ -22,6 +22,7 @@ var appConfig = {
     , upload_dir: __dirname + "/public/upload/"
     , logs: false
 };
+log.info('starting ' + appConfig.name + ' @ ' + Lib.Config.env + '');
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -106,7 +107,7 @@ app.configure('development', function(){
 var server = http.createServer(app);
 server.listen(app.get('port'), function() {
   var now = new Date();
-  log.warn( "starting " + appConfig.name + " in port " + app.get('port') + " - " + now );
+  log.info( "starting server in port " + app.get('port') + " - " + now );
 });
 
 // Start io server!
