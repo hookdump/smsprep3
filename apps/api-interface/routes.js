@@ -91,7 +91,7 @@ exports.init = function(app, config, lib) {
   }
 
   app.get('/', function(req, res) {
-    res.json({success: true, message: "Welcome to smsPREP API v" + config.version, environment: Lib.Config.env});
+    res.json({success: true, message: "Welcome to smsPREP API v" + config.version, environment: lib.Config.env});
   });
 
   // Student start
