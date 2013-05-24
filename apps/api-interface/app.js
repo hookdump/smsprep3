@@ -4,14 +4,18 @@
  */
 
 var express = require('express')
-  , http = require('http')
-  , app = express()
-  , Lib = require('../../lib/wrapper');
+  , http    = require('http')
+  , app     = express()
+  , Lib     = require('../../lib/wrapper');
+
+var pjson       = require('./package.json');
+var appVersion  = pjson.version; 
 
 // Set app config variables
 var appConfig = {
       name:   'api-interface'
     , port:   Lib.Config.services.api.port
+    , version: appVersion
 };
 log.info('starting ' + appConfig.name + ' @ ' + Lib.Config.env + '');
 

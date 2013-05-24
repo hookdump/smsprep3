@@ -50,7 +50,7 @@ api:
 
 bouncy:
 	-sudo forever -s stop $(ENV).smsprep-bouncy > /dev/null 2>&1
-	NODE_ENV=$(ENV) sudo forever  --uid $(ENV).smsprep-bouncy -a -l bouncy.log --minUptime 5000 start ./apps/bouncy/app.js
+	sudo NODE_ENV=$(ENV) forever  --uid $(ENV).smsprep-bouncy -a -l bouncy.log --minUptime 5000 start ./apps/bouncy/app.js
 
 lcore:
 	@echo 'loading core logs...'
