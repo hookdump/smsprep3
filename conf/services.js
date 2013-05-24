@@ -17,25 +17,8 @@ module.exports = {
 			, port: 8203
 		}
 	},
-	staging: {
-		'web': {
-			domain: 'staging.smsprep.com'
-			, port: 8100
-		}, 
-		'core': {
-			domain: 'core.staging.smsprep.com'
-			, port: 8101
-		},
-		'sms': {
-			domain: 'sms.staging.smsprep.com'
-			, port: 8102
-		},
-		'api': {
-			domain: 'api.staging.smsprep.com'
-			, port: 8103
-		}
-	},
 	production: {
+
 		'web-www': {
 			domain: 'www.smsprep.com'
 			, port: 8000
@@ -55,6 +38,24 @@ module.exports = {
 		'api': {
 			domain: 'api.smsprep.com'
 			, port: 8003
+		},
+
+		'web-staging': {
+			domain: 'staging.smsprep.com'
+			, port: 8100
+		}, 
+		'core-staging': {
+			domain: 'core.staging.smsprep.com'
+			, port: 8101
+		},
+		'sms-staging': {
+			domain: 'sms.staging.smsprep.com'
+			, port: 8102
+		},
+		'api-staging': {
+			domain: 'api.staging.smsprep.com'
+			, port: 8103
 		}
+
 	}
 }
