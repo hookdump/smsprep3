@@ -7,9 +7,8 @@ var express = require('express')
   , http    = require('http')
   , app     = express()
   , Lib     = require('../../lib/wrapper');
-
-var pjson       = require('./package.json');
-var appVersion  = pjson.version; 
+  
+var appVersion  = "5.4.0"; 
 
 // Set app config variables
 var appConfig = {
