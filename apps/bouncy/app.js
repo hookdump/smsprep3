@@ -6,6 +6,8 @@ var server = bouncy(function (req, res, bounce) {
     var reqHost = req.headers.host;
     var routed  = false;
 
+    console.log('routing: ' + reqHost);
+
     _(currentConf.services).each(function(service) {
         if (reqHost === service.domain) {
             routed = true;
@@ -17,7 +19,7 @@ var server = bouncy(function (req, res, bounce) {
     if (!routed) {
         console.log('host ' + reqHost + ' not found!');
         res.statusCode = 404;
-        res.end('no such host');
+        res.end('Error routing the request for ' + reqHost + '. Please contact admin@smsprep.com');
     }
 
 });
