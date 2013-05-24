@@ -17,6 +17,24 @@ module.exports = {
 			, port: 8203
 		}
 	},
+	staging: {
+		'web': {
+			domain: 'staging.smsprep.com'
+			, port: 8100
+		}, 
+		'core': {
+			domain: 'core.staging.smsprep.com'
+			, port: 8101
+		},
+		'sms': {
+			domain: 'sms.staging.smsprep.com'
+			, port: 8102
+		},
+		'api': {
+			domain: 'api.staging.smsprep.com'
+			, port: 8103
+		}
+	},
 	production: {
 
 		'web-www': {
