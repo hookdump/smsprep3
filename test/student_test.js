@@ -17,11 +17,11 @@ describe('Student', function() {
 			, schedule: 'morning'
 			, email: 	'foo@bar.com'
 			, fullname: 'John Doe'
-			, timezone: -5
+			, timezone: 'EST'
 			, joined: 	now
 		};
 
-		Lib.Student.upsertStudent('U001', testData, function(err, doc) {
+		Lib.Student.upsertStudent('U001', testData, 'start', function(err, doc) {
 			curStudent = doc;
 			done();
 		});
@@ -41,7 +41,8 @@ describe('Student', function() {
 		});
 		
 		it('the returned object is valid', function() {
-			curStudent.partnerId.should.equal('U001');
+			log.warn( curStudent );
+			curStudent.externalId.should.equal('U001');
 			curStudent.lessons.should.have.length(3);
 			should.exist(curStudent.joined);
 		});
@@ -54,7 +55,7 @@ describe('Student', function() {
 		var curStudent2 = {};
 
 		it('returns the updated student', function(done) {
-			Lib.Student.upsertStudent('U001', testData2, function(err, doc) {
+			Lib.Student.upsertStudent('U001', testData2, 'edit', function(err, doc) {
 				should.exist(doc);
 				should.not.exist(err);
 				curStudent2 = doc;
@@ -67,7 +68,7 @@ describe('Student', function() {
 			curStudent2.lessons.should.have.length(2);
 
 			// it has not changed!
-			curStudent2.partnerId.should.equal('U001');
+			curStudent2.externalId.should.equal('U001');
 			curStudent2.email.should.equal( testData.email );
 		});
 	});
@@ -80,18 +81,19 @@ describe('Student', function() {
 
 		var testInvalidField = function(query, title) {
 			it(title + ' validation', function(done) {
-				Lib.Student.upsertStudent('U001', query, function(err, doc) {
-					should.not.exist(doc);
+				Lib.Student.upsertStudent('U001', query, 'edit', function(err, updatedStudent) {
 					should.exist(err);
+					should.exist(err.errors);
+					err.errors.length.should.be.above(0);
 					done();
 				});
 			});			
 		};
 
 		testInvalidField(invalidPhone, 'phone number');
-		testInvalidField(invalidEmail, 'email');
 		testInvalidField(invalidSchedule, 'schedule');
 		testInvalidField(invalidTimezone, 'timezone');
+		testInvalidField(invalidEmail, 'email');
 
 	});
 
