@@ -36,6 +36,10 @@ module.exports = {
 		}
 	},
 	production: {
+		'watchmen-web': {
+			domain: 'status.smsprep.com'
+			, port: 3003
+		}, 
 
 		'web-www': {
 			domain: 'www.smsprep.com'
