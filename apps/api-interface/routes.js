@@ -2,94 +2,6 @@ var _ = require('underscore');
 
 exports.init = function(app, config, lib) {
 
-  var validateUserData = function(data, method, callback) {
-    var errors = [];
-    var validation = {
-      phone_regex: /^[19][0-9]{10}$/
-      , zipcode_regex: /^[0-9]{5}$/
-      , email_regex: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
-      , timezones_list: ['EST', 'MST', 'CST', 'PST']
-      , schedules_list: ['morning', 'afternoon', 'evening', 'night']
-    }
-
-    // Check mandatory fields
-    if (method === 'start') {
-      if (!data.phone) {
-        errors.push('you must specify the [phone] field when creating a student');
-      }
-
-      if (!data.timezone && !data.zipcode) {
-        errors.push('you must specify either the [timezone] or [zipcode] field when creating a student');
-      }
-
-      if (!data.schedule) {
-        errors.push('you must specify the [schedule] field when creating a student');
-      }
-    }
-
-    // Validate arguments
-    if (data.phone) {
-      if (!data.phone.match(validation.phone_regex)) {
-        errors.push('the [phone] provided (' + data.phone + ') is invalid! it must be a 11-digit number, starting with 1');
-      }
-    }
-
-    if (data.timezone) {
-      if (validation.timezones_list.indexOf(data.timezone) === -1) {
-        errors.push('the [timezone] provided (' + data.timezone + ') is invalid! it must be one of these: [EST, MST, CST, PST]');
-      }
-    }
-
-    if (data.zipcode) {
-      if (!data.zipcode.match(validation.zipcode_regex)) {
-        errors.push('the [zipcode] provided (' + data.zipcode + ') is invalid! it must be a 5-digit number');
-      }
-    }
-
-    if (data.schedule) {
-      var scheduleArr = data.schedule.split("+");
-      var validSchedules = _.every(scheduleArr, function(el) {
-        return (validation.schedules_list.indexOf(el) !== -1);
-      });
-      if (!validSchedules) {
-        errors.push('the [schedule] provided (' + data.schedule + ') is invalid! it must be one of these: [morning, afternoon, evening, night] or a combination of them');
-      } else {
-        data.schedule = scheduleArr;
-      }
-    }
-
-    if (data.email) {
-      if (!data.email.match(validation.email_regex)) {
-        errors.push('the [email] provided (' + data.email + ') is invalid!');
-      }
-    }
-
-    if (data.lessons) {
-      var lessonsArr = data.lessons.split("+");
-      data.lessons = lessonsArr;
-    }
-    if (data.lessons === "") {
-      log.info('no lessons, putting empty array here!');
-      data.lessons = [];
-    }
-
-    if (data.lessongroups) {
-      var lessonGroupsArr = data.lessongroups.split("+");
-      data.lessongroups = lessonGroupsArr;
-    }
-    if (data.lessongroups === "") {
-      log.info('no lessongroups, putting empty array here!');
-      data.lessongroups = [];
-    }
-
-
-    var result = {
-      success: (errors.length === 0)
-      , error_messages: errors
-    };
-    callback(null, data, result);
-  }
-
   app.get('/', function(req, res) {
     res.json({success: true, message: "Welcome to smsPREP API v" + config.version, environment: lib.Config.env});
   });
@@ -97,60 +9,41 @@ exports.init = function(app, config, lib) {
   // Student start
   app.post('/:partner/:uid/start', function(req, res) {
     var rawData = req.body;
-    validateUserData(rawData, 'start', function(err, studentData, result) {
 
-      studentData.joined = Date.now();
-      log.info('joined = ' + studentData.joined);
+    lib.Student.upsertStudent( req.params.uid , studentData , 'start', function(err, updatedStudent) {
+      log.error('upserting student', err);
 
-      if (result.success) {    
-        lib.Student.upsertStudent( req.params.uid , studentData , function(err, loadedStudent) {
-          log.error('upserting student', err);
-
-          var sendBack = {success: true};
-          if (err) {
-            sendBack['success'] = false;
-            sendBack['errors'] = 'error saving student to database';
-          } else {
-            sendBack['studentId'] = loadedStudent._id;
-          }
-
-          res.json(sendBack);
-        });
+      var sendBack = {success: true};
+      if (err) {
+        sendBack['success'] = false;
+        sendBack['errors'] = err.errors;
       } else {
-        res.json({success: result.success, errors: result.error_messages});
+        sendBack['studentId'] = updatedStudent._id;
       }
-      
+
+      res.json(sendBack);
     });
+
   });
 
   // Student edit
   app.post('/:partner/:uid/edit', function(req, res) {
     var rawData = req.body;
-    validateUserData(rawData, 'edit', function(err, studentData, result) {
 
-      if (result.success) {
+    lib.Student.upsertStudent( req.params.uid , studentData , 'edit', function(err, updatedStudent) {
+      log.error('upserting student', err);
 
-        log.info('updating...');
-        log.info( studentData );
-
-        lib.Student.upsertStudent( req.params.uid , studentData , function(err, loadedStudent) {
-          log.error('upserting student', err);
-
-          var sendBack = {success: true};
-          if (err) {
-            sendBack['success'] = false;
-            sendBack['errors'] = 'error saving student to database';
-          } else {
-            sendBack['studentId'] = loadedStudent._id;
-          }
-
-          res.json(sendBack);
-        });
+      var sendBack = {success: true};
+      if (err) {
+        sendBack['success'] = false;
+        sendBack['errors'] = err.errors;
       } else {
-        res.json({success: result.success, errors: result.error_messages});
+        sendBack['studentId'] = updatedStudent._id;
       }
-      
+
+      res.json(sendBack);
     });
+
   });
 
   var changeActive = function(uid, activate, cb) {
