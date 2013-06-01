@@ -40,6 +40,10 @@ module.exports = {
 			domain: 'status.smsprep.com'
 			, port: 3003
 		}, 
+		'loopback-ping': {
+			domain: '127.0.0.1'
+			, port: 8000
+		}, 
 
 		'web-www': {
 			domain: 'www.smsprep.com'
