@@ -8,9 +8,8 @@ exports.init = function(app, config, lib) {
 
   // Student start
   app.post('/:partner/:uid/start', function(req, res) {
-    var rawData = req.body;
 
-    lib.Student.upsertStudent( req.params.uid , studentData , 'start', function(err, updatedStudent) {
+    lib.Student.upsertStudent( req.params.uid , req.body , 'start', function(err, updatedStudent) {
       log.error('upserting student', err);
 
       var sendBack = {success: true};
@@ -28,9 +27,8 @@ exports.init = function(app, config, lib) {
 
   // Student edit
   app.post('/:partner/:uid/edit', function(req, res) {
-    var rawData = req.body;
 
-    lib.Student.upsertStudent( req.params.uid , studentData , 'edit', function(err, updatedStudent) {
+    lib.Student.upsertStudent( req.params.uid , req.body , 'edit', function(err, updatedStudent) {
       log.error('upserting student', err);
 
       var sendBack = {success: true};
@@ -89,6 +87,7 @@ exports.init = function(app, config, lib) {
 
         var retStatus = {
           studentId: myStudent._id
+          , active: myStudent.active || 'true'
           , externalId: myStudent.externalId
           , confirmed: myStudent.confirmed || 'false'
           , created: myStudent.joined
