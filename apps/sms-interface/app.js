@@ -33,6 +33,10 @@ app.configure('development', function(){
 var router = require('./routes');
 router.init(app, appConfig, Lib);
 
+// Listen to bus events
+var busListener = require('./busListener');
+busListener.init(Lib);
+
 // Start server!
 http.createServer(app).listen(app.get('port'), function() {
   var now = new Date();

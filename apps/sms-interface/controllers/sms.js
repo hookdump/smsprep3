@@ -1,6 +1,7 @@
 var _ = require('underscore');
 var fs = require('fs');
 var Step = require('step');
+var slooceInterface = require('../modules/slooceInterface.js');
 
 var smsController = function(app, config, lib) {
   log.loading('sms controller');
