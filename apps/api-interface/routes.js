@@ -1,4 +1,5 @@
-var _ = require('underscore');
+var _     = require('underscore');
+var Api   = require('./api');
 
 exports.init = function(app, config, lib) {
 
