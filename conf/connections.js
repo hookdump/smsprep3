@@ -1,4 +1,4 @@
-module.exports = {
+var myConfig = {
 	test: {
 		mongo: 		'mongodb://localhost/smsprep3_test'
 		, rabbitmq_in: 	'amqp://localhost'
@@ -23,4 +23,17 @@ module.exports = {
 		, rabbitmq_out: 'amqp://mytTXRE7:HKLs4D221aQB6Qh47QhXVMAgDblV5vZh@scared-vilthuril-1.bigwig.lshift.net:10006/7ldXPgMKM76dlWQGqvk7VA'
 		, redis: 		'redis://redistogo:a35642f27259c398d99aaa1d1684f361@squawfish.redistogo.com:9412/'
 	}
-}
+};
+
+// Add slooce configuration to all environments:
+var slooceConfig = {
+	partnerId: 'p9328904'
+	, partnerPassword: 'f8n29aa3'
+	, outgoingEndpoint: 'http://sloocetech.net:8084/spi-war/spi/{partnerId}/{phone}/{keyword}/messages/mt'
+};
+myConfig['test']['slooce'] = slooceConfig;
+myConfig['development']['slooce'] = slooceConfig;
+myConfig['staging']['slooce'] = slooceConfig;
+myConfig['production']['slooce'] = slooceConfig;
+
+module.exports = myConfig;

@@ -33,10 +33,9 @@ app.configure('development', function(){
 var router = require('./routes');
 router.init(app, appConfig, Lib);
 
-// Subscribe to bus events
-Lib.Bus.subscribe('smsprep.sms.in', function (event) {
-  log.info(event);
-});
+// Listen to bus events
+var busListener = require('./busListener');
+busListener.init(Lib);
 
 // Start server!
 http.createServer(app).listen(app.get('port'), function() {

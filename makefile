@@ -52,22 +52,6 @@ bouncy:
 	-sudo forever -s stop $(ENV).smsprep-bouncy > /dev/null 2>&1
 	sudo NODE_ENV=$(ENV) forever  --uid $(ENV).smsprep-bouncy -a -l bouncy.log --minUptime 5000 start ./apps/bouncy/app.js
 
-lcore:
-	@echo 'loading core logs...'
-	@tail -f -n 0 ~/.forever/core.log
-lsms:
-	@echo 'loading sms logs...'
-	@tail -f -n 0 ~/.forever/sms.log
-lweb:
-	@echo 'loading web logs...'
-	@tail -f -n 0 ~/.forever/web.log
-lapi:
-	@echo 'loading api logs...'
-	@tail -f -n 0 ~/.forever/api.log
-lbouncy:
-	@echo 'loading bouncy logs...'
-	@sudo tail -f -n 0 ~/.forever/bouncy.log
-
 test:
 	@NODE_ENV=test ./node_modules/.bin/mocha --reporter spec
 
