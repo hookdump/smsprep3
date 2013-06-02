@@ -135,6 +135,10 @@ ioServer.sockets.on('connection', function(socket) {
   router.initSocket(socket, appConfig, Lib);
 });
 
+// Listen to bus events
+var busListener = require('./busListener');
+busListener.init(Lib);
+
 // Load routes
 var router = require('./routes');
 router.init(app, appConfig, Lib, passport);

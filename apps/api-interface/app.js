@@ -7,9 +7,8 @@ var express = require('express')
   , http    = require('http')
   , app     = express()
   , Lib     = require('../../lib/wrapper');
-
-var pjson       = require('./package.json');
-var appVersion  = pjson.version; 
+  
+var appVersion  = "5.4.0"; 
 
 // Set app config variables
 var appConfig = {
@@ -25,6 +24,7 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());  
+
   app.use(app.router);
 });
 
@@ -36,6 +36,10 @@ app.configure('development', function(){
 // Load routes
 var router = require('./routes');
 router.init(app, appConfig, Lib);
+
+// Listen to bus events
+var busListener = require('./busListener');
+busListener.init(Lib);
 
 // Start server!
 http.createServer(app).listen(app.get('port'), function() {
