@@ -30,7 +30,8 @@
     "nodemon": "~0.7.6",
     "servicebus": "~0.1.0",
     "moment": "~2.0.0",
-    "bouncy": "~3.1.1"
+    "bouncy": "~3.1.1",
+    "xml2js": "~0.2.7"
   },
   "engines": {
     "node": "0.8.x"

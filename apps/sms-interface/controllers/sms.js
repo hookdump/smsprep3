@@ -32,6 +32,11 @@ var smsController = function(app, config, lib) {
 
   });
 
+  app.post('/slooce-connection', function(req, res) {
+    slooceInterface.incomingMessage(req.body);
+    res.send(200);
+  });
+
 }
 
 module.exports.web = smsController;
