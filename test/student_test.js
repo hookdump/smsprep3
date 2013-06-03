@@ -21,7 +21,7 @@ describe('Student', function() {
 			, joined: 	now
 		};
 
-		Lib.Student.upsertStudent('U001', testData, 'start', function(err, doc) {
+		Lib.Student.upsertStudent({externalId: 'U001', partner: 'TEST'}, testData, 'start', function(err, doc) {
 			curStudent = doc;
 			done();
 		});
@@ -55,7 +55,7 @@ describe('Student', function() {
 		var curStudent2 = {};
 
 		it('returns the updated student', function(done) {
-			Lib.Student.upsertStudent('U001', testData2, 'edit', function(err, doc) {
+			Lib.Student.upsertStudent({externalId: 'U001', partner: 'TEST'}, testData2, 'edit', function(err, doc) {
 				should.exist(doc);
 				should.not.exist(err);
 				curStudent2 = doc;
@@ -81,7 +81,7 @@ describe('Student', function() {
 
 		var testInvalidField = function(query, title) {
 			it(title + ' validation', function(done) {
-				Lib.Student.upsertStudent('U001', query, 'edit', function(err, updatedStudent) {
+				Lib.Student.upsertStudent({externalId: 'U001', partner: 'TEST'}, query, 'edit', function(err, updatedStudent) {
 					should.exist(err);
 					should.exist(err.errors);
 					err.errors.length.should.be.above(0);

@@ -33,7 +33,7 @@ var smsController = function(app, config, lib) {
   });
 
   app.post('/slooce-connection', function(req, res) {
-    slooceInterface.incomingMessage(req.body);
+    slooceInterface.incomingMessage(req.rawBody);
     res.send(200);
   });
 
