@@ -57,7 +57,7 @@ describe('sms-interface', function() {
 
 	describe('slooce integration', function() {
 		it('listens to incoming messages', function(done) {
-			var xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?><message id='1320192341004-1320387794654'><user>14082396036</user><keyword>SPTRIAL</keyword><content>N</content></message>";
+			var xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?><message id='1320192341004-1320387794654'><user>12333333331</user><keyword>SPTRIAL</keyword><content>N</content></message>";
 			httpConnect('POST', '/slooce-connection', xml, function(err, data) {
 				done(err);	
 			});

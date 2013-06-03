@@ -1,22 +1,32 @@
-var slooceInterface = {};
+var slooceInterface = {
+	Lib: null
+};
 
-var _       = require('underscore');
-var Step    = require('step');
+var _       	= require('underscore');
+var Step    	= require('step');
 var parseString = require('xml2js').parseString;
+var debugging	= false;
+
+slooceInterface.init = function(lib) {
+	this.Lib	= lib;
+};
 
 slooceInterface.noop = function() {
 	log.info('slooce interface noop');
 };
 
 slooceInterface.sendMessage = function(phone, message) {
-
+	log.highlight('sms', 'sending message to ' + phone + ': ' + message);
+	log.red('TO-DO >>> COMPLETE ME');
 };
 
 slooceInterface.incomingMessage = function(xml) {
 	// var xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?><message id='1320192341004-1320387794654'><user>14082396036</user><keyword>ENGTRIAL</keyword><content></content></message>";
 
-	log.debug('received some xml:');
-	log.info( xml );
+	if (debugging) {
+		log.debug('received some xml:');
+		log.info( xml );
+	}
 
 	if (!xml) {
 		log.error('parsing incoming XML from slooce', new Error('empty xml string'));
@@ -43,7 +53,11 @@ slooceInterface.incomingMessage = function(xml) {
 			};
 
 			log.highlight('sms', 'incoming message from ' + messageData.phone + ': ' + messageData.content);
-			log.debug( messageData );
+			
+			if (debugging) {
+				log.debug( messageData );
+			}
+			slooceInterface.Lib.Bus.publish('smsprep.sms.in', {phone: messageData.phone, msg: messageData.content});
 
 		}
 
