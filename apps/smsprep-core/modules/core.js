@@ -1,6 +1,5 @@
 var Core = {
-	config: null
-	, lib: null
+	Lib: null
 };
 
 var _       	= require('underscore');
@@ -8,10 +7,6 @@ var Step    	= require('step');
 
 Core.init = function(lib) {
 	this.Lib	= lib;
-};
-
-Core.noop = function() {
-	log.info('core noop');
 };
 
 Core.incomingMessage = function(phone, message) {

@@ -1,20 +1,18 @@
-var ApiExport = {
-	config: null
-	, lib: null
+var Api = {
+	Lib: null
 };
 
 var _       = require('underscore');
 var Step    = require('step');
 
-ApiExport.init = function(config, lib) {
-	ApiExport.config = config;
-	ApiExport.lib	= lib;
+Api.init = function(lib) {
+	Api.Lib	= lib;
 };
 
-ApiExport.Student = {
+Api.Student = {
 	upsert: function(studentParams, studentData, method, cb) {
-		var findQuery = ApiExport.lib.Utils.buildFindQuery( studentParams );
-		ApiExport.lib.Student.upsertStudent( findQuery , studentData , method, function(err, updatedStudent) {
+		var findQuery = Api.Lib.Utils.buildFindQuery( studentParams );
+		Api.Lib.Student.upsertStudent( findQuery , studentData , method, function(err, updatedStudent) {
 			log.error('upserting student', err);
 
 			var sendBack = {success: true};
@@ -30,16 +28,16 @@ ApiExport.Student = {
 	},
 	start: function(studentParams, studentData, callback) {
 		log.apiMethod('student.start');
-		ApiExport.Student.upsert(studentParams, studentData, 'start', callback);
+		Api.Student.upsert(studentParams, studentData, 'start', callback);
 	},
 	edit: function(studentParams, studentData, callback) {
 		log.apiMethod('student.edit');
-		ApiExport.Student.upsert(studentParams, studentData, 'edit', callback);
+		Api.Student.upsert(studentParams, studentData, 'edit', callback);
 	},
 
 	changeActive: function(studentParams, activate, cb) {
-		var findQuery = ApiExport.lib.Utils.buildFindQuery( studentParams );
-		ApiExport.lib.Student.activateStudent( findQuery , activate , function(err, affected) {
+		var findQuery = Api.Lib.Utils.buildFindQuery( studentParams );
+		Api.Lib.Student.activateStudent( findQuery , activate , function(err, affected) {
 			log.error('de/activating student', err);
 
 			var sendBack = {success: true};
@@ -57,19 +55,19 @@ ApiExport.Student = {
 	},
 	activate: function(studentParams, callback) {
 		log.apiMethod('student.activate');
-		ApiExport.Student.changeActive(studentParams, true, callback);
+		Api.Student.changeActive(studentParams, true, callback);
 	},
 	deactivate: function(studentParams, callback) {
 		log.apiMethod('student.deactivate');
-		ApiExport.Student.changeActive(studentParams, false, callback);
+		Api.Student.changeActive(studentParams, false, callback);
 	},
 
 	status: function(studentParams, callback) {
 		log.apiMethod('student.status');
-		var findQuery 	= ApiExport.lib.Utils.buildFindQuery( studentParams );
+		var findQuery 	= Api.Lib.Utils.buildFindQuery( studentParams );
 		var sendBack 	= {success: true};
 
-		ApiExport.lib.Student.loadData( findQuery, function(err, myStudent) {
+		Api.Lib.Student.loadData( findQuery, function(err, myStudent) {
 
 			if (myStudent) {
 
@@ -114,4 +112,4 @@ ApiExport.Student = {
 
 };
 
-module.exports = ApiExport;
+module.exports = Api;
