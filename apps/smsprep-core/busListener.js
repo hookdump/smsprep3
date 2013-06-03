@@ -1,16 +1,18 @@
+var Core = require('./modules/core');
+
 var myself = {
 	init: function(Lib) {
 
 		log.loading('bus listener');
+		Core.init(Lib);
 
 		// Subscribe to bus events
 		Lib.Bus.subscribe('smsprep.sms.in', function (event) {
-		  
-			// Find student
 
-			// Check if student is active
+			var myPhone 	= event.data.phone;
+			var myMessage 	= event.data.msg;
 
-			// Check if student has an active question
+			Core.incomingMessage(myPhone, myMessage);
 
 		});
 

@@ -8,6 +8,4 @@ var currentConf = {
 	, env: env
 }
 
-console.log(currentConf);
-
 module.exports = currentConf;
