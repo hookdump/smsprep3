@@ -19,8 +19,23 @@ log.info('starting ' + appConfig.name + ' @ ' + Lib.Config.env + '');
 app.configure(function(){
   app.set('port', appConfig.port);
   app.use(express.logger('dev'));
-  app.use(express.bodyParser());
   app.use(express.methodOverride());  
+
+  // Allow getting XML data
+  app.use(function(req, res, next) {
+      var data = '';
+      // req.setEncoding('utf8');
+      req.on('data', function(chunk) { 
+        data += chunk;
+      });
+      req.on('end', function() {
+        req.rawBody = data;
+        next();
+      });
+  });
+
+  app.use(express.bodyParser());  // Run this AFTER the XML middleware!
+
   app.use(app.router);
 });
 

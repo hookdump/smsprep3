@@ -3,7 +3,7 @@ var _     = require('underscore');
 exports.init = function(app, config, lib) {
 
   var Api   = require('./api');
-  Api.init(config, lib);
+  Api.init(lib);
 
   app.get('/', function(req, res) {
     res.json({success: true, message: "Welcome to smsPREP API v" + config.version, environment: lib.Config.env});
