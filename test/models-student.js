@@ -1,27 +1,20 @@
 var should 		= require("should")
-var _ 			= require("underscore")
 var basepath 	= '../';
 var keep		= false;
+var testStudent	= require('./assets/testStudent.js');
+
+var _ 			= require("underscore")
 
 describe('Student', function() {
 	var Lib = require(basepath + 'lib/wrapper');
 	var curStudent = null;
-	var testData = null;
 		
 	beforeEach(function(done) {
-		// add some test data    
-		var now = new Date();
-		testData = {
-			phone: 		'19876543210'
-			, lessons: 	['AAA', 'BBB', 'CCC']
-			, schedule: 'morning'
-			, email: 	'foo@bar.com'
-			, fullname: 'John Doe'
-			, timezone: 'EST'
-			, joined: 	now
-		};
-
-		Lib.Student.upsertStudent({externalId: 'U001', partner: 'TEST'}, testData, 'start', function(err, doc) {
+		Lib.Student.upsertStudent({externalId: 'U001', partner: 'TEST'}, testStudent, 'start', function(err, doc) {
+			if (err) {
+				console.log(err);	
+			}
+			
 			curStudent = doc;
 			done();
 		});
@@ -69,7 +62,7 @@ describe('Student', function() {
 
 			// it has not changed!
 			curStudent2.externalId.should.equal('U001');
-			curStudent2.email.should.equal( testData.email );
+			curStudent2.email.should.equal( testStudent.email );
 		});
 	});
 
