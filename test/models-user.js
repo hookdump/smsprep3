@@ -28,6 +28,9 @@ describe('User', function() {
 	it('create a new user', function() {
 		Lib.User.createUser("test2", "foo", function(err, created, msg) {
 			should.not.exist(err);
+			should.exist(created);
+			should.exist(created.username);
+			should.exist(created.password);
 			created['username'].should.equal("test2");
 			created['password'].should.equal("foo");
 		});
