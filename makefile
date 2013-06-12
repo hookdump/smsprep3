@@ -60,7 +60,7 @@ bouncy:
 	@sudo NODE_ENV=$(ENV) forever  --uid $(ENV).smsprep-bouncy -a -l bouncy.log --minUptime 5000 --spinSleepTime 5000 start ./apps/bouncy/app.js
 
 test:
-	@NODE_ENV=test ./node_modules/.bin/mocha --reporter spec
+	@NODE_ENV=test ./node_modules/.bin/mocha --growl --reporter spec
 
 test-w:
 	@NODE_ENV=test ./node_modules/.bin/mocha --reporter spec --growl --watch
