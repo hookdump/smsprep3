@@ -3,7 +3,7 @@ var User = require('../../lib/models/user');
 exports.init = function(app, config, lib) {
 
   app.get('/', function(req, res) {
-    res.json({success: true, message: "Welcome to smsPREP Core Module", environment: lib.Config.env});
+    res.json({success: true, message: "Welcome to smsprep-core v" + lib.Config.version, environment: lib.Config.env});
   });
 
   app.get('/msg/:phone/:message', function(req, res) {

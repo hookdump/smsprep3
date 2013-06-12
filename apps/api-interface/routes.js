@@ -7,7 +7,7 @@ exports.init = function(app, config, lib) {
 
   // Root placeholder
   app.get('/', function(req, res) {
-    res.json({success: true, message: "Welcome to smsPREP API v" + config.version, environment: lib.Config.env});
+    res.json({success: true, message: "Welcome to api-interface v" + lib.Config.version, environment: lib.Config.env});
   });
 
   // Student start

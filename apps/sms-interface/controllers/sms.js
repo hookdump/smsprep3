@@ -9,7 +9,7 @@ var smsController = function(app, config, lib) {
   slooceInterface.init(lib);
 
   app.get('/', function(req, res) {
-    res.json({success: true, message: "Welcome to smsPREP SMS Interface", environment: lib.Config.env});
+    res.json({success: true, message: "Welcome to sms-interface v" + lib.Config.version, environment: lib.Config.env});
   });
 
   app.post('/slooce-connection', function(req, res) {
