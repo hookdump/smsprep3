@@ -7,8 +7,6 @@ var httpConnect = function(myMethod, myPath, postdata, callback) {
 	var http = require('http');
 	var body='';
 	var options = {
-		// hostname: 'sms.smsprep.local',
-		// port: 80,
 		hostname: 'localhost',
 		port: 8202,
 		path: myPath,
@@ -43,7 +41,23 @@ var httpConnect = function(myMethod, myPath, postdata, callback) {
 	request.end();
 }
 
-describe('sms-interface', function() {
+var buildXml = function (phone, keyword, msg, command) {
+	var buffer = "";
+	buffer += "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?>";
+	buffer += "<message id='1320192341004-1320387794654'>";
+
+	buffer += "<user>" + phone + "</user>";
+	buffer += "<keyword>" + keyword + "</keyword>";
+
+	if (msg) 		buffer += "<content>" + msg + "</content>";
+	if (command) 	buffer += "<command>" + command + "</command>";
+
+	buffer += "</message>";
+
+	return buffer;
+}
+
+describe('sms-interface app', function() {
 	var Lib = require(basepath + 'lib/wrapper');
 	
 	describe('service', function() {
@@ -57,7 +71,7 @@ describe('sms-interface', function() {
 
 	describe('slooce integration', function() {
 		it('listens to incoming messages', function(done) {
-			var xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?><message id='1320192341004-1320387794654'><user>12333333331</user><keyword>SPTRIAL</keyword><content>N</content></message>";
+			var xml = buildXml("90001112222", "SPTRIAL", "N");
 			httpConnect('POST', '/slooce-connection', xml, function(err, data) {
 				done(err);	
 			});
