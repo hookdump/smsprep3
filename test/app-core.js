@@ -5,7 +5,7 @@ var testStudent	= require('./assets/testStudent.js');
 
 var Core 		= require(basepath + 'apps/smsprep-core/modules/core.js');
 
-describe('Core', function() {
+describe('smsprep-core service', function() {
 	global.beQuiet 	= true;
 	var Lib 		= require(basepath + 'lib/wrapper');
 	var curStudent 	= null;

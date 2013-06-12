@@ -102,12 +102,12 @@ Api.Student = {
 
 	reconfirm: function(studentParams, callback) {
 		log.apiMethod('student.reconfirm');
-		callback({success: true});
+		callback(null, {success: true});
 	},
 
-	sendMessage: function(studentParams, callback) {
+	sendMessage: function(studentParams, msg, callback) {
 		log.apiMethod('student.send');
-		callback({success: true});
+		callback(null, {success: true});
 	},
 
 };
