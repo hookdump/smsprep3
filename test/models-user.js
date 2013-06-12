@@ -2,7 +2,7 @@ var should = require("should")
 var basepath = '../';
 var keep		= false;
 
-describe('User', function() {
+describe('User model', function() {
 	global.beQuiet = true;
 	
 	var Lib = require(basepath + 'lib/wrapper');
