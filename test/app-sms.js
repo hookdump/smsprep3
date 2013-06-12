@@ -57,7 +57,7 @@ var buildXml = function (phone, keyword, msg, command) {
 	return buffer;
 }
 
-describe('sms-interface app', function() {
+describe('sms-interface service', function() {
 	var Lib = require(basepath + 'lib/wrapper');
 	
 	describe('service', function() {
