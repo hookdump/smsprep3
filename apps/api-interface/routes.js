@@ -1,12 +1,13 @@
-var _     = require('underscore');
+var _  = require('underscore');
 
 exports.init = function(app, config, lib) {
 
-  var Api   = require('./api');
-  Api.init(config, lib);
+  var Api   = require('./modules/api');
+  Api.init(lib);
 
+  // Root placeholder
   app.get('/', function(req, res) {
-    res.json({success: true, message: "Welcome to smsPREP API v" + config.version, environment: lib.Config.env});
+    res.json({success: true, message: "Welcome to api-interface v" + lib.Config.version, environment: lib.Config.env});
   });
 
   // Student start
@@ -65,8 +66,8 @@ exports.init = function(app, config, lib) {
 
   // Custom message
   app.post('/:partner/:uid/send', function(req, res) {
-  
-    Api.Student.sendMessage( req.params , function(err, sendBack) {
+    var msg = req.body.message;
+    Api.Student.sendMessage( req.params , msg, function(err, sendBack) {
       res.json(sendBack);
     });
 

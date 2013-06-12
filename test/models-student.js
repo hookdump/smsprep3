@@ -1,27 +1,20 @@
 var should 		= require("should")
-var _ 			= require("underscore")
 var basepath 	= '../';
 var keep		= false;
+var testStudent	= require('./assets/testStudent.js');
+
+var _ 			= require("underscore")
 
 describe('Student', function() {
 	var Lib = require(basepath + 'lib/wrapper');
 	var curStudent = null;
-	var testData = null;
 		
 	beforeEach(function(done) {
-		// add some test data    
-		var now = new Date();
-		testData = {
-			phone: 		'19876543210'
-			, lessons: 	['AAA', 'BBB', 'CCC']
-			, schedule: 'morning'
-			, email: 	'foo@bar.com'
-			, fullname: 'John Doe'
-			, timezone: 'EST'
-			, joined: 	now
-		};
-
-		Lib.Student.upsertStudent('U001', testData, 'start', function(err, doc) {
+		Lib.Student.upsertStudent({externalId: 'U001', partner: 'TEST'}, testStudent, 'start', function(err, doc) {
+			if (err) {
+				console.log(err);	
+			}
+			
 			curStudent = doc;
 			done();
 		});
@@ -55,7 +48,7 @@ describe('Student', function() {
 		var curStudent2 = {};
 
 		it('returns the updated student', function(done) {
-			Lib.Student.upsertStudent('U001', testData2, 'edit', function(err, doc) {
+			Lib.Student.upsertStudent({externalId: 'U001', partner: 'TEST'}, testData2, 'edit', function(err, doc) {
 				should.exist(doc);
 				should.not.exist(err);
 				curStudent2 = doc;
@@ -69,7 +62,7 @@ describe('Student', function() {
 
 			// it has not changed!
 			curStudent2.externalId.should.equal('U001');
-			curStudent2.email.should.equal( testData.email );
+			curStudent2.email.should.equal( testStudent.email );
 		});
 	});
 
@@ -81,7 +74,7 @@ describe('Student', function() {
 
 		var testInvalidField = function(query, title) {
 			it(title + ' validation', function(done) {
-				Lib.Student.upsertStudent('U001', query, 'edit', function(err, updatedStudent) {
+				Lib.Student.upsertStudent({externalId: 'U001', partner: 'TEST'}, query, 'edit', function(err, updatedStudent) {
 					should.exist(err);
 					should.exist(err.errors);
 					err.errors.length.should.be.above(0);

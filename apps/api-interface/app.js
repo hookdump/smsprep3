@@ -8,7 +8,7 @@ var express = require('express')
   , app     = express()
   , Lib     = require('../../lib/wrapper');
   
-var appVersion  = "5.4.0"; 
+var appVersion  = Lib.Config.version;
 
 // Set app config variables
 var appConfig = {

@@ -36,24 +36,31 @@ uninstall:
 	@sudo npm cache clean > /dev/null 2>&1
 
 core:
-	-forever -s stop $(ENV).smsprep-core > /dev/null 2>&1
-	NODE_ENV=$(ENV) forever --uid $(ENV).smsprep-core -a -l $(ENV).core.log --minUptime 5000 start ./apps/smsprep-core/app.js
+	-@forever -s stop $(ENV).smsprep-core > /dev/null 2>&1
+	@NODE_ENV=$(ENV) forever --uid $(ENV).smsprep-core -a -l $(ENV).core.log --minUptime 5000 --spinSleepTime 5000 start ./apps/smsprep-core/app.js
+	$(if $(findstring $(ENV),"development") , @tail -n 0 -f ~/.forever/development.core.log )
+
 sms:
-	-forever -s stop $(ENV).sms-interface > /dev/null 2>&1
-	NODE_ENV=$(ENV) forever  --uid $(ENV).sms-interface -a -l $(ENV).sms.log --minUptime 5000 start ./apps/sms-interface/app.js
+	-@forever -s stop $(ENV).sms-interface > /dev/null 2>&1
+	@NODE_ENV=$(ENV) forever  --uid $(ENV).sms-interface -a -l $(ENV).sms.log --minUptime 5000 --spinSleepTime 5000 start ./apps/sms-interface/app.js
+	$(if $(findstring $(ENV),"development") , @tail -n 0 -f ~/.forever/development.sms.log )
+
 web:
-	-forever -s stop $(ENV).web-interface > /dev/null 2>&1
-	NODE_ENV=$(ENV) forever  --uid $(ENV).web-interface -a -l $(ENV).web.log --minUptime 5000 start ./apps/web-interface/app.js
+	-@forever -s stop $(ENV).web-interface > /dev/null 2>&1
+	@NODE_ENV=$(ENV) forever  --uid $(ENV).web-interface -a -l $(ENV).web.log --minUptime 5000 --spinSleepTime 5000 start ./apps/web-interface/app.js
+	$(if $(findstring $(ENV),"development") , @tail -n 0 -f ~/.forever/development.web.log )
+
 api:
-	-forever -s stop $(ENV).api-interface > /dev/null 2>&1
-	NODE_ENV=$(ENV) forever  --uid $(ENV).api-interface -a -l $(ENV).api.log --minUptime 5000 start ./apps/api-interface/app.js
+	-@forever -s stop $(ENV).api-interface > /dev/null 2>&1
+	@NODE_ENV=$(ENV) forever  --uid $(ENV).api-interface -a -l $(ENV).api.log --minUptime 5000 --spinSleepTime 5000 start ./apps/api-interface/app.js
+	$(if $(findstring $(ENV),"development") , @tail -n 0 -f ~/.forever/development.api.log )
 
 bouncy:
-	-sudo forever -s stop $(ENV).smsprep-bouncy > /dev/null 2>&1
-	sudo NODE_ENV=$(ENV) forever  --uid $(ENV).smsprep-bouncy -a -l bouncy.log --minUptime 5000 start ./apps/bouncy/app.js
+	-@sudo forever -s stop $(ENV).smsprep-bouncy > /dev/null 2>&1
+	@sudo NODE_ENV=$(ENV) forever  --uid $(ENV).smsprep-bouncy -a -l bouncy.log --minUptime 5000 --spinSleepTime 5000 start ./apps/bouncy/app.js
 
 test:
-	@NODE_ENV=test ./node_modules/.bin/mocha --reporter spec
+	@NODE_ENV=test ./node_modules/.bin/mocha --growl --reporter spec
 
 test-w:
 	@NODE_ENV=test ./node_modules/.bin/mocha --reporter spec --growl --watch
