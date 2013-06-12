@@ -5,7 +5,7 @@ var testStudent	= require('./assets/testStudent.js');
 
 var _ 			= require("underscore")
 
-describe('Student', function() {
+describe('Student model', function() {
 	var Lib = require(basepath + 'lib/wrapper');
 	var curStudent = null;
 		

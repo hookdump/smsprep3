@@ -3,7 +3,7 @@ var _ 			= require("underscore")
 var basepath 	= '../';
 var keep		= true;
 
-describe('Question', function() {
+describe('Question model', function() {
 	var Lib = require(basepath + 'lib/wrapper');
 	var curQuestion = null;
 	var testData = null, testDataInvalid = null;
