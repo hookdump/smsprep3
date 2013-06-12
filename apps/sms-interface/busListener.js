@@ -2,13 +2,22 @@ var slooceInterface = require('./modules/slooceInterface');
 
 var myself = {
 	init: function(Lib) {
-
 		log.loading('bus listener');
 
+		// slooceInterface
+		slooceInterface.init(Lib);
+
 		// Subscribe to bus events
-		Lib.Bus.subscribe('smsprep.sms.out', function (event) {
+		Lib.Bus.subscribe('sms.out', function (event) {
 			var toPhone = event.data.to;
-			var message	= event.data.message;
+			var message	= event.data.message;			
+			var payload = event.data.payload;
+
+			// Transform payload to Array
+			if (!(payload instanceof Array)) {
+				payload = [payload];
+			}
+
 			slooceInterface.sendMessage(toPhone, message);
 		});
 
