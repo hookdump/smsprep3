@@ -242,15 +242,20 @@ hr {
 }
 
 /* line 157, ../sass/style.sass */
+#students_table {
+  background-color: white;
+}
+
+/* line 160, ../sass/style.sass */
 .clear {
   clear: both;
 }
 
-/* line 160, ../sass/style.sass */
+/* line 163, ../sass/style.sass */
 .qoption-edit {
   height: 35px;
 }
-/* line 162, ../sass/style.sass */
+/* line 165, ../sass/style.sass */
 .qoption-edit label {
   float: left;
   -webkit-border-radius: 4px;
@@ -262,30 +267,30 @@ hr {
   margin-right: -10px;
   cursor: pointer;
 }
-/* line 168, ../sass/style.sass */
+/* line 171, ../sass/style.sass */
 .qoption-edit label.qo_correct {
   background-color: #008800;
   color: white;
 }
-/* line 171, ../sass/style.sass */
+/* line 174, ../sass/style.sass */
 .qoption-edit label.qo_correct:hover {
   background-color: #00aa00;
 }
-/* line 173, ../sass/style.sass */
+/* line 176, ../sass/style.sass */
 .qoption-edit label.qo_incorrect {
   background-color: #880000;
   color: white;
 }
-/* line 176, ../sass/style.sass */
+/* line 179, ../sass/style.sass */
 .qoption-edit label.qo_incorrect:hover {
   background-color: #aa0000;
 }
-/* line 178, ../sass/style.sass */
+/* line 181, ../sass/style.sass */
 .qoption-edit input {
   display: inline-block;
 }
 
-/* line 181, ../sass/style.sass */
+/* line 184, ../sass/style.sass */
 #sel_lessons {
   width: 700px;
 }

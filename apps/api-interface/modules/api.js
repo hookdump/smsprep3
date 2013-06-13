@@ -73,9 +73,9 @@ Api.Student = {
 
 				var retStatus = {
 					studentId: myStudent._id
-					, active: myStudent.active || 'true'
+					, active: myStudent.active || true
 					, externalId: myStudent.externalId
-					, confirmed: myStudent.confirmed || 'false'
+					, confirmed: myStudent.confirmed || false
 					, created: myStudent.joined
 					, schedule: myStudent.schedule
 					, lessons: myStudent.lessons

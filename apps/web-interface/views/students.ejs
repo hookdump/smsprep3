@@ -1,6 +1,44 @@
 <div class='main' id='dashboard'>
 
   <h1>Students</h1>
+
+  <table id='students_table' class='table table-bordered'>
+  	<thead>
+  		<tr>
+  			<td>Phone</td>
+  			<td>Partner</td>
+  			<td>External ID</td>
+  			<td>Lessons</td>
+  		</tr>
+  	</thead>
+  	<tbody>
+
+		<% for(var i=0; i<students.length; i++) { %>
+			<tr>
+				<td><%=students[i].phone%></td>
+				<td><%=students[i].partner%></td>
+				<td><%=students[i].externalId%></td>
+				<td>
+					<% var myLessonGroups = students[i].lessongroups %>
+					<% var myLessons = students[i].lessons %>
+
+					<% for(var x=0; x<myLessonGroups.length; x++) { %>
+						<span class='label label-inverse'>
+							<%=myLessonGroups[x]%>
+						</span>
+					<% } %>
+
+					<% for(var y=0; y<myLessons.length; y++) { %>
+						<span class='label label'>
+							<%=myLessons[y]%>
+						</span>
+					<% } %>
+				</td>
+			</tr>
+		<% } %>
+
+  	</tbody>
+  </table>
  
 </div>
-<div class='page_dashboard'> </div>
+<div class='page_students'> </div>
