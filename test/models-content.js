@@ -72,7 +72,7 @@ describe('Question model', function() {
 			curQuestion.qoptions.should.have.length( testData.qoptions.length );
 		});
 
-		it('should detect invalid symbols and disable the question', function(done) {
+		it('should disable invalid content', function(done) {
 			var invalidQ = {};
 			Lib.Content.Question.upsertQuestion('TEST00X', testDataInvalid, function(err, doc) {
 				invalidQ = doc;
