@@ -50,7 +50,7 @@ slooceInterface.deliverMessage = function(phone, message, cb) {
 
 	// Endpoint Setup
 	var endpoint = slooceConfig.outgoingEndpoint;
-	endpoint = endpoint.replace("{partner}", 	slooceConfig.partnerId)
+	endpoint = endpoint.replace("{partnerId}", 	slooceConfig.partnerId)
 	endpoint = endpoint.replace("{keyword}", 	slooceConfig.globalKeyword);
 	endpoint = endpoint.replace("{phone}", 		phone);
 
@@ -69,13 +69,15 @@ slooceInterface.deliverMessage = function(phone, message, cb) {
 	} else {
 		request.post({url: endpoint, body: xml}, function (err, response, body) {
 			log.error('delivering message to slooce', err);
-			log.highlight('sms', 'PRODUCTION Delivery: {' + message + '} => #' + phone + ' >> [' + response.statusCode + ']');
+			log.highlight('sms', 'Production delivery: {' + message + '} => #' + phone + ' >> [' + response.statusCode + ']');
 
-			log.warn('response:');
-			log.red(response);
+			if (response.statusCode !== 200) {
+				log.warn('response:');
+				log.red(response);
 
-			log.warn('body:');
-			log.red(body);
+				log.warn('body:');
+				log.red(body);
+			}
 			
 			return cb(err);
 		});
