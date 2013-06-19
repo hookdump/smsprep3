@@ -11,7 +11,7 @@ var smsController = function(app, config, lib) {
   app.get('/', function(req, res) {
     res.json({success: true, message: "Welcome to sms-interface v" + lib.Config.version, environment: lib.Config.env});
   });
-
+  
   app.post('/slooce-connection', function(req, res) {
     slooceInterface.incomingMessage(req.rawBody);
     res.send(200);

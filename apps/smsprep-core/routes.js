@@ -1,6 +1,9 @@
 var User = require('../../lib/models/user');
+var Core = require('./modules/core');
 
 exports.init = function(app, config, lib) {
+
+  Core.init(lib);
 
   app.get('/', function(req, res) {
     res.json({success: true, message: "Welcome to smsprep-core v" + lib.Config.version, environment: lib.Config.env});
@@ -10,20 +13,13 @@ exports.init = function(app, config, lib) {
     var phone = req.params.phone;
     var msg = req.params.message;
 
-    log.info("incoming message from " + phone + ": " + msg);
+    Core.receiveMessage(phone, msg, function(err, response) {
+      // Lib.Bus.publish('sms.out', {payload: response});
 
-    lib.Student.findOne({ phone: phone }, function(err, student) {
-      if (err) {
-        log.error('loading student #' + phone, err);
-        res.json({success: false, error: err.toString()});
-      } else {
-        if (student) {
-          lib.Bus.publish('smsprep.sms.in', {phone: phone, msg: msg});
-          res.json({success: true});
-        } else {
-          res.json({success: false, error: "Student #" + phone + " does not exist!"});
-        }
-      }  
+      log.warn('------------------------------------------');
+      log.info("emulating response to " + phone);
+      log.info(response);
+      res.json({success: true, payload: response});
     });
   });
 

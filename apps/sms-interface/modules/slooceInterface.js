@@ -15,9 +15,20 @@ slooceInterface.noop = function() {
 	log.info('slooce interface noop');
 };
 
-slooceInterface.sendMessage = function(phone, message) {
-	log.highlight('sms', 'sending message to ' + phone + ': ' + message);
-	log.red('TO-DO >>> COMPLETE ME');
+slooceInterface.sendMessages = function(payload) {
+	log.red('sendMessages. TO-DO >>> Implement outgoing Slooce route');
+
+	payload.forEach(function(item) {
+		if (item) {
+			if (item.phone && item.message) {
+				log.highlight('sms', 'sending message to ' + item.phone + ': ' + item.message);
+			}
+
+			if (item.delay) {
+				log.highlight('sms', 'waiting ' + item.delay + ' seconds');
+			}
+		}
+	});
 };
 
 slooceInterface.incomingMessage = function(xml) {
@@ -57,7 +68,7 @@ slooceInterface.incomingMessage = function(xml) {
 			if (debugging) {
 				log.debug( messageData );
 			}
-			slooceInterface.Lib.Bus.publish('smsprep.sms.in', {phone: messageData.phone, msg: messageData.content});
+			slooceInterface.Lib.Bus.publish('sms.in', {phone: messageData.phone, msg: messageData.content});
 
 		}
 

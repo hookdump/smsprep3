@@ -1,4 +1,22 @@
 module.exports = {
+	test: {
+		'web': {
+			domain: 'smsprep.local'
+			, port: 8200
+		}, 
+		'core': {
+			domain: 'core.smsprep.local'
+			, port: 8201
+		},
+		'sms': {
+			domain: 'sms.smsprep.local'
+			, port: 8202
+		},
+		'api': {
+			domain: 'api.smsprep.local'
+			, port: 8203
+		}
+	},
 	development: {
 		'web': {
 			domain: 'smsprep.local'

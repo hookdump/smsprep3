@@ -57,6 +57,7 @@ var buildXml = function (phone, keyword, msg, command) {
 	return buffer;
 }
 
+/*
 describe('sms-interface service', function() {
 	var Lib = require(basepath + 'lib/wrapper');
 	
@@ -68,17 +69,15 @@ describe('sms-interface service', function() {
 		});
 	});
 	
-
 	describe('slooce integration', function() {
 		it('listens to incoming messages', function(done) {
-			var xml = buildXml("90001112222", "SPTRIAL", "N");
+			var xml = buildXml("99999999999", "SPTRIAL", "N");
 			httpConnect('POST', '/slooce-connection', xml, function(err, data) {
 				done(err);	
 			});
 			
 		});
 	});
+});
+*/
 
-
-
-})

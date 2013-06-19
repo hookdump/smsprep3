@@ -1,16 +1,18 @@
 var should 		= require("should")
 var basepath 	= '../';
 var keep		= false;
-var testStudent	= require('./assets/testStudent.js');
+var testStudent	= require('./assets/temp.student1.js');
 
 var _ 			= require("underscore")
 
 describe('Student model', function() {
+	global.beQuiet 	= true;
+	
 	var Lib = require(basepath + 'lib/wrapper');
 	var curStudent = null;
 		
 	beforeEach(function(done) {
-		Lib.Student.upsertStudent({externalId: 'U001', partner: 'TEST'}, testStudent, 'start', function(err, doc) {
+		Lib.Student.upsertStudent(testStudent.query, testStudent.data, 'start', function(err, doc) {
 			if (err) {
 				console.log(err);	
 			}
@@ -24,7 +26,7 @@ describe('Student model', function() {
 		if (keep) {
 			done();
 		} else {
-			Lib.Student.remove({}, function() { done(); });	
+			Lib.Student.remove({partner: 'TEMP'}, function() { done(); });	
 		}
 	});
 
@@ -48,7 +50,7 @@ describe('Student model', function() {
 		var curStudent2 = {};
 
 		it('returns the updated student', function(done) {
-			Lib.Student.upsertStudent({externalId: 'U001', partner: 'TEST'}, testData2, 'edit', function(err, doc) {
+			Lib.Student.upsertStudent(testStudent.query, testData2, 'edit', function(err, doc) {
 				should.exist(doc);
 				should.not.exist(err);
 				curStudent2 = doc;
@@ -62,7 +64,7 @@ describe('Student model', function() {
 
 			// it has not changed!
 			curStudent2.externalId.should.equal('U001');
-			curStudent2.email.should.equal( testStudent.email );
+			curStudent2.email.should.equal( testStudent.data.email );
 		});
 	});
 
@@ -74,7 +76,7 @@ describe('Student model', function() {
 
 		var testInvalidField = function(query, title) {
 			it(title + ' validation', function(done) {
-				Lib.Student.upsertStudent({externalId: 'U001', partner: 'TEST'}, query, 'edit', function(err, updatedStudent) {
+				Lib.Student.upsertStudent(testStudent.query, query, 'edit', function(err, updatedStudent) {
 					should.exist(err);
 					should.exist(err.errors);
 					err.errors.length.should.be.above(0);
