@@ -64,14 +64,15 @@ slooceInterface.deliverMessage = function(phone, message, cb) {
 
 	// Testing vs. Production delivery
 	if (phone.charAt(0) === '9') {
-		log.highlight('sms', 'TEST Delivery: ' + phone + ' => ' + message);
+		log.highlight('sms', 'Test delivery: {' + message + '} => #' + phone + ' >> OK');
 		return cb(null);
 	} else {
 		request.post({url: endpoint, body: xml}, function (err, response, body) {
 			log.error('delivering message to slooce', err);
 			log.highlight('sms', 'Production delivery: {' + message + '} => #' + phone + ' >> [' + response.statusCode + ']');
 
-			if (response.statusCode !== 200) {
+			var success = (response.statusCode >= 200 && response.statusCode <= 202);
+			if (!success) {
 				log.warn('response:');
 				log.red(response);
 
