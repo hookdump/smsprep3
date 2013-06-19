@@ -16,9 +16,9 @@ exports.init = function(app, config, lib) {
     Core.receiveMessage(phone, msg, function(err, response) {
       // Lib.Bus.publish('sms.out', {payload: response});
 
-      log.warn('------------------------------------------');
-      log.info("emulating response to " + phone);
-      log.info(response);
+      log.highlight('sms', 'emulating response for [' + phone + ': Payload (' + response.length + ')]');
+      if (response.length > 0) log.success(response);
+
       res.json({success: true, payload: response});
     });
   });

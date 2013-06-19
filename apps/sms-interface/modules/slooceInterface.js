@@ -2,6 +2,7 @@ var slooceInterface = {
 	Lib: null
 };
 
+var request 	= require("request");
 var _       	= require('underscore');
 var Step    	= require('step');
 var parseString = require('xml2js').parseString;
@@ -15,19 +16,102 @@ slooceInterface.noop = function() {
 	log.info('slooce interface noop');
 };
 
+slooceInterface.initializePhone = function(phone, cb) {
+	var self = this;
+	var slooceConfig = self.Lib.Config.connections.slooce;
+
+	log.highlight('sms', 'starting phone initialization for ' + phone);
+
+	// Endpoint Setup
+	var endpoint = slooceConfig.initializationEndpoint;
+	endpoint = endpoint.replace("{phone}", 		phone);
+
+	// Testing vs. Production delivery
+	if (phone.charAt(0) === '9') {
+		log.highlight('sms', 'TEST Initialization: ' + phone);
+		return cb(null);
+	} else {
+		request.get({url: endpoint}, function (err, response, body) {
+			log.error('initializing phone ' + phone, err);
+			log.highlight('sms', 'PRODUCTION Initialization: #' + phone + ' >> [' + response.statusCode + ']');
+			log.warn(body);
+
+			return cb(err);
+		});
+	}
+
+}
+
+slooceInterface.deliverMessage = function(phone, message, cb) {
+	var self = this;
+	var slooceConfig = self.Lib.Config.connections.slooce;
+
+	log.highlight('sms', 'preparing SMS delivery for ' + phone + ' (' + message.length + ')');
+
+	// Endpoint Setup
+	var endpoint = slooceConfig.outgoingEndpoint;
+	endpoint = endpoint.replace("{partner}", 	slooceConfig.partnerId)
+	endpoint = endpoint.replace("{keyword}", 	slooceConfig.globalKeyword);
+	endpoint = endpoint.replace("{phone}", 		phone);
+
+	// XML Body Setup
+	var xml = "";
+	xml += '<?xml version="1.0" encoding="ISO-8859-1" ?>';
+	xml += '<message id="1294302114388-1294447192618">';
+	xml += '<partnerpassword>' + slooceConfig.partnerPassword + '</partnerpassword>';
+	xml += '<content>' + message + '</content>';
+	xml += '</message>';
+
+	// Testing vs. Production delivery
+	if (phone.charAt(0) === '9') {
+		log.highlight('sms', 'TEST Delivery: ' + phone + ' => ' + message);
+		return cb(null);
+	} else {
+		request.post({url: endpoint, body: xml}, function (err, response, body) {
+			log.error('delivering message to slooce', err);
+			log.highlight('sms', 'PRODUCTION Delivery: {' + message + '} => #' + phone + ' >> [' + response.statusCode + ']');
+			return cb(err);
+		});
+	}
+
+	// curl_setopt($ch, CURLOPT_HTTPHEADER,     array('Content-Type: text/plain')); 
+};
+
 slooceInterface.sendMessages = function(payload) {
-	log.red('sendMessages. TO-DO >>> Implement outgoing Slooce route');
+	var self = this;
+
+	var sendNext = function(queue) {
+		if (queue.length === 0) {
+			// Queue emptied! Success.
+			return true;
+		} else {
+			var nextMessage = queue.shift();
+			if (nextMessage) {
+
+				// Message block
+				if (nextMessage.phone && nextMessage.message) {
+					log.highlight('sms', 'sending message to ' + nextMessage.phone + ': ' + nextMessage.message);
+					self.deliverMessage(nextMessage.phone, nextMessage.message, function(err) {
+						sendNext(queue);
+					});
+				}
+
+				// Delay block
+				if (nextMessage.delay) {
+					log.highlight('sms', 'waiting ' + nextMessage.delay + ' seconds');
+					setTimeout(function() {
+						sendNext(queue);
+					}, nextMessage.delay);
+				}
+
+			}
+
+		}
+	};
+
+	sendNext(payload);
 
 	payload.forEach(function(item) {
-		if (item) {
-			if (item.phone && item.message) {
-				log.highlight('sms', 'sending message to ' + item.phone + ': ' + item.message);
-			}
-
-			if (item.delay) {
-				log.highlight('sms', 'waiting ' + item.delay + ' seconds');
-			}
-		}
 	});
 };
 

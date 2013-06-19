@@ -24,7 +24,7 @@ describe('Question model', function() {
 				, correct: false
 			}
 		];
-		lessonsArr = ['LESSON1', 'LESSON2'];
+		lessonsArr = ['LESSON1', 'LESSON2', 'TEST'];
 		testData = {
 			text: 'What is this question?'
 			, qoptions: testOptions
@@ -55,7 +55,7 @@ describe('Question model', function() {
 		if (keep) {
 			done();
 		} else {
-			Lib.Content.Question.remove({}, function() { done(); });	
+			Lib.Content.Question.remove({lessons: 'TEST'}, function() { done(); });	
 		}
 	});
 

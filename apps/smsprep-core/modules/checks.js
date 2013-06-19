@@ -13,7 +13,7 @@ Checks.init = function(lib) {
 // function(err, newMsg, abort, addPayload)
 
 // Payload formats is:
-// [{phone: 12223334444, message: 'testing'}, {delay: 5}]
+// [{phone: 12223334444, message: 'testing'}, {delay: 1000}]
 
 Checks.isActive = function(student, msg, callback) {
 	var self = this;
@@ -36,7 +36,7 @@ Checks.isActive = function(student, msg, callback) {
 Checks.isConfirmed = function(student, msg, callback) {
 	var self = this;
 
-	if (!student.confirmed) {
+	if (!student.confirmed || msg === 'CONFIRM') {
 
 		if (msg === 'CONFIRM') {
 
@@ -46,7 +46,7 @@ Checks.isConfirmed = function(student, msg, callback) {
 
 				// 2. Build response.
 				var payload1 = {phone: student.phone, message: 'Welcome! You\'ll be getting your first question in a few seconds...'};
-				var payload2 = {delay: 5};
+				var payload2 = {delay: 5000};
 
 				// 3. Add payload, change message to N, and return control to main handler
 				return callback(null, 'N', false, [payload1, payload2]);

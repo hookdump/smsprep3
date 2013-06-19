@@ -1,12 +1,10 @@
 var should 		= require("should");
-var request 	= require("request")
+var request 	= require("request");
 var basepath 	= '../';
 var keep		= false;
 var testStudent	= require('./assets/core.student1.js');
 var confStudent	= require('./assets/core.student2.js');
 var Step		= require('Step');
-
-var Core 		= require(basepath + 'apps/smsprep-core/modules/core.js');
 
 describe('smsprep-core service', function() {
 	global.beQuiet 	= true;
@@ -14,8 +12,6 @@ describe('smsprep-core service', function() {
 
 	var curStudent 			= null;
 	var curConfirmedStudent = null;
-
-	Core.init(Lib);
 
 	beforeEach(function(done) {
 		Step(
@@ -91,7 +87,7 @@ describe('smsprep-core service', function() {
 			should.not.exist(body.payload[0].wtf);
 
 			// 5 sec delay
-			should.equal(body.payload[1].delay, 5);
+			should.equal(body.payload[1].delay, 5000);
 			should.not.exist(body.payload[1].message);
 			should.not.exist(body.payload[1].phone);
 

@@ -31,4 +31,22 @@ Handlers.nextQuestion = function(student, msg, callback) {
 
 }
 
+
+Handlers.commandStop = function(student, msg, callback) {
+	var self = this;
+
+	if (msg === 'STOP') {
+
+		return callback(null, msg, false, [{phone: student.phone, message: 'this is the next question :)'}]);
+
+	} else {
+
+		// Keep message intact, do not abort.
+		return callback(null, msg, false);
+
+	}
+
+}
+
+
 module.exports = Handlers;

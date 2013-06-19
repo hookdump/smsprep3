@@ -5,8 +5,11 @@ var Api = {
 var _       = require('underscore');
 var Step    = require('step');
 
+var slooceInterface = require('../../sms-interface/modules/slooceInterface');
+
 Api.init = function(lib) {
 	Api.Lib	= lib;
+	slooceInterface.init(lib);
 };
 
 /*
@@ -31,7 +34,17 @@ Api.Student = {
 	},
 	start: function(findQuery, studentData, callback) {
 		log.apiMethod('student.start');
-		Api.Student.upsert(findQuery, studentData, 'start', callback);
+		Api.Student.upsert(findQuery, studentData, 'start', function(err, sendBack) {
+
+			// Activate phone
+			slooceInterface.initializePhone(studentData.phone, function(err) {
+				log.error('triggering phone initialization', err);
+
+				log.success('phone initialized!!!');
+				return callback(err, sendBack);
+			});
+
+		});
 	},
 	edit: function(findQuery, studentData, callback) {
 		log.apiMethod('student.edit');

@@ -21,13 +21,13 @@ Core.receiveMessage = function(phone, message, callback) {
 
 		if (err) {
 			log.error('loading phone #' + phone, err);
-			self.Lib.Utils.reportError('incomingMessage error', 'Error trying to find phone number: ' + phone);
+			self.Lib.Utils.reportError('receiveMessage', 'Error trying to find phone number: ' + phone);
 			return callback(err);
 		} else if (!student) {
 			// var newErr = new Error('cannot load student for ' + phone);
 			log.error('loading phone #' + phone, err);
 			log.highlight('sms', 'incoming message from unknown student' + msgSummary);
-			self.Lib.Utils.reportError('incomingMessage error', 'Got a message from an inexistent phone: ' + phone);
+			self.Lib.Utils.reportError('receiveMessage', 'message received (' + message + ') from an inexistent phone: ' + phone);
 			var ret = [];
 			if (message == "PING") {
 				ret.push({phone: phone, message: "PONG"});
@@ -50,8 +50,6 @@ Core.processMessage = function(student, message, callback) {
 	var self = this;
 	var payload = [];
 
-	log.warn('starting checks. MSG: ' + message);
-
 	Step(
 		function _active() {
 			var next = this;
@@ -64,6 +62,14 @@ Core.processMessage = function(student, message, callback) {
 		function _confirmed(err, _msg) {
 			var next = this;
 			Checks.isConfirmed(student, _msg, function(err, newMsg, abort, addPayload) {
+				if (addPayload) payload = payload.concat(addPayload);
+				if (abort) 		return callback(null, payload); 
+				next(err, newMsg);
+			});
+		},
+		function _commandSTOP(err, _msg) {
+			var next = this;
+			Handlers.commandStop(student, _msg, function(err, newMsg, abort, addPayload) {
 				if (addPayload) payload = payload.concat(addPayload);
 				if (abort) 		return callback(null, payload); 
 				next(err, newMsg);
