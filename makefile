@@ -63,6 +63,6 @@ test:
 	@NODE_ENV=test ./node_modules/.bin/mocha --growl --reporter spec
 
 test-w:
-	@NODE_ENV=test ./node_modules/.bin/mocha --reporter spec --growl --watch
+	@NODE_ENV=test ./node_modules/.bin/mocha --growl --reporter min --watch
 
 .PHONY: test test-w
