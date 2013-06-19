@@ -70,6 +70,13 @@ slooceInterface.deliverMessage = function(phone, message, cb) {
 		request.post({url: endpoint, body: xml}, function (err, response, body) {
 			log.error('delivering message to slooce', err);
 			log.highlight('sms', 'PRODUCTION Delivery: {' + message + '} => #' + phone + ' >> [' + response.statusCode + ']');
+
+			log.warn('response:');
+			log.red(response);
+
+			log.warn('body:');
+			log.red(body);
+			
 			return cb(err);
 		});
 	}
