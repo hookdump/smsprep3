@@ -9,8 +9,6 @@ var myself = {
 
 		// Subscribe to bus events
 		Lib.Bus.subscribe('sms.out', function (event) {
-			var toPhone = event.data.to;
-			var message	= event.data.message;			
 			var payload = event.data.payload;
 
 			// Transform payload to Array
@@ -18,7 +16,7 @@ var myself = {
 				payload = [payload];
 			}
 
-			slooceInterface.sendMessage(toPhone, message);
+			slooceInterface.sendMessages(payload);
 		});
 
 	}

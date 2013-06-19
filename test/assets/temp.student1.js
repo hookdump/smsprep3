@@ -9,4 +9,7 @@ var tStudent = {
 	, joined: 	now
 };
 
-module.exports = tStudent;
+module.exports = {
+	data: tStudent
+	, query: {externalId: 'U001', partner: 'TEMP'}
+};
