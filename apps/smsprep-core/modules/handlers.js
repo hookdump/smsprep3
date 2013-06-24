@@ -20,7 +20,9 @@ Handlers.nextQuestion = function(student, msg, callback) {
 
 	if (msg === 'N' || msg === 'NEXT') {
 
-		return callback(null, msg, false, [{phone: student.phone, message: 'this is the next question :)'}]);
+		student.getNextQuestion(true, function(err, nextQuestionText) {
+			return callback(err, msg, false, [{phone: student.phone, message: nextQuestionText}]);
+		});
 
 	} else {
 
@@ -28,9 +30,25 @@ Handlers.nextQuestion = function(student, msg, callback) {
 		return callback(null, msg, false);
 
 	}
-
 }
 
+Handlers.handleAnswer = function(student, msg, callback) {
+	var self = this;
+	var possibleAnswers = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+	if (possibleAnswers.indexOf(msg) > -1) {
+
+		student.answerQuestion(msg, function(err, addPayload) {
+			return callback(err, msg, false, addPayload);
+		});
+
+	} else {
+
+		// Keep message intact, do not abort.
+		return callback(null, msg, false);
+
+	}
+}
 
 Handlers.commandStop = function(student, msg, callback) {
 	var self = this;

@@ -162,7 +162,7 @@ slooceInterface.incomingMessage = function(xml) {
 			if (debugging) {
 				log.debug( messageData );
 			}
-			slooceInterface.Lib.Bus.publish('sms.in', {phone: messageData.phone, msg: messageData.content});
+			slooceInterface.Lib.Bus.publish('sms.in', {phone: messageData.phone, msg: messageData.content, command: messageData.command});
 
 		}
 

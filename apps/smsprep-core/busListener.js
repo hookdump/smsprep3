@@ -11,6 +11,7 @@ var myself = {
 		Lib.Bus.subscribe('sms.in', function (event) {
 			var myPhone 	= event.data.phone;
 			var myMessage 	= event.data.msg;
+			var myCommand 	= event.data.command;
 
 			Core.receiveMessage(myPhone, myMessage, function(err, response) {
 				log.highlight('sms', 'delivering response for [' + myPhone + ': Payload (' + response.length + ')]');

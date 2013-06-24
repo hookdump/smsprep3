@@ -51,7 +51,11 @@ Core.processMessage = function(student, message, callback) {
 	var payload = [];
 
 	Step(
-		function _active() {
+		function _startChain() {
+			var upperMessage = message.toUpperCase();
+			this(null, upperMessage);
+		},
+		function _active(_err, msg) {
 			var next = this;
 			Checks.isActive(student, message, function(err, newMsg, abort, addPayload) {
 				if (addPayload) payload = payload.concat(addPayload);
@@ -67,7 +71,7 @@ Core.processMessage = function(student, message, callback) {
 				next(err, newMsg);
 			});
 		},
-		function _commandSTOP(err, _msg) {
+		function _commandStop(err, _msg) {
 			var next = this;
 			Handlers.commandStop(student, _msg, function(err, newMsg, abort, addPayload) {
 				if (addPayload) payload = payload.concat(addPayload);
@@ -78,6 +82,14 @@ Core.processMessage = function(student, message, callback) {
 		function _requestNextQuestion(err, _msg) {
 			var next = this;
 			Handlers.nextQuestion(student, _msg, function(err, newMsg, abort, addPayload) {
+				if (addPayload) payload = payload.concat(addPayload);
+				if (abort) 		return callback(null, payload); 
+				next(err, newMsg);
+			});
+		},
+		function _handleAnswer(err, _msg) {
+			var next = this;
+			Handlers.handleAnswer(student, _msg, function(err, newMsg, abort, addPayload) {
 				if (addPayload) payload = payload.concat(addPayload);
 				if (abort) 		return callback(null, payload); 
 				next(err, newMsg);
