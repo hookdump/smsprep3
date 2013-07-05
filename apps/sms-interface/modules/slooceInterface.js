@@ -28,12 +28,12 @@ slooceInterface.initializePhone = function(phone, cb) {
 
 	// Testing vs. Production delivery
 	if (phone.charAt(0) === '9') {
-		log.highlight('sms', 'TEST Initialization: ' + phone);
+		log.highlight('sms', 'Test Initialization: ' + phone);
 		return cb(null);
 	} else {
 		request.get({url: endpoint}, function (err, response, body) {
 			log.error('initializing phone ' + phone, err);
-			log.highlight('sms', 'PRODUCTION Initialization: #' + phone + ' >> [' + response.statusCode + ']');
+			log.highlight('sms', 'Initialization: #' + phone + ' >> [' + response.statusCode + ']');
 			log.warn(body);
 
 			return cb(err);

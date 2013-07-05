@@ -13,7 +13,7 @@ var myself = {
 			var myMessage 	= event.data.msg;
 			var myCommand 	= event.data.command;
 
-			Core.receiveMessage(myPhone, myMessage, function(err, response) {
+			Core.receiveMessage(myPhone, myMessage, myCommand, function(err, response) {
 				log.highlight('sms', 'delivering response for [' + myPhone + ': Payload (' + response.length + ')]');
 				Lib.Bus.publish('sms.out', {payload: response});
 			});
