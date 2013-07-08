@@ -5,7 +5,8 @@ var basepath = '../';
 var keep		= false;
 
 describe('Time Management', function() {
-
+	global.beQuiet = true;
+	
 	var Lib = require(basepath + 'lib/wrapper');
 	
 	it('load moment.js library', function() {

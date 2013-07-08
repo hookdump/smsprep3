@@ -1,6 +1,60 @@
 <div class='main' id='dashboard'>
 
   <h1>Students</h1>
+
+  <table id='students_table' class='table table-bordered'>
+  	<thead>
+  		<tr>
+  			<td width='100'>Phone</td>
+  			<td width='90'>Partner</td>
+  			<td width='50'>eID</td>
+  			<td>Lessons</td>
+    		<td width='40'>Actions</td>
+  		</tr>
+  	</thead>
+  	<tbody>
+
+		<% for(var i=0; i<students.length; i++) { %>
+			<tr>
+				<td><%=students[i].phone%></td>
+				<td><%=students[i].partner%></td>
+				<td><%=students[i].externalId%></td>
+				<td>
+					<% var myLessonGroups = students[i].lessongroups %>
+					<% var myLessons = students[i].lessons %>
+
+					<% for(var x=0; x<myLessonGroups.length; x++) { %>
+						<span class='label label-inverse'>
+							<%=myLessonGroups[x]%>
+						</span>
+					<% } %>
+
+					<% for(var y=0; y<myLessons.length; y++) { %>
+						<span class='label label'>
+							<%=myLessons[y]%>
+						</span>
+					<% } %>
+				</td>
+				<td>
+
+					<div class="dropdown">
+						<button class="btn dropdown-toggle" data-toggle="dropdown">
+							<i class="icon-cog"></i>
+						</button>	
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+							<!-- dropdown menu links -->
+							<li><a href='#'><i class="icon-pencil"></i> edit</a></li>
+							<li><a href='#'><i class="icon-trash"></i> delete</a></li>
+						</ul>
+					</div>
+
+
+				</td>
+			</tr>
+		<% } %>
+
+  	</tbody>
+  </table>
  
 </div>
-<div class='page_dashboard'> </div>
+<div class='page_students'> </div>

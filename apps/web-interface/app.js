@@ -58,7 +58,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride()); 
   app.use(express.cookieParser('huff and puff'));
-  app.use(express.session({ cookie: { secure: false, maxAge: 86400000 }}));
+  app.use(express.session({ secret: 'lalala', cookie: { secure: false, maxAge: 86400000 }}));
   app.use(flash());
   app.use(expressLayouts);
   app.use(compass());
@@ -68,6 +68,15 @@ app.configure(function(){
 
   app.use(passport.initialize());
   app.use(passport.session());
+
+  app.use(function (req, res, next) {
+    if ('HEAD' == req.method || 'OPTIONS' == req.method) return next();
+
+    // break session hash / force express to spit out a new cookie once per second at most
+    req.session._garbage = Date();
+    req.session.touch();
+    next();
+  });
 
   app.use(function(req, res, next){
 

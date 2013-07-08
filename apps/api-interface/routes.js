@@ -12,8 +12,8 @@ exports.init = function(app, config, lib) {
 
   // Student start
   app.post('/:partner/:uid/start', function(req, res) {
-
-    Api.Student.start( req.params , req.body, function(err, sendBack) {
+    var findQuery = lib.Utils.buildFindQuery( req.params );
+    Api.Student.start( findQuery, req.body, function(err, sendBack) {
       res.json(sendBack);
     });
 
@@ -21,8 +21,8 @@ exports.init = function(app, config, lib) {
 
   // Student edit
   app.post('/:partner/:uid/edit', function(req, res) {
-
-    Api.Student.edit( req.params , req.body, function(err, sendBack) {
+    var findQuery = lib.Utils.buildFindQuery( req.params );
+    Api.Student.edit( findQuery, req.body, function(err, sendBack) {
       res.json(sendBack);
     });
 
@@ -30,8 +30,8 @@ exports.init = function(app, config, lib) {
 
   // Student activate
   app.post('/:partner/:uid/activate', function(req, res) {
-
-    Api.Student.activate( req.params , function(err, sendBack) {
+    var findQuery = lib.Utils.buildFindQuery( req.params );
+    Api.Student.activate( findQuery, function(err, sendBack) {
       res.json(sendBack);
     });
   
@@ -39,8 +39,8 @@ exports.init = function(app, config, lib) {
 
   // Student deactivate
   app.post('/:partner/:uid/deactivate', function(req, res) {
-
-    Api.Student.deactivate( req.params , function(err, sendBack) {
+    var findQuery = lib.Utils.buildFindQuery( req.params );
+    Api.Student.deactivate( findQuery, function(err, sendBack) {
       res.json(sendBack);
     });
  
@@ -48,8 +48,8 @@ exports.init = function(app, config, lib) {
 
   // Student status check
   app.get('/:partner/:uid/status', function(req, res) {
-
-    Api.Student.status( req.params , function(err, sendBack) {
+    var findQuery = lib.Utils.buildFindQuery( req.params );
+    Api.Student.status( findQuery, function(err, sendBack) {
       res.json(sendBack);
     });
 
@@ -57,8 +57,8 @@ exports.init = function(app, config, lib) {
 
   // Student reconfirmation
   app.post('/:partner/:uid/reconfirmation', function(req, res) {
-
-    Api.Student.reconfirm( req.params , function(err, sendBack) {
+    var findQuery = lib.Utils.buildFindQuery( req.params );
+    Api.Student.reconfirm( findQuery, function(err, sendBack) {
       res.json(sendBack);
     });
 
@@ -66,8 +66,9 @@ exports.init = function(app, config, lib) {
 
   // Custom message
   app.post('/:partner/:uid/send', function(req, res) {
+    var findQuery = lib.Utils.buildFindQuery( req.params );
     var msg = req.body.message;
-    Api.Student.sendMessage( req.params , msg, function(err, sendBack) {
+    Api.Student.sendMessage( findQuery, msg, function(err, sendBack) {
       res.json(sendBack);
     });
 

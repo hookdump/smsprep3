@@ -4,41 +4,123 @@ var Core = {
 
 var _       	= require('underscore');
 var Step    	= require('step');
+var Checks    	= require('./checks');
+var Handlers  	= require('./handlers');
 
 Core.init = function(lib) {
 	this.Lib	= lib;
+	Checks.init(lib);
 };
 
-Core.incomingMessage = function(phone, message, callback) {
+Core.sendCronQuestion = function(tz, schedule, callback) {
+	var self = this;
+
+	self.Lib.Student.sendCron(tz, schedule, function(err, sendOut) {
+		log.yellow('sending ' + sendOut.length + ' Bus events...');
+		_.each(sendOut, function(ev) {
+			self.Lib.Bus.publish('sms.in', ev);
+		});
+		log.green('cron messages delivered!');
+	});
+
+};
+
+Core.receiveMessage = function(phone, message, command, callback) {
 	var self = this;
 
 	// Find student
 	self.Lib.Student.findOne({ phone: phone }, function(err, student) {
+		var msgSummary = ' [' + phone + ': ' + message + ']';
+
 		if (err) {
 			log.error('loading phone #' + phone, err);
-			self.Lib.Utils.reportError('incomingMessage error', 'Error trying to find phone number: ' + phone);
+			self.Lib.Utils.reportError('receiveMessage', 'Error trying to find phone number: ' + phone);
 			return callback(err);
 		} else if (!student) {
-			var newErr = new Error('cannot load student for ' + phone);
+			// var newErr = new Error('cannot load student for ' + phone);
 			log.error('loading phone #' + phone, err);
-			self.Lib.Utils.reportError('incomingMessage error', 'I got a message from an existing number but cannot load student: ' + phone);
-			return callback(newErr);
-			// router.process(phone, message, null, callback);
+			log.highlight('sms', 'incoming message from unknown student' + msgSummary);
+			self.Lib.Utils.reportError('receiveMessage', 'message received (' + message + ') from an inexistent phone: ' + phone);
+			var ret = [];
+			if (message == "PING") {
+				ret.push({phone: phone, message: "PONG"});
+			}
+
+			return callback(null, ret);
 		} else {
 
 			// Success
-			var msgSummary = ' [' + phone + ': ' + message + ']';
 			log.highlight('sms', 'incoming message from student ' + student._id + msgSummary);
-			return callback(null, {success: true});
-			// router.process(phone, message, student, callback);
 
+			self.processMessage(student, message, command, function(err, payload) {
+				return callback(err, payload);
+			});
 		}  
 	});
+};
 
-}
+Core.processMessage = function(student, message, command, callback) {
+	var self = this;
+	var payload = [];
 
-Core.findNextQuestion = function(phone) {
-	// Check if student is active
-}
+	Step(
+		function _startChain() {
+			if (command) {
+				log.warn('overriding message [' + message + '] with command [' + command + ']');
+				message = "@@" + command;
+			}
+
+			var upperMessage = message.toUpperCase();
+			this(null, upperMessage);
+		},
+		function _active(_err, msg) {
+			var next = this;
+			Checks.isActive(student, message, function(err, newMsg, abort, addPayload) {
+				if (addPayload) payload = payload.concat(addPayload);
+				if (abort) 		return callback(null, payload); 
+				next(err, newMsg);
+			});
+		},
+		function _confirmed(err, _msg) {
+			var next = this;
+			Checks.isConfirmed(student, _msg, function(err, newMsg, abort, addPayload) {
+				if (addPayload) payload = payload.concat(addPayload);
+				if (abort) 		return callback(null, payload); 
+				next(err, newMsg);
+			});
+		},
+		function _commandStop(err, _msg) {
+			var next = this;
+			Handlers.commandStop(student, _msg, function(err, newMsg, abort, addPayload) {
+				if (addPayload) payload = payload.concat(addPayload);
+				if (abort) 		return callback(null, payload); 
+				next(err, newMsg);
+			});
+		},
+		function _requestNextQuestion(err, _msg) {
+			var next = this;
+			Handlers.nextQuestion(student, _msg, function(err, newMsg, abort, addPayload) {
+				if (addPayload) payload = payload.concat(addPayload);
+				if (abort) 		return callback(null, payload); 
+				next(err, newMsg);
+			});
+		},
+		function _handleAnswer(err, _msg) {
+			var next = this;
+			Handlers.handleAnswer(student, _msg, function(err, newMsg, abort, addPayload) {
+				if (addPayload) payload = payload.concat(addPayload);
+				if (abort) 		return callback(null, payload); 
+				next(err, newMsg);
+			});
+		},
+		function _finish(err, _msg) {
+			// Passed all checks. Process message! :)
+			log.warn('passed all checks. MSG: ' + _msg);
+
+			// The end :)
+			return callback(null, payload);
+		}
+	);
+};
 
 module.exports = Core;

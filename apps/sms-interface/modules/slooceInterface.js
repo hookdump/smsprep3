@@ -2,6 +2,7 @@ var slooceInterface = {
 	Lib: null
 };
 
+var request 	= require("request");
 var _       	= require('underscore');
 var Step    	= require('step');
 var parseString = require('xml2js').parseString;
@@ -15,9 +16,156 @@ slooceInterface.noop = function() {
 	log.info('slooce interface noop');
 };
 
-slooceInterface.sendMessage = function(phone, message) {
-	log.highlight('sms', 'sending message to ' + phone + ': ' + message);
-	log.red('TO-DO >>> COMPLETE ME');
+slooceInterface.initializePhone = function(phone, cb) {
+	var self = this;
+	var slooceConfig = self.Lib.Config.connections.slooce;
+
+	log.highlight('sms', 'starting phone initialization for ' + phone);
+
+	// Endpoint Setup
+	var endpoint = slooceConfig.initializationEndpoint;
+	endpoint = endpoint.replace("{phone}", 		phone);
+
+	// Testing vs. Production delivery
+	if (phone.charAt(0) === '9') {
+		log.highlight('sms', 'Test Initialization: ' + phone);
+		return cb(null);
+	} else {
+		request.get({url: endpoint}, function (err, response, body) {
+			log.error('initializing phone ' + phone, err);
+			log.highlight('sms', 'Initialization: #' + phone + ' >> [' + response.statusCode + ']');
+			log.warn(body);
+
+			return cb(err);
+		});
+	}
+
+}
+
+slooceInterface.prepareEndpoint = function(endpointTemplate, slooceConfig, phoneNumber) {
+	var endpoint = endpointTemplate;
+	endpoint = endpoint.replace("{partnerId}", 	slooceConfig.partnerId)
+	endpoint = endpoint.replace("{keyword}", 	slooceConfig.globalKeyword);
+	endpoint = endpoint.replace("{phone}", 		phoneNumber);
+
+	return endpoint;
+};
+
+slooceInterface.buildXmlBody = function(slooceConfig, message) {
+	var xml = "";
+	xml += '<?xml version="1.0" encoding="ISO-8859-1" ?>';
+	xml += '<message id="1294302114388-1294447192618">';
+	xml += '<partnerpassword>' + slooceConfig.partnerPassword + '</partnerpassword>';
+	if (message) {
+		xml += '<content>' + message + '</content>';
+	}
+	xml += '</message>';
+
+	return xml;
+};
+
+slooceInterface.stopUser = function(phone, cb) {
+	var self = this;
+	var slooceConfig = self.Lib.Config.connections.slooce;
+
+	log.highlight('sms', 'stopping slooce user: ' + phone);
+
+	// Endpoint + XML Setup
+	var endpoint 	= self.prepareEndpoint(slooceConfig.stopEndpoint, slooceConfig, phone);
+	var xml 		= self.buildXmlBody(slooceConfig, null);
+
+	// Testing vs. Production delivery
+	if (phone.charAt(0) === '9') {
+		log.highlight('sms', 'Test STOP: #' + phone + ' >> OK');
+		return cb(null);
+	} else {
+		request.post({url: endpoint, body: xml}, function (err, response, body) {
+			log.error('sending STOP request to slooce', err);
+			log.highlight('sms', 'Production stop: #' + phone + ' >> [' + response.statusCode + ']');
+
+			var success = (response.statusCode >= 200 && response.statusCode <= 202);
+			if (!success) {
+				log.warn('response:');
+				log.red(response);
+
+				log.warn('body:');
+				log.red(body);
+			}
+			
+			return cb(err);
+		});
+	}
+};
+
+slooceInterface.deliverMessage = function(phone, message, cb) {
+	var self = this;
+	var slooceConfig = self.Lib.Config.connections.slooce;
+
+	log.highlight('sms', 'preparing SMS delivery for ' + phone + ' (' + message.length + ')');
+
+	// Endpoint + XML Setup
+	var endpoint = self.prepareEndpoint(slooceConfig.outgoingEndpoint, slooceConfig, phone);
+	var xml 		= self.buildXmlBody(slooceConfig, message);
+
+	// Testing vs. Production delivery
+	if (phone.charAt(0) === '9') {
+		log.highlight('sms', 'Test delivery: {' + message + '} => #' + phone + ' >> OK');
+		return cb(null);
+	} else {
+		request.post({url: endpoint, body: xml}, function (err, response, body) {
+			log.error('delivering message to slooce', err);
+			log.highlight('sms', 'Production delivery: {' + message + '} => #' + phone + ' >> [' + response.statusCode + ']');
+
+			var success = (response.statusCode >= 200 && response.statusCode <= 202);
+			if (!success) {
+				log.warn('response:');
+				log.red(response);
+
+				log.warn('body:');
+				log.red(body);
+			}
+			
+			return cb(err);
+		});
+	}
+};
+
+slooceInterface.sendMessages = function(payload) {
+	var self = this;
+
+	var sendNext = function(queue) {
+		if (queue.length === 0) {
+			// Queue emptied! Success.
+			return true;
+		} else {
+			var nextMessage = queue.shift();
+			if (nextMessage) {
+
+				// Message block
+				if (nextMessage.phone && nextMessage.message) {
+					log.highlight('sms', 'sending message to ' + nextMessage.phone + ': ' + nextMessage.message);
+					self.deliverMessage(nextMessage.phone, nextMessage.message, function(err) {
+						sendNext(queue);
+					});
+				}
+
+				// Delay block
+				if (nextMessage.delay) {
+					log.highlight('sms', 'waiting ' + nextMessage.delay + ' seconds');
+					setTimeout(function() {
+						sendNext(queue);
+					}, nextMessage.delay);
+				}
+
+			}
+
+		}
+	};
+
+	sendNext(payload);
+
+	payload.forEach(function(item) {
+	});
 };
 
 slooceInterface.incomingMessage = function(xml) {
@@ -57,7 +205,7 @@ slooceInterface.incomingMessage = function(xml) {
 			if (debugging) {
 				log.debug( messageData );
 			}
-			slooceInterface.Lib.Bus.publish('smsprep.sms.in', {phone: messageData.phone, msg: messageData.content});
+			slooceInterface.Lib.Bus.publish('sms.in', {phone: messageData.phone, msg: messageData.content, command: messageData.command});
 
 		}
 
