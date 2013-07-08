@@ -12,7 +12,20 @@ Core.init = function(lib) {
 	Checks.init(lib);
 };
 
-Core.receiveMessage = function(phone, message, callback) {
+Core.sendCronQuestion = function(tz, schedule, callback) {
+	var self = this;
+
+	self.Lib.Student.sendCron(tz, schedule, function(err, sendOut) {
+		log.yellow('sending ' + sendOut.length + ' Bus events...');
+		_.each(sendOut, function(ev) {
+			self.Lib.Bus.publish('sms.in', ev);
+		});
+		log.green('cron messages delivered!');
+	});
+
+};
+
+Core.receiveMessage = function(phone, message, command, callback) {
 	var self = this;
 
 	// Find student
@@ -39,19 +52,28 @@ Core.receiveMessage = function(phone, message, callback) {
 			// Success
 			log.highlight('sms', 'incoming message from student ' + student._id + msgSummary);
 
-			self.processMessage(student, message, function(err, payload) {
+			self.processMessage(student, message, command, function(err, payload) {
 				return callback(err, payload);
 			});
 		}  
 	});
 };
 
-Core.processMessage = function(student, message, callback) {
+Core.processMessage = function(student, message, command, callback) {
 	var self = this;
 	var payload = [];
 
 	Step(
-		function _active() {
+		function _startChain() {
+			if (command) {
+				log.warn('overriding message [' + message + '] with command [' + command + ']');
+				message = "@@" + command;
+			}
+
+			var upperMessage = message.toUpperCase();
+			this(null, upperMessage);
+		},
+		function _active(_err, msg) {
 			var next = this;
 			Checks.isActive(student, message, function(err, newMsg, abort, addPayload) {
 				if (addPayload) payload = payload.concat(addPayload);
@@ -67,7 +89,7 @@ Core.processMessage = function(student, message, callback) {
 				next(err, newMsg);
 			});
 		},
-		function _commandSTOP(err, _msg) {
+		function _commandStop(err, _msg) {
 			var next = this;
 			Handlers.commandStop(student, _msg, function(err, newMsg, abort, addPayload) {
 				if (addPayload) payload = payload.concat(addPayload);
@@ -78,6 +100,14 @@ Core.processMessage = function(student, message, callback) {
 		function _requestNextQuestion(err, _msg) {
 			var next = this;
 			Handlers.nextQuestion(student, _msg, function(err, newMsg, abort, addPayload) {
+				if (addPayload) payload = payload.concat(addPayload);
+				if (abort) 		return callback(null, payload); 
+				next(err, newMsg);
+			});
+		},
+		function _handleAnswer(err, _msg) {
+			var next = this;
+			Handlers.handleAnswer(student, _msg, function(err, newMsg, abort, addPayload) {
 				if (addPayload) payload = payload.concat(addPayload);
 				if (abort) 		return callback(null, payload); 
 				next(err, newMsg);

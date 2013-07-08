@@ -30,8 +30,9 @@ var slooceConfig = {
 	partnerId: 			'p9328904'
 	, partnerPassword: 	'f8n29aa3'
 	, outgoingEndpoint: 'http://sloocetech.net:8084/spi-war/spi/{partnerId}/{phone}/{keyword}/messages/mt'
-	, initializationEndpoint: 'http://sloocetech.net:8084/widgets/y/w0548qos?mdn={phone}'
+	, stopEndpoint: 	'http://sloocetech.net:8084/spi-war/spi/{partnerId}/{phone}/{keyword}/messages/stop'
 	, globalKeyword: 	'SPTRIAL'
+	, initializationEndpoint: 'http://sloocetech.net:8084/widgets/y/w0548qos?mdn={phone}'
 };
 myConfig['test']['slooce'] 			= slooceConfig;
 myConfig['development']['slooce'] 	= slooceConfig;

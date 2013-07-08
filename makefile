@@ -12,8 +12,9 @@ help:
 
 	@echo "core:		Start the core module"
 	@echo "sms:		Start the sms module"
-	@echo "web:		Start the web module"
+	@echo "web:		Start the web site"
 	@echo "api:		Start the api module"
+	@echo "scheduler:		Start the scheduler module"
 	@echo "bouncy:		Start the listener module"
 
 	@echo ""
@@ -53,6 +54,12 @@ web:
 	$(if $(findstring $(ENV),"development") , @tail -n 0 -f ~/.forever/development.web.log )
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.web.log )
 
+scheduler:
+	-@forever -s stop $(ENV).scheduler > /dev/null 2>&1
+	@NODE_ENV=$(ENV) forever  --uid $(ENV).scheduler -a -l $(ENV).scheduler.log --minUptime 5000 --spinSleepTime 5000 start ./apps/scheduler/app.js
+	$(if $(findstring $(ENV),"development") , @tail -n 0 -f ~/.forever/development.scheduler.log )
+	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.scheduler.log )
+
 api:
 	-@forever -s stop $(ENV).api-interface > /dev/null 2>&1
 	@NODE_ENV=$(ENV) forever  --uid $(ENV).api-interface -a -l $(ENV).api.log --minUptime 5000 --spinSleepTime 5000 start ./apps/api-interface/app.js
@@ -60,6 +67,7 @@ api:
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.api.log )
 
 bouncy:
+	$(if $(findstring $(ENV),"development") , @~/servers )
 	-@sudo forever -s stop $(ENV).smsprep-bouncy > /dev/null 2>&1
 	@sudo NODE_ENV=$(ENV) forever  --uid $(ENV).smsprep-bouncy -a -l bouncy.log --minUptime 5000 --spinSleepTime 5000 start ./apps/bouncy/app.js
 

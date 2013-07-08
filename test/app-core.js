@@ -1,6 +1,8 @@
 var should 		= require("should");
 var request 	= require("request");
 var basepath 	= '../';
+var Core 		= require(basepath + 'apps/smsprep-core/modules/core.js');
+
 var keep		= false;
 var testStudent	= require('./assets/core.student1.js');
 var confStudent	= require('./assets/core.student2.js');
@@ -12,6 +14,8 @@ describe('smsprep-core service', function() {
 
 	var curStudent 			= null;
 	var curConfirmedStudent = null;
+
+	Core.init(Lib);
 
 	beforeEach(function(done) {
 		Step(
@@ -47,10 +51,19 @@ describe('smsprep-core service', function() {
 		}
 	});
 
-	var hitMessage = function(phone, message, cb) {
+	var hitMessage2 = function(phone, message, cb) {
 		var myUrl = 'http://localhost:8201/msg/' + phone + '/' + message;
 	    return request.get({url: myUrl, json: true}, cb);
 	};
+
+	var hitMessage = function(phone, message, cb) {
+		Core.receiveMessage(phone, message, null, function(err, response) {
+			log.highlight('sms', 'emulating response for [' + phone + ': Payload (' + response.length + ')]');
+			if (response.length > 0) log.success(response);
+
+			return cb(err, {statusCode: 200}, {success: true, payload: response});
+		});
+	}
 
 	it('handle messages from inexistent students', function(done) {
 		hitMessage('98887776060', 'HELLO', function (err, response, body) {

@@ -40,7 +40,7 @@ Api.Student = {
 			slooceInterface.initializePhone(studentData.phone, function(err) {
 				log.error('triggering phone initialization', err);
 
-				log.success('phone initialized!!!');
+				log.success('phone initialized!');
 				return callback(err, sendBack);
 			});
 
@@ -91,7 +91,10 @@ Api.Student = {
 					, active: myStudent.active
 					, confirmed: myStudent.confirmed
 					, created: myStudent.joined
+
+					, timezone: myStudent.timezone
 					, schedule: myStudent.schedule
+
 					, lessons: myStudent.lessons
 					, lessongroups: myStudent.lessongroups
 					, stats: {
