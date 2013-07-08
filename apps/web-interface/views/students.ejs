@@ -5,10 +5,11 @@
   <table id='students_table' class='table table-bordered'>
   	<thead>
   		<tr>
-  			<td>Phone</td>
-  			<td>Partner</td>
-  			<td>External ID</td>
+  			<td width='100'>Phone</td>
+  			<td width='90'>Partner</td>
+  			<td width='50'>eID</td>
   			<td>Lessons</td>
+    		<td width='40'>Actions</td>
   		</tr>
   	</thead>
   	<tbody>
@@ -33,6 +34,21 @@
 							<%=myLessons[y]%>
 						</span>
 					<% } %>
+				</td>
+				<td>
+
+					<div class="dropdown">
+						<button class="btn dropdown-toggle" data-toggle="dropdown">
+							<i class="icon-cog"></i>
+						</button>	
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+							<!-- dropdown menu links -->
+							<li><a href='#'><i class="icon-pencil"></i> edit</a></li>
+							<li><a href='#'><i class="icon-trash"></i> delete</a></li>
+						</ul>
+					</div>
+
+
 				</td>
 			</tr>
 		<% } %>

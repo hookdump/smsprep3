@@ -45,13 +45,13 @@
 
               <ul class="nav">
 
-                <%if (loggedin) {%>
+                <% if (loggedin) { %>
                   <li <%= cur_dashboard %> ><a href="/dashboard">Dashboard</a></li>
                   <li <%= cur_students %> ><a href="/students">Students</a></li>
                   <li <%= cur_content %> ><a href="/content">Content</a></li>
-                <%} else {%>
+                <% } else { %>
                   <li <%= cur_home %> ><a href="/">Home</a></li>
-                <%}%>
+                <% } %>
 
                 <!--
                 <li class="divider-vertical"></li>

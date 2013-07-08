@@ -1,9 +1,11 @@
 var should 		= require("should")
 var _ 			= require("underscore")
 var basepath 	= '../';
-var keep		= true;
+var keep		= false;
 
 describe('Question model', function() {
+	global.beQuiet = true;
+
 	var Lib = require(basepath + 'lib/wrapper');
 	var curQuestion = null;
 	var testData = null, testDataInvalid = null;
@@ -22,7 +24,7 @@ describe('Question model', function() {
 				, correct: false
 			}
 		];
-		lessonsArr = ['LESSON1', 'LESSON2'];
+		lessonsArr = ['LESSON1', 'LESSON2', 'TEST'];
 		testData = {
 			text: 'What is this question?'
 			, qoptions: testOptions
@@ -53,7 +55,7 @@ describe('Question model', function() {
 		if (keep) {
 			done();
 		} else {
-			Lib.Content.Question.remove({}, function() { done(); });	
+			Lib.Content.Question.remove({lessons: 'TEST'}, function() { done(); });	
 		}
 	});
 
@@ -72,7 +74,7 @@ describe('Question model', function() {
 			curQuestion.qoptions.should.have.length( testData.qoptions.length );
 		});
 
-		it('should detect invalid symbols and disable the question', function(done) {
+		it('should disable invalid content', function(done) {
 			var invalidQ = {};
 			Lib.Content.Question.upsertQuestion('TEST00X', testDataInvalid, function(err, doc) {
 				invalidQ = doc;

@@ -20,7 +20,7 @@ describe('User model', function() {
 		if (keep) {
 			done();
 		} else {
-			Lib.User.remove({}, function() { done(); });
+			Lib.User.remove({username: {'$in': ['test', 'test2']}}, function() { done(); });
 		}		
 	});
 
