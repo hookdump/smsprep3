@@ -20,6 +20,18 @@ var myself = {
 
 		});
 
+		// Receive Crons
+		Lib.Bus.subscribe('cron.question', function (event) {
+			var myTz		= event.data.timezone;
+			var mySchedule	= event.data.schedule;
+
+			log.highlight('cron', 'processing delivery... (' + myTz + ' > ' + mySchedule + ')');
+			Core.sendCronQuestion(myTz, mySchedule, function(err) {
+				log.highlight('cron', 'delivery successful! (' + myTz + ' > ' + mySchedule + ')');
+			});
+
+		});
+
 	}
 };
 module.exports = myself;

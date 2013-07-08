@@ -56,13 +56,15 @@ Handlers.commandStop = function(student, msg, callback) {
 	if (msg === 'STOP') {
 
 		log.red('[stop] Got a STOP request from user. Pinging slooce...');
-		log.warn('[todo]');
-		return callback(null, msg, false, [{phone: student.phone, message: 'stopping...'}]);
+		Lib.Bus.publish('sms.stop', {phone: student.phone});
+		var stopPayload = [{phone: student.phone, message: 'stopped!!!'}];
+		return callback(null, msg, stopPayload);
 
 	} else if (msg === '@@Q') {
 
 		log.red('[stop] Got a STOP command from Slooce. Deactivating user...');
-		return callback(null, msg, false, [{phone: student.phone, message: 'stopped!'}]);
+		log.warn('TODO!');
+		return callback(null, msg, true);
 
 	} else {
 

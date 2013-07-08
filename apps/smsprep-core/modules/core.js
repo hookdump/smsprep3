@@ -12,6 +12,19 @@ Core.init = function(lib) {
 	Checks.init(lib);
 };
 
+Core.sendCronQuestion = function(tz, schedule, callback) {
+	var self = this;
+
+	self.Lib.Student.sendCron(tz, schedule, function(err, sendOut) {
+		log.yellow('sending ' + sendOut.length + ' Bus events...');
+		_.each(sendOut, function(ev) {
+			self.Lib.Bus.publish('sms.in', ev);
+		});
+		log.green('cron messages delivered!');
+	});
+
+};
+
 Core.receiveMessage = function(phone, message, command, callback) {
 	var self = this;
 
