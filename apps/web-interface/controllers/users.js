@@ -6,7 +6,8 @@ var usersController = function(app, config, lib, passport) {
     if (req.user) {
       res.redirect('/dashboard');
     } else {
-      res.render('index', { title: config.title, cur_section: "index" });
+      // res.render('index', { title: config.title, cur_section: "index" });
+      res.render('landing', { layout: 'clean_layout', title: 'smsPREP', cur_section: 'landing' });
     }
   });
 
