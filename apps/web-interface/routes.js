@@ -3,12 +3,14 @@ var mainController 		= require('./controllers/main.js');
 var usersController 	= require('./controllers/users.js');
 var contentController 	= require('./controllers/content.js');
 var studentsController 	= require('./controllers/students.js');
+var adminController 	= require('./controllers/admin.js');
 
 exports.init = function(app, config, lib, passport) {
 	mainController.web		(app, config, lib, passport);
 	usersController.web		(app, config, lib, passport);
 	contentController.web 	(app, config, lib, passport);
 	studentsController.web	(app, config, lib, passport);
+	adminController.web		(app, config, lib, passport);
 }
 
 exports.initSocket = function(socket, config, lib) {
@@ -17,4 +19,5 @@ exports.initSocket = function(socket, config, lib) {
 	usersController.io 		(socket, config, lib);
 	contentController.io 	(socket, config, lib);
 	studentsController.io	(socket, config, lib);
+	adminController.io		(socket, config, lib);
 }

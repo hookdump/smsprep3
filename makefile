@@ -67,7 +67,7 @@ api:
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.api.log )
 
 bouncy:
-	$(if $(findstring $(ENV),"development") , @~/servers )
+	# $(if $(findstring $(ENV),"development") , @~/servers )
 	-@sudo forever -s stop $(ENV).smsprep-bouncy > /dev/null 2>&1
 	@sudo NODE_ENV=$(ENV) forever  --uid $(ENV).smsprep-bouncy -a -l bouncy.log --minUptime 5000 --spinSleepTime 5000 start ./apps/bouncy/app.js
 

@@ -1,0 +1,25 @@
+<div class='main' id='dashboard'>
+
+ 	<h1>Dashboard</h1>
+
+	<div class="row">
+		<div class="span7">
+			<div class="well">
+				asdasd
+			</div>
+		</div>
+		<div class="span4">
+			<div class="well">
+				<h3>Last Crons</h3>
+				<ul>
+					<% for(var i=0; i<info.lastCrons.length; i++) { %>
+						<% var mycron = info.lastCrons[i] %>
+						<li><%=mycron.schedule%>@<%=mycron.timezone%> = <%=mycron.count%></li>
+					<% } %>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</div>
+<div class='page_dashboard'> </div>
