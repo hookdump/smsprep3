@@ -48,7 +48,7 @@ app.configure(function(){
   app.set('port', appConfig.port);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
-  app.set('layout', 'nice_layout');
+  app.set('layout', 'admin_layout');
   app.use(express.favicon());
 
   if (appConfig.logs) {

@@ -4,7 +4,12 @@ var mainController = function(app, config, lib, passport) {
   // Dashboard ----------------------------
   app.get('/dashboard', function(req, res) {
     var info = {};
-    res.render('dashboard', { title: config.title, cur_section: "dashboard", info: info });  
+
+    lib.CronDelivery.getLast(function(err, lastCrons) {
+    	info.lastCrons = lastCrons;
+    	res.render('dashboard', { title: config.title, cur_section: "dashboard", info: info });  
+    });
+    
   });
 
 }

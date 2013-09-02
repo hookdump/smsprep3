@@ -1,16 +1,47 @@
-<div class='main'>
-  <h2>Log in</h2>
+<div class="container">
+  
+<div class="span4 offset4">
 
-  <form action="/login" method="post">
-      <div>
-          <input autocomplete="off" placeholder="Your username" type="text" name="username"/>
-      </div>
-      <div>
-          <input autocomplete="off" placeholder="Your password" type="password" name="password"/>
-      </div>
-      <div>
-          <input type="submit" class='btn' value="Log In"/>
-      </div>
-  </form>
 
+  <div class="padded">
+    <div class="login box" style="margin-top: 80px;">
+
+      <div class="box-header">
+        <span class="title">Login</span>
+      </div>
+
+      <div class="box-content padded">
+        <form class="separate-sections" action="/login" method="post">
+          <div class="input-prepend">
+          <span class="add-on" href="#">
+            <i class="icon-user"></i>
+          </span>
+            <input type="text" name="username" placeholder="username">
+          </div>
+
+          <div class="input-prepend">
+          <span class="add-on" href="#">
+            <i class="icon-key"></i>
+          </span>
+            <input type="password" name="password" placeholder="password">
+          </div>
+
+          <div>
+            <button type="submit" class="btn btn-blue btn-block">
+                Login <i class="icon-signin"></i>
+            </button>
+          </div>
+
+        </form>
+
+        <div>
+          <a href="sign_up.html">
+              Don't have an account? <strong>Sign Up</strong>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 </div>

@@ -6,44 +6,13 @@
     <link href='http://fonts.googleapis.com/css?family=Ruluko' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400' rel='stylesheet' type='text/css'>
 
-    <link rel='stylesheet' href='/public/bootstrap/css/bootstrap.min.css' />
-    <link rel='stylesheet' href='/public/stylesheets/style.css' />
-    
-    <script src="/public/javascripts/jquery-1.8.2.min.js"></script>
-    <script src="/public/javascripts/jquery-ui-1.9.1.custom.min.js"></script>
-    <script src="/public/javascripts/jquery.easing.min.js"></script>
-
-    <script src="/public/javascripts/select2/select2.min.js"></script>
-    <link rel='stylesheet' href='/public/javascripts/select2/select2.css' />
-
-    <script src="/public/javascripts/underscore-min.js"></script>
-    <script src="/public/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/public/javascripts/main.js"></script>
-
+    <link rel='stylesheet' href='/public/stylesheets/bootstrap/bootstrap.css' />
   </head>
   <body style='padding-top: 0px'>
   <div class="content">
 
     <div class="container main_container">
-
-      <% if (error_flash != '') { %>
-        <div class="alert alert-error">
-          <button type="button" class="close" data-dismiss="alert">×</button>
-          <h4>Error!</h4>
-          <%= error_flash %>
-        </div>
-      <% } %>
-      <% if (success_flash != '') { %>
-        <div class="alert alert-success">
-          <button type="button" class="close" data-dismiss="alert">×</button>
-          <h4>Success!</h4>
-          <%= success_flash %>
-        </div>
-      <% } %>
-
       <%-body%>
-
     </div>
   </div>
 
