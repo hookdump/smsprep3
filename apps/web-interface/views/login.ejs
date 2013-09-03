@@ -1,47 +1,91 @@
-<div class="container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <!-- Title and other stuffs -->
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+
+  <!-- Stylesheets -->
+  <link href="/public/style/bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="/public/style/font-awesome.css">
+  <link href="/public/style/style.css" rel="stylesheet">
+  <link href="/public/style/bootstrap-responsive.css" rel="stylesheet">
   
-<div class="span4 offset4">
+  <!-- HTML5 Support for IE -->
+  <!--[if lt IE 9]>
+  <script src="/public/js/html5shim.js"></script>
+  <![endif]-->
 
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/public/img/favicon/favicon.png">
+</head>
 
-  <div class="padded">
-    <div class="login box" style="margin-top: 80px;">
+<body>
 
-      <div class="box-header">
-        <span class="title">Login</span>
+<!-- Form area -->
+<div class="admin-form">
+  <div class="container-fluid">
+
+    <div class="row-fluid">
+      <div class="span12">
+        <!-- Widget starts -->
+            <div class="widget worange">
+              <!-- Widget head -->
+              <div class="widget-head">
+                <i class="icon-lock"></i> Login 
+              </div>
+
+              <div class="widget-content">
+                <div class="padd">
+                  <!-- Login form -->
+                  <form class="form-horizontal" action="/login" method="post">
+                    <!-- Email -->
+                    <div class="control-group">
+                      <label class="control-label" for="inputUsername">Username</label>
+                      <div class="controls">
+                        <input type="text" id="inputUsername" placeholder="Username" name="username">
+                      </div>
+                    </div>
+                    <!-- Password -->
+                    <div class="control-group">
+                      <label class="control-label" for="inputPassword">Password</label>
+                      <div class="controls">
+                        <input type="password" id="inputPassword" placeholder="Password" name="password">
+                      </div>
+                    </div>
+                    <!-- Remember me checkbox and sign in button -->
+                    <div class="control-group">
+                      <div class="controls">
+                        <label class="checkbox">
+                          <input type="checkbox"> Remember me
+                        </label>
+                        <br>
+                        <button type="submit" class="btn btn-danger">Sign in</button>
+                        <button type="reset" class="btn">Reset</button>
+                      </div>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+                <div class="widget-foot">
+                  Not Registred? <a href="#">Register here</a>
+                </div>
+            </div>  
       </div>
-
-      <div class="box-content padded">
-        <form class="separate-sections" action="/login" method="post">
-          <div class="input-prepend">
-          <span class="add-on" href="#">
-            <i class="icon-user"></i>
-          </span>
-            <input type="text" name="username" placeholder="username">
-          </div>
-
-          <div class="input-prepend">
-          <span class="add-on" href="#">
-            <i class="icon-key"></i>
-          </span>
-            <input type="password" name="password" placeholder="password">
-          </div>
-
-          <div>
-            <button type="submit" class="btn btn-blue btn-block">
-                Login <i class="icon-signin"></i>
-            </button>
-          </div>
-
-        </form>
-
-        <div>
-          <a href="sign_up.html">
-              Don't have an account? <strong>Sign Up</strong>
-          </a>
-        </div>
-      </div>
-
     </div>
-  </div>
+  </div> 
 </div>
-</div>
+  
+    
+
+<!-- JS -->
+<script src="/public/js/jquery.js"></script>
+<script src="/public/js/bootstrap.js"></script>
+</body>
+</html>

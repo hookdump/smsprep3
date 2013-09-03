@@ -13,10 +13,10 @@ var usersController = function(app, config, lib, passport) {
 
   // Login ----------------------------
   app.get('/login', function(req, res) {
-    res.render('login', { title: config.title });
+    res.render('login', { layout: 'empty_layout', title: config.title });
   });
   app.post('/login',
-    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login', failureFlash: true } )
+    passport.authenticate('local', { successRedirect: '/admin', failureRedirect: '/login', failureFlash: true } )
   );
 
   // Logout ----------------------------

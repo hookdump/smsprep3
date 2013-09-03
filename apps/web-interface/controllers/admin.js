@@ -3,7 +3,6 @@ var adminController = function(app, config, lib, passport) {
 
   // Dashboard ----------------------------
   app.get('/admin', function(req, res) {
-
     if (req.user) {
 
       var info = {};
@@ -16,11 +15,17 @@ var adminController = function(app, config, lib, passport) {
 
       res.redirect('/login');
 
-    }
-
-
-    
+    }    
   });
+
+
+  // Students ----------------------------
+  app.get('/admin/messages', lib.Utils.requireRole('admin'), function(req, res) {
+    lib.Student.listAll(function(err, myList) {
+      res.render('admin/messages', { title: config.title, cur_section: "students", students: myList });
+    });
+  });
+
 }
 
 var adminIo = function(socket) {

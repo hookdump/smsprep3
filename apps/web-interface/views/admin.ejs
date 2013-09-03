@@ -1,337 +1,180 @@
-<!-- http://beer2code.com/themes/core-admin/pages/ui_lab/icons.html -->
-<div class="main-content">
-  <div class="container-fluid">
-    <div class="row-fluid">
 
-      <div class="area-top clearfix">
-        <div class="pull-left header">
-          <h3 class="title">
-            <i class="icon-dashboard"></i>
-            smsPREP
-          </h3>
-          <h5>
-            Administration Panel
-          </h5>
+<!-- Today status. jQuery Sparkline plugin used. -->
+
+<div class="row-fluid">
+  <div class="span12"> 
+    <!-- List starts -->
+    <ul class="today-datas">
+
+      <!-- List #1 -->
+
+      <li class="bred">
+        <!-- Graph -->
+        <div class="pull-left"><i class="icon-group"></i></div>
+        <!-- Text -->
+        <div class="datas-text pull-right"><span class="bold">0</span> Students</div>
+
+        <div class="clearfix"></div>
+      </li>
+
+
+      <li class="bgreen">
+        <!-- Graph -->
+        <div class="pull-left"><span id="todayspark1" class="spark"></span></div>
+        <!-- Text -->
+        <div class="datas-text pull-right"><span class="bold">0</span> Q's Delivered</div>
+
+        <div class="clearfix"></div>
+      </li>
+
+
+      <li class="bgreen">
+        <!-- Graph -->
+        <div class="pull-left"><span id="todayspark2" class="spark"></span></div>
+        <!-- Text -->
+        <div class="datas-text pull-right"><span class="bold">0%</span> Q's Answered</div>
+
+        <div class="clearfix"></div>
+      </li>
+
+      <li class="bviolet">
+        <!-- Graph -->
+        <div class="pull-left"><span id="todayspark3" class="spark"></span></div>
+        <!-- Text -->
+        <div class="datas-text pull-right"><span class="bold">$0</span> Total Profit</div>
+
+        <div class="clearfix"></div>
+      </li> 
+
+    </ul> 
+  </div>
+</div>
+
+<!-- Today status ends -->
+
+<!-- Dashboard Graph starts -->
+
+<div class="row-fluid">
+  <div class="span8">
+
+    <!-- Widget -->
+    <div class="widget wblue">
+      <!-- Widget head -->
+      <div class="widget-head">
+        <div class="pull-left">Dashboard</div>
+        <div class="widget-icons pull-right">
+          <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
+          <a href="#" class="wclose"><i class="icon-remove"></i></a>
         </div>
+        <div class="clearfix"></div>
+      </div>             
 
-        <ul class="inline pull-right sparkline-box">
+      <!-- Widget content -->
+      <div class="widget-content">
+        <div class="padd">
 
-          <li class="sparkline-row">
-            <h4 class="blue"><span>Orders</span> 847</h4>
-            <div class="sparkline big" data-color="blue"><!--10,14,20,21,18,13,24,14,6,7,28,24--></div>
-          </li>
+          <!-- Bar chart (Blue color). jQuery Flot plugin used. -->
+          <div id="bar-chart"></div>
 
-          <li class="sparkline-row">
-            <h4 class="green"><span>Reviews</span> 223</h4>
-            <div class="sparkline big" data-color="green"><!--8,11,26,14,27,28,8,13,10,22,6,15--></div>
-          </li>
 
-          <li class="sparkline-row">
-            <h4 class="red"><span>New visits</span> 7930</h4>
-            <div class="sparkline big"><!--7,3,24,18,24,3,4,9,16,24,16,29--></div>
-          </li>
-
-        </ul>
+        </div>
       </div>
+      <!-- Widget ends -->
+
     </div>
   </div>
 
-  <div class="container-fluid padded">
-    <div class="row-fluid">
+  <div class="span4">
 
-      <!-- Breadcrumb line -->
+    <div class="widget wblue">
 
-      <div id="breadcrumbs">
-        <div class="breadcrumb-button blue">
-          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
-          <span class="breadcrumb-arrow"><span></span></span>
+      <div class="widget-head">
+        <div class="pull-left">Today Status</div>
+        <div class="widget-icons pull-right">
+          <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
+          <a href="#" class="wclose"><i class="icon-remove"></i></a>
         </div>
+        <div class="clearfix"></div>
+      </div>             
 
-        
+      <div class="widget-content">
+        <div class="padd">
 
-        <div class="breadcrumb-button">
-          <span class="breadcrumb-label">
-            <i class="icon-dashboard"></i> Dashboard
-          </span>
-          <span class="breadcrumb-arrow"><span></span></span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid padded">
-    <div class="row-fluid">
-
-      <div class="span3">
-        <!-- find me in partials/action_nav_normal -->
-
-        <!--big normal buttons-->
-        <div class="action-nav-normal">
-
-          <div class="row-fluid">
-
-            <div class="span6 action-nav-button">
-              <a href="#" title="System">
-                <i class="icon-dashboard"></i>
-                <span>System</span>
-              </a>
-            </div>
-
-            <div class="span6 action-nav-button">
-              <a href="#" title="Students">
-                <i class="icon-user"></i>
-                <span>Students</span>
-              </a>
-              <span class="triangle-button green"><span class="inner">+3</span></span>
-            </div>
-
-
-
-          </div>
-
-          <div class="row-fluid">
-
-            <div class="span6 action-nav-button">
-              <a href="#" title="Partners">
-                <i class="icon-star"></i>
-                <span>Partners</span>
-              </a>
-              <!-- <span class="triangle-button red"><i class="icon-plus"></i></span> -->
-            </div>
-
-            <div class="span6 action-nav-button">
-              <a href="#" title="Content">
-                <i class="icon-folder-open-alt"></i>
-                <span>Content</span>
-              </a>
-              <!-- <span class="label label-black">14</span> -->
-            </div>
-
-          </div>
-
-          <div class="row-fluid">
-            <div class="span6 action-nav-button">
-              <a href="#" title="SMS">
-                <i class="icon-mobile-phone"></i>
-                <span>SMS</span>
-              </a>
-            </div>
-
-            <div class="span6 action-nav-button">
-              <a href="#" title="Followers">
-                <i class="icon-twitter"></i>
-                <span>Followers</span>
-              </a>
-              <span class="triangle-button blue"><span class="inner">+8</span></span>
-            </div>
-          </div>
+          <!-- Visitors, pageview, bounce rate, etc., Sparklines plugin used -->
+          <ul class="current-status">
+            <li>
+              <span id="status1"></span> <span class="bold">Visits : 2000</span> <i class="icon-arrow-up green"></i>
+            </li>
+            <li>
+              <span id="status2"></span> <span class="bold">Unique Visitors : 1,345</span> <i class="icon-arrow-down red"></i>
+            </li>
+            <li>
+              <span id="status3"></span> <span class="bold">Pageviews : 2000</span> <i class="icon-arrow-up green"></i>
+            </li>
+            <li>
+              <span id="status4"></span> <span class="bold">Pages / Visit : 2000</span> <i class="icon-arrow-down red"></i>
+            </li>
+            <li>
+              <span id="status5"></span> <span class="bold">Avg. Visit Duration : 2000</span> <i class="icon-arrow-down red"></i>
+            </li>
+            <li>
+              <span id="status6"></span> <span class="bold">Bounce Rate : 2000</span> <i class="icon-arrow-up green"></i>
+            </li>   
+            <li>
+              <span id="status7"></span> <span class="bold">% New Visits : 2000</span> <i class="icon-arrow-up green"></i>
+            </li>                                                                                                            
+          </ul>
 
         </div>
       </div>
 
-      <div class="span9">
-        <!-- find me in partials/big_chart -->
-
-        <div class="box">
-          <div class="box-header">
-            <div class="title">Charts</div>
-            <ul class="box-toolbar">
-              <li class="toolbar-link">
-                <a href="#" data-toggle="dropdown"><i class="icon-cog"></i></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#"><i class="icon-plus-sign"></i> Add</a></li>
-                  <li><a href="#"><i class="icon-remove-sign"></i> Remove</a></li>
-                  <li><a href="#"><i class="icon-pencil"></i> Edit</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-
-          <div class="box-content padded">
-            <div class="row-fluid">
-              <div class="span4 separate-sections" style="margin-top: 5px;">
-
-                <div class="row-fluid">
-                  <div class="span12">
-                    <div class="dashboard-stats">
-                      <ul class="inline">
-                        <li class="glyph"><i class="icon-bolt icon-2x"></i></li>
-                        <li class="count">973,119</li>
-                      </ul>
-                      <div class="progress progress-blue"><div class="bar tip" title="80%" data-percent="80"></div></div>
-                      <div class="stats-label">Total Visits</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row-fluid" style="margin-top:30px;">
-                  <div class="span6">
-                    <div class="dashboard-stats small">
-                      <ul class="inline">
-                        <li class="glyph"><i class="icon-user"></i></li>
-                        <li class="count">8800</li>
-                      </ul>
-                      <div class="progress progress-blue"><div class="bar tip" title="65%" data-percent="65"></div></div>
-                      <div class="stats-label">New Visitors</div>
-                    </div>
-                  </div>
-
-                  <div class="span6">
-                    <div class="dashboard-stats small">
-                      <ul class="inline">
-                        <li class="glyph"><i class="icon-eye-open"></i></li>
-                        <li class="count">25668</li>
-                      </ul>
-                      <div class="progress progress-blue"><div class="bar tip" title="80%" data-percent="80"></div></div>
-                      <div class="stats-label">Page Views</div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-              <div class="span8">
-                <div class="sine-chart" id="xchart-sine"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="row-fluid">
-      <div class="span6">
-        <div class="box">
-          <div class="box-header">
-            <div class="title">Full calendar</div>
-          </div>
-
-          <div class="box-content">
-            <div id="calendar"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="span6">
-        <div class="box">
-          <div class="box-header">
-            <span class="title">Recent events</span>
-            <ul class="box-toolbar">
-              <li><span class="label label-blue">1</span></li>
-            </ul>
-          </div>
-          <div class="box-content scrollable" style="height: 552px; overflow-y: auto">
-            <!-- find me in partials/news_with_icons -->
-
-            <div class="box-section news with-icons">
-              <div class="avatar green"><i class="icon-ok icon-2x"></i></div>
-              <div class="news-time">
-                <span>01</span> sep
-              </div>
-              <div class="news-content">
-                <div class="news-title"><a href="#">Morning cron delivery for PST</a></div>
-                <div class="news-text">
-                  327 questions were delivered.
-                </div>
-              </div>
-            </div>
-
-            <div class="box-section news with-icons">
-              <div class="avatar purple"><i class="icon-warning-sign icon-2x"></i></div>
-              <div class="news-time">
-                <span>11</span> feb
-              </div>
-              <div class="news-content">
-                <div class="news-title"><a href="#">Ruby on Rails 4.0</a></div>
-                <div class="news-text">
-                  Rails 4.0 is still unfinished, but it is shaping up to become a great release ...
-                </div>
-              </div>
-            </div>
-
-
-
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row-fluid">
-      <div class="span12">
-        
-        <ul class="chat-box timeline">
-
-          <li class="arrow-box-left gray">
-            <div class="avatar"><img class="avatar-small" src="../../images/avatars/avatar1.jpg" /></div>
-            <div class="info">
-              <span class="name">
-                <span class="label label-green">COMMENT</span> <strong class="indent">John</strong> posted a comment on this task: <strong>Core Admin</strong>
-              </span>
-              <span class="time"><i class="icon-time"></i> 3 minutes ago</span>
-            </div>
-            <div class="content">
-              <blockquote>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              </blockquote>
-              <div>
-                <a href="#"><i class="icon-paper-clip"></i> <b>project_news.docx</b></a>
-              </div>
-            </div>
-          </li>
-
-          <li class="arrow-box-left gray">
-            <div class="avatar"><img class="avatar-small" src="../../images/avatars/avatar2.jpg" /></div>
-            <div class="info">
-              <span class="name">
-                <span class="label label-blue">TASK</span> <strong class="indent">Michael</strong> completed this task: <strong class="strikethrough">Core Admin</strong>
-              </span>
-              <span class="time"><i class="icon-time"></i> 6 minutes ago</span>
-            </div>
-          </li>
-
-          <li class="arrow-box-left gray">
-            <div class="avatar"><img class="avatar-small" src="../../images/avatars/avatar3.jpg" /></div>
-            <div class="info">
-              <span class="name">
-                <span class="label label-purple">FILE</span> <strong class="indent">Janine</strong> added 3 new files in project: <strong>Core Admin</strong>
-              </span>
-              <span class="time"><i class="icon-time"></i> 12 minutes ago</span>
-            </div>
-          </li>
-        </ul>
-
-        <div class="box closable-chat-box">
-          <div class="box-content padded">
-
-            <div class="fields">
-              <div class="avatar"><img class="avatar-small" src="../../images/avatars/avatar2.jpg" /></div>
-              <ul>
-                <li><b>Add a comment for project <a href="#">Core Admin</a></b></li>
-                <li class="note">Click on the textarea below to expand it!</li>
-              </ul>
-            </div>
-
-            <form class="fill-up" action="/">
-
-              <div class="chat-message-box">
-                <textarea name="ttt" id="ttt" rows="5" placeholder="add a comment (click to expand!)"></textarea>
-              </div>
-
-              <div class="clearfix actions">
-                <span class="note">An optional note can go here</span>
-                <div class="pull-right faded-toolbar">
-                  <a href="#" class="tip" title="Attach files"><i class="icon-paper-clip"></i></a>
-                  <a href="#" class="btn btn-blue btn-mini">Send</a>
-                </div>
-              </div>
-            </form>
-
-          </div>
-        </div>
-      </div>
     </div>
 
   </div>
+</div>
+<!-- Dashboard graph ends -->
+
+<!-- Chats, File upload and Recent Comments -->
+<div class="row-fluid">
+
+  
+
+  <div class="span12">
+    <div class="widget wblue">
+      <div class="widget-head">
+        <div class="pull-left">Curve Chart</div>
+        <div class="widget-icons pull-right">
+          <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
+          <a href="#" class="wclose"><i class="icon-remove"></i></a>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="widget-content">
+        <div class="padd">
+          
+          <!-- Curve chart -->
+
+          <div id="curve-chart"></div>
+
+          <hr />
+          <!-- Hover location -->
+          <div id="hoverdata">Mouse hovers at
+          (<span id="x">0</span>, <span id="y">0</span>). <span id="clickdata"></span></div>          
+
+          <!-- Skil this line. <div class="uni"><input id="enableTooltip" type="checkbox">Enable tooltip</div> -->
+
+        </div>
+      </div>
+      <div class="widget-foot">
+          <!-- Footer goes here -->
+      </div>
+    </div> 
+  </div>
+
+
+
+
+
+
 </div>
