@@ -10,6 +10,22 @@
   <meta name="keywords" content="">
   <meta name="author" content="">
 
+  <!-- JS -->
+<script src="/public/js/jquery.js"></script> <!-- jQuery -->
+<script src="/public/js/bootstrap.js"></script> <!-- Bootstrap -->
+<script src="/public/js/jquery-ui-1.10.2.custom.min.js"></script> <!-- jQuery UI -->
+<script src="/public/js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+
+<script src="/public/js/jquery.gritter.min.js"></script> <!-- jQuery Gritter -->
+<script src="/public/js/sparklines.js"></script> <!-- Sparklines -->
+<script src="/public/js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
+<script src="/public/js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<script src="/public/js/jquery.toggle.buttons.js"></script> <!-- Bootstrap Toggle -->
+<script src="/public/js/filter.js"></script> <!-- Filter for support page -->
+<script src="/public/js/custom.js"></script> <!-- Custom codes -->
+<script src="/public/js/charts.js"></script> <!-- Custom chart codes -->
+
+<script src="/public/js/moment.min.js"></script> <!-- 
 
   <!-- Stylesheets -->
   <link href="/public/style/bootstrap.css" rel="stylesheet">
@@ -66,7 +82,7 @@
       <!-- Page heading -->
       <div class="page-head">
         <!-- Page heading -->
-        <h2 class="pull-left">smsPREP Dashboard</h2>
+        <h2 class="pull-left"><%=page_title%></h2>
 
 
         <!-- Breadcrumb -->
@@ -74,7 +90,7 @@
           <a href="index.html"><i class="icon-home"></i> Home</a> 
           <!-- Divider -->
           <span class="divider">/</span> 
-          <a href="#" class="bread-current">Dashboard</a>
+          <a href="#" class="bread-current"><%=bread_current%></a>
         </div>
 
         <div class="clearfix"></div>
@@ -106,32 +122,6 @@
 
 <!-- Scroll to top -->
 <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span> 
-
-<!-- JS -->
-<script src="/public/js/jquery.js"></script> <!-- jQuery -->
-<script src="/public/js/bootstrap.js"></script> <!-- Bootstrap -->
-<script src="/public/js/jquery-ui-1.10.2.custom.min.js"></script> <!-- jQuery UI -->
-<script src="/public/js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
-<script src="/public/js/jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
-<script src="/public/js/jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
-
-<!-- jQuery Flot -->
-<script src="/public/js/excanvas.min.js"></script>
-<script src="/public/js/jquery.flot.js"></script>
-<script src="/public/js/jquery.flot.resize.js"></script>
-<script src="/public/js/jquery.flot.pie.js"></script>
-<script src="/public/js/jquery.flot.stack.js"></script>
-
-<script src="/public/js/jquery.gritter.min.js"></script> <!-- jQuery Gritter -->
-<script src="/public/js/sparklines.js"></script> <!-- Sparklines -->
-<script src="/public/js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
-<script src="/public/js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
-<script src="/public/js/jquery.toggle.buttons.js"></script> <!-- Bootstrap Toggle -->
-<script src="/public/js/filter.js"></script> <!-- Filter for support page -->
-<script src="/public/js/custom.js"></script> <!-- Custom codes -->
-<script src="/public/js/charts.js"></script> <!-- Custom chart codes -->
-
-<script src="/public/js/_admin.js"></script>
 
 </body>
 </html>

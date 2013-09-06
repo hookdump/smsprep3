@@ -46,35 +46,43 @@ Core.sendCronQuestion = function(tz, schedule, callback) {
 Core.receiveMessage = function(phone, message, command, callback) {
 	var self = this;
 
-	// Find student
-	self.Lib.Student.findOne({ phone: phone }, function(err, student) {
-		var msgSummary = ' [' + phone + ': ' + message + ']';
+	// Store Message (async)
+	var isTesting 	= (phone.charAt(0) === '9');
+	self.Lib.Message.create({from: phone, to: 'smsprep', msg: message, test: isTesting}, function(err, data) {
+		log.highlight('sms', 'incoming SMS stored in database');
 
-		if (err) {
-			log.error('loading phone #' + phone, err);
-			self.Lib.Utils.reportError('receiveMessage', 'Error trying to find phone number: ' + phone);
-			return callback(err);
-		} else if (!student) {
-			// var newErr = new Error('cannot load student for ' + phone);
-			log.error('loading phone #' + phone, err);
-			log.highlight('sms', 'incoming message from unknown student' + msgSummary);
-			self.Lib.Utils.reportError('receiveMessage', 'message received (' + message + ') from an inexistent phone: ' + phone);
-			var ret = [];
-			if (message == "PING") {
-				ret.push({phone: phone, message: "PONG"});
-			}
+		// Find student
+		self.Lib.Student.findOne({ phone: phone }, function(err, student) {
+			var msgSummary = ' [' + phone + ': ' + message + ']';
 
-			return callback(null, ret);
-		} else {
+			if (err) {
+				log.error('loading phone #' + phone, err);
+				self.Lib.Utils.reportError('receiveMessage', 'Error trying to find phone number: ' + phone);
+				return callback(err);
+			} else if (!student) {
+				// var newErr = new Error('cannot load student for ' + phone);
+				log.error('loading phone #' + phone, err);
+				log.highlight('sms', 'incoming message from unknown student' + msgSummary);
+				self.Lib.Utils.reportError('receiveMessage', 'message received (' + message + ') from an inexistent phone: ' + phone);
+				var ret = [];
+				if (message == "PING") {
+					ret.push({phone: phone, message: "PONG"});
+				}
 
-			// Success
-			log.highlight('sms', 'incoming message from student ' + student._id + msgSummary);
+				return callback(null, ret);
+			} else {
 
-			self.processMessage(student, message, command, function(err, payload) {
-				return callback(err, payload);
-			});
-		}  
+				// Success
+				log.highlight('sms', 'incoming message from student ' + student._id + msgSummary);
+
+				self.processMessage(student, message, command, function(err, payload) {
+					return callback(err, payload);
+				});
+			}  
+		});
+
 	});
+
 };
 
 Core.processMessage = function(student, message, command, callback) {
@@ -88,12 +96,12 @@ Core.processMessage = function(student, message, command, callback) {
 				message = "@@" + command;
 			}
 
-			var upperMessage = message.toUpperCase();
-			this(null, upperMessage);
+			
+			this(null, message.toUpperCase());
 		},
 		function _active(_err, msg) {
 			var next = this;
-			Checks.isActive(student, message, function(err, newMsg, abort, addPayload) {
+			Checks.isActive(student, msg, function(err, newMsg, abort, addPayload) {
 				if (addPayload) payload = payload.concat(addPayload);
 				if (abort) 		return callback(null, payload); 
 				next(err, newMsg);

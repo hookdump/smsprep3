@@ -1,5 +1,13 @@
 $(function () {
 
+    console.log('dash?');
+    if (!$('#dashboard_page').is('*')) {
+        console.log('no');
+        return;
+    } else {
+        console.log('yes');
+    }
+
     /* Bar Chart starts */
 
     var d1 = [];

@@ -1,3 +1,35 @@
+<ul class="hidden templateItems">
+  <!-- Chat by us. Use the class "by-me". -->
+  <li class="by-me">
+    <!-- Use the class "pull-left" in avatar -->
+    <div class="avatar pull-left">
+    <img src="/public/img/user_smsprep.jpg" alt=""/>
+    </div>
+
+    <div class="chat-content">
+    <!-- In meta area, first include "name" and then "time" -->
+    <div class="chat-meta"><span class='time-ago'>X</span> <span class="pull-right to-number">#123123123</span></div>
+    <span class='body'></span>
+    <div class="clearfix"></div>
+    </div>
+  </li> 
+
+  <!-- Chat by other. Use the class "by-other". -->
+  <li class="by-other">
+    <!-- Use the class "pull-right" in avatar -->
+    <div class="avatar pull-right">
+    <img src="/public/img/user_student.jpg" alt=""/>
+    </div>
+
+    <div class="chat-content">
+    <!-- In the chat meta, first include "time" then "name" -->
+    <div class="chat-meta"><span class='time-ago'>X</span> <span class="pull-right from-number">#12223334444</span></div>
+    <span class='body'></span>
+    <div class="clearfix"></div>
+    </div>
+  </li>  
+</ul>
+
 <!-- Chats, File upload and Recent Comments -->
 <div class="row-fluid">
 
@@ -9,10 +41,6 @@
       <!-- Widget title -->
       <div class="widget-head">
         <div class="pull-left">Messages</div>
-        <div class="widget-icons pull-right">
-          <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
-          <a href="#" class="wclose"><i class="icon-remove"></i></a>
-        </div>
         <div class="clearfix"></div>
       </div>
 
@@ -20,63 +48,9 @@
         <!-- Widget content -->
         <div class="padd">
           
-          <ul class="chats">
+          <ul class="chats logMessages">
 
-            <!-- Chat by us. Use the class "by-me". -->
-            <li class="by-me">
-              <!-- Use the class "pull-left" in avatar -->
-              <div class="avatar pull-left">
-                <img src="/public/img/user_smsprep.jpg" alt=""/>
-              </div>
-
-              <div class="chat-content">
-                <!-- In meta area, first include "name" and then "time" -->
-                <div class="chat-meta">smsPREP <span class="pull-right">3 hours ago</span></div>
-                Vivamus diam elit diam, consectetur dapibus adipiscing elit.
-                <div class="clearfix"></div>
-              </div>
-            </li> 
-
-            <!-- Chat by other. Use the class "by-other". -->
-            <li class="by-other">
-              <!-- Use the class "pull-right" in avatar -->
-              <div class="avatar pull-right">
-                <img src="/public/img/user_student.jpg" alt=""/>
-              </div>
-
-              <div class="chat-content">
-                <!-- In the chat meta, first include "time" then "name" -->
-                <div class="chat-meta">3 hours ago <span class="pull-right">#12223334444</span></div>
-                Vivamus diam elit diam, consectetur fconsectetur dapibus adipiscing elit.
-                <div class="clearfix"></div>
-              </div>
-            </li>   
-
-            <li class="by-me">
-              <div class="avatar pull-left">
-                <img src="/public/img/user_smsprep.jpg" alt=""/>
-              </div>
-
-              <div class="chat-content">
-                <div class="chat-meta">smsPREP <span class="pull-right">4 hours ago</span></div>
-                Vivamus diam elit diam, consectetur fermentum sed dapibus eget, Vivamus consectetur dapibus adipiscing elit.
-                <div class="clearfix"></div>
-              </div>
-            </li>  
-
-            <li class="by-other">
-              <!-- Use the class "pull-right" in avatar -->
-              <div class="avatar pull-right">
-                <img src="/public/img/user_student.jpg" alt=""/>
-              </div>
-
-              <div class="chat-content">
-                <!-- In the chat meta, first include "time" then "name" -->
-                <div class="chat-meta">3 hours ago <span class="pull-right">#12223334444</span></div>
-                Vivamus diam elit diam, consectetur fermentum sed dapibus eget, Vivamus consectetur dapibus adipiscing elit.
-                <div class="clearfix"></div>
-              </div>
-            </li>                                                                                  
+ 
 
           </ul>
 
@@ -93,12 +67,6 @@
 
 
 
-
-
-
-
-
-
   <div class="span6">
     
     <!-- Chat Widget -->
@@ -107,73 +75,21 @@
       <div class="widget-head">
         <div class="pull-left">Testing</div>
         <div class="widget-icons pull-right">
-          <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
-          <a href="#" class="wclose"><i class="icon-remove"></i></a>
+          <a href="#" class="wconfig"><i class="icon-cog"></i></a>
         </div>
         <div class="clearfix"></div>
       </div>
 
       <div class="widget-content">
+
+        <div class='emulateLoading'>Loading...</div>
+
         <!-- Widget content -->
         <div class="padd">
           
-          <ul class="chats">
+          <ul class="chats logTesting">
 
-            <!-- Chat by us. Use the class "by-me". -->
-            <li class="by-me">
-              <!-- Use the class "pull-left" in avatar -->
-              <div class="avatar pull-left">
-                <img src="/public/img/user_smsprep.jpg" alt=""/>
-              </div>
-
-              <div class="chat-content">
-                <!-- In meta area, first include "name" and then "time" -->
-                <div class="chat-meta">smsPREP <span class="pull-right">3 hours ago</span></div>
-                Vivamus diam elit diam, consectetur dapibus adipiscing elit.
-                <div class="clearfix"></div>
-              </div>
-            </li> 
-
-            <!-- Chat by other. Use the class "by-other". -->
-            <li class="by-other">
-              <!-- Use the class "pull-right" in avatar -->
-              <div class="avatar pull-right">
-                <img src="/public/img/user_student.jpg" alt=""/>
-              </div>
-
-              <div class="chat-content">
-                <!-- In the chat meta, first include "time" then "name" -->
-                <div class="chat-meta">3 hours ago <span class="pull-right">#12223334444</span></div>
-                Vivamus diam elit diam, consectetur fconsectetur dapibus adipiscing elit.
-                <div class="clearfix"></div>
-              </div>
-            </li>   
-
-            <li class="by-me">
-              <div class="avatar pull-left">
-                <img src="/public/img/user_smsprep.jpg" alt=""/>
-              </div>
-
-              <div class="chat-content">
-                <div class="chat-meta">smsPREP <span class="pull-right">4 hours ago</span></div>
-                Vivamus diam elit diam, consectetur fermentum sed dapibus eget, Vivamus consectetur dapibus adipiscing elit.
-                <div class="clearfix"></div>
-              </div>
-            </li>  
-
-            <li class="by-other">
-              <!-- Use the class "pull-right" in avatar -->
-              <div class="avatar pull-right">
-                <img src="/public/img/user_student.jpg" alt=""/>
-              </div>
-
-              <div class="chat-content">
-                <!-- In the chat meta, first include "time" then "name" -->
-                <div class="chat-meta">3 hours ago <span class="pull-right">#12223334444</span></div>
-                Vivamus diam elit diam, consectetur fermentum sed dapibus eget, Vivamus consectetur dapibus adipiscing elit.
-                <div class="clearfix"></div>
-              </div>
-            </li>                                                                                  
+                                                              
 
           </ul>
 
@@ -187,10 +103,17 @@
           <!-- Chat input box -->
             <form class="form-inline">
               <div class="input-append row-fluid">
-                <input type="text" class="span4" placeholder="Message">
-                <input type="text" name="phone_number" class="span4" placeholder="Phone Number">
-                <button type="submit" class="btn btn-info">Send</button>
-              </div>
+                <div class="testingConfig">
+                  <input type="text" class="span4 testingConfig_phone" placeholder="Phone Number" value="90001110000">
+                  <button class="btn btn-info testingConfig_start">Start testing</button>
+                </div>
+
+                <div class="testingMessage" style='display: none'>
+                  <span class="pull-right testPhoneContainer">Sending from:<br /><span class='testPhone'></span></span>
+                  <input type="text" class="span4 testingMessage_msg" placeholder="Message">
+                  <button class="btn btn-info testingMessage_send">Send</button>
+                </div>
+              </div>              
             </form>
 
         </div>
@@ -209,3 +132,7 @@
 
 
 </div>
+
+<div id='messages_page'></div>
+
+<script src="/public/js/_messages.js"></script>

@@ -20,6 +20,17 @@ var myself = {
 
 		});
 
+		// Subscribe to bus events
+		Lib.Bus.subscribe('send.welcome', function (event) {
+			var myPhone 	= event.data.phone;
+
+			Core.receiveMessage(myPhone, null, 'SEND_WELCOME', function(err, response) {
+				log.highlight('sms', 'sending welcome to [' + myPhone + ']');
+				Lib.Bus.publish('sms.out', {payload: response});
+			});
+
+		});
+
 		// Receive Crons
 		Lib.Bus.subscribe('cron.question', function (event) {
 			var myTz		= event.data.timezone;

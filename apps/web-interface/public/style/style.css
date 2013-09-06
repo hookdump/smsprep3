@@ -1552,9 +1552,30 @@ border:1px solid #eee;
 	}
 }
 
+.testPhoneContainer {
+	margin: -6px 0px 0px 0px;
+	line-height: 17px;
+}
 
+.testingMessage span {
+	font-size: 12px;
+}
+.testingMessage .testPhone {
+	font-weight: bold;
+}
 
+.emulateLoading {
+	position: absolute;
+	background-color: rgba(0,0,0,0.7);
+	color: white;
+	text-align: center;
+	margin: 10px;
+	padding: 6px 18px;
+	z-index: 9999999;
+	
+}
 
-
-
-
+.logTesting {
+	height: 450px;
+	overflow: scroll;
+}
