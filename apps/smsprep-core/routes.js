@@ -19,6 +19,9 @@ exports.init = function(app, config, lib) {
       log.highlight('sms', 'emulating response for [' + phone + ': Payload (' + response.length + ')]');
       if (response.length > 0) log.success(response);
 
+      // only store to database!
+      lib.Bus.publish('sms.out', {test: true, payload: response});
+
       res.json({success: true, payload: response});
     });
   });

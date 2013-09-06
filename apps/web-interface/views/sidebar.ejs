@@ -1,0 +1,54 @@
+<% if (loggedin) { %>
+
+    <div class="sidebar">
+        <div class="sidebar-dropdown"><a href="#">Navigation</a></div>
+
+        <div class="sidebar-inner">
+
+
+
+          <!-- Search form -->
+          <div class="sidebar-widget">
+            <form class="form-inline">
+              <div class="input-append row-fluid">
+                <input type="text" class="span8" placeholder="Phone # info">
+                <button type="submit" class="btn btn-info">Lookup</button>
+              </div>
+            </form>
+          </div>
+
+          <!--- Sidebar navigation -->
+          <!-- If the main navigation has sub navigation, then add the class "has_submenu" to "li" of main navigation. -->
+          <ul class="navi">
+
+            <!-- Use the class nred, ngreen, nblue, nlightblue, nviolet or norange to add background color. You need to use this in <li> tag. -->
+
+            <li class="nblue <%=cur_admin%>"><a href="/admin"><i class="icon-desktop"></i> Dashboard</a></li>
+
+            <li class="ngreen <%=cur_messages%>"><a href="/admin/messages"><i class="icon-list"></i> Messages</a></li>
+
+            <li class="ngreen <%=cur_students%>"><a href="/admin/students"><i class="icon-bar-chart"></i> Students</a></li>
+
+            <li class="norange <%=cur_partners%>"><a href="/admin/partners"><i class="icon-sitemap"></i> Partners</a></li>            
+
+            <li class="nlightblue <%=cur_crons%>"><a href="/admin/crons"><i class="icon-table"></i> Crons</a></li>
+
+          </ul>
+
+
+
+
+          <!-- Date -->
+<!--
+          <div class="sidebar-widget">
+            <div id="todaydate"></div>
+          </div>
+        -->
+
+
+
+        </div>
+
+    </div>
+
+<% } %>

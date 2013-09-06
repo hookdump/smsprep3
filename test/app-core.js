@@ -52,7 +52,7 @@ describe('smsprep-core service', function() {
 	});
 
 	var hitMessage2 = function(phone, message, cb) {
-		var myUrl = 'http://localhost:8201/msg/' + phone + '/' + message;
+		var myUrl = 'http://127.0.0.1:8201/msg/' + phone + '/' + message;
 	    return request.get({url: myUrl, json: true}, cb);
 	};
 

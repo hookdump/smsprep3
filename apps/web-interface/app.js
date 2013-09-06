@@ -48,7 +48,7 @@ app.configure(function(){
   app.set('port', appConfig.port);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
-  app.set('layout', 'nice_layout');
+  app.set('layout', 'admin_layout');
   app.use(express.favicon());
 
   if (appConfig.logs) {
@@ -86,11 +86,14 @@ app.configure(function(){
     log.route(req.method, req.url);
 
     // current section
-    var active_str = " class='active' ";
+    var active_str = " current ";
     res.locals.cur_home = ( req.url === '/' ) ? active_str : "";
-    res.locals.cur_dashboard = ( req.url === '/dashboard' ) ? active_str : "";
-    res.locals.cur_content = ( req.url === '/content' ) ? active_str : "";
-    res.locals.cur_students = ( req.url === '/students' ) ? active_str : "";
+    res.locals.cur_admin = ( req.url === '/admin' ) ? active_str : "";
+    res.locals.cur_messages = ( req.url === '/admin/messages' ) ? active_str : "";
+    res.locals.cur_students = ( req.url === '/admin/students' ) ? active_str : "";
+    res.locals.cur_partners = ( req.url === '/admin/partners' ) ? active_str : "";
+    res.locals.cur_crons = ( req.url === '/admin/crons' ) ? active_str : "";
+    
 
     // user
     if (req.user) {

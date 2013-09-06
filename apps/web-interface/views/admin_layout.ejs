@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <!-- Title and other stuffs -->
+  <title>smsPREP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+
+  <!-- JS -->
+<script src="/public/js/jquery.js"></script> <!-- jQuery -->
+<script src="/public/js/bootstrap.js"></script> <!-- Bootstrap -->
+<script src="/public/js/jquery-ui-1.10.2.custom.min.js"></script> <!-- jQuery UI -->
+<script src="/public/js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+
+<script src="/public/js/jquery.gritter.min.js"></script> <!-- jQuery Gritter -->
+<script src="/public/js/sparklines.js"></script> <!-- Sparklines -->
+<script src="/public/js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
+<script src="/public/js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<script src="/public/js/jquery.toggle.buttons.js"></script> <!-- Bootstrap Toggle -->
+<script src="/public/js/filter.js"></script> <!-- Filter for support page -->
+<script src="/public/js/custom.js"></script> <!-- Custom codes -->
+<script src="/public/js/charts.js"></script> <!-- Custom chart codes -->
+
+<script src="/public/js/moment.min.js"></script> <!-- 
+
+  <!-- Stylesheets -->
+  <link href="/public/style/bootstrap.css" rel="stylesheet">
+  <!-- Font awesome icon -->
+  <link rel="stylesheet" href="/public/style/font-awesome.css"> 
+  <!-- jQuery UI -->
+  <link rel="stylesheet" href="/public/style/jquery-ui.css"> 
+  <!-- Calendar -->
+  <link rel="stylesheet" href="/public/style/fullcalendar.css">
+  <!-- prettyPhoto -->
+  <link rel="stylesheet" href="/public/style/prettyPhoto.css">   
+  <!-- Star rating -->
+  <link rel="stylesheet" href="/public/style/rateit.css">
+  <!-- Date picker -->
+  <link rel="stylesheet" href="/public/style/bootstrap-datetimepicker.min.css">
+  <!-- jQuery Gritter -->
+  <link rel="stylesheet" href="/public/style/jquery.gritter.css">
+  <!-- CLEditor -->
+  <link rel="stylesheet" href="/public/style/jquery.cleditor.css"> 
+  <!-- Bootstrap toggle -->
+  <link rel="stylesheet" href="/public/style/bootstrap-toggle-buttons.css">
+  <!-- Main stylesheet -->
+  <link href="/public/style/style.css" rel="stylesheet">
+  <!-- Widgets stylesheet -->
+  <link href="/public/style/widgets.css" rel="stylesheet">   
+  <!-- Responsive style (from Bootstrap) -->
+  <link href="/public/style/bootstrap-responsive.css" rel="stylesheet">
+  
+  <!-- HTML5 Support for IE -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shim.js"></script>
+  <![endif]-->
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/public/img/favicon/favicon.png">
+</head>
+
+<body>
+
+<!-- Nav starts -->
+<% include nav.ejs %>
+<!-- Nav starts -->
+
+<!-- Main content starts -->
+<div class="content">
+
+    <!-- Sidebar -->
+    <% include sidebar.ejs %>
+    <!-- Sidebar ends -->
+
+    <!-- Main bar -->
+    <div class="mainbar">
+      
+      <!-- Page heading -->
+      <div class="page-head">
+        <!-- Page heading -->
+        <h2 class="pull-left"><%=page_title%></h2>
+
+
+        <!-- Breadcrumb -->
+        <div class="bread-crumb pull-right">
+          <a href="index.html"><i class="icon-home"></i> Home</a> 
+          <!-- Divider -->
+          <span class="divider">/</span> 
+          <a href="#" class="bread-current"><%=bread_current%></a>
+        </div>
+
+        <div class="clearfix"></div>
+
+      </div>
+      <!-- Page heading ends -->
+
+
+      <!-- Matter -->
+      <div class="matter">
+        <div class="container-fluid">
+
+          <!-- Content -->
+          <%-body%>
+
+        </div>
+      </div>
+
+    <!-- Matter ends -->
+
+    </div>
+
+   <!-- Mainbar ends -->        
+   <div class="clearfix"></div>
+
+</div>
+<!-- Content ends -->
+
+
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span> 
+
+</body>
+</html>

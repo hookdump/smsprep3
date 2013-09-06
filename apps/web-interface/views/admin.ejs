@@ -1,0 +1,191 @@
+
+<!-- Today status. jQuery Sparkline plugin used. -->
+
+<div class="row-fluid">
+  <div class="span12"> 
+    <!-- List starts -->
+    <ul class="today-datas">
+
+      <!-- List #1 -->
+
+      <li class="bred">
+        <!-- Graph -->
+        <div class="pull-left"><i class="icon-group"></i></div>
+        <!-- Text -->
+        <div class="datas-text pull-right"><span class="bold">0</span> Students</div>
+
+        <div class="clearfix"></div>
+      </li>
+
+
+      <li class="bgreen">
+        <!-- Graph -->
+        <div class="pull-left"><span id="todayspark1" class="spark"></span></div>
+        <!-- Text -->
+        <div class="datas-text pull-right"><span class="bold">0</span> Q's Delivered</div>
+
+        <div class="clearfix"></div>
+      </li>
+
+
+      <li class="bgreen">
+        <!-- Graph -->
+        <div class="pull-left"><span id="todayspark2" class="spark"></span></div>
+        <!-- Text -->
+        <div class="datas-text pull-right"><span class="bold">0%</span> Q's Answered</div>
+
+        <div class="clearfix"></div>
+      </li>
+
+      <li class="bviolet">
+        <!-- Graph -->
+        <div class="pull-left"><span id="todayspark3" class="spark"></span></div>
+        <!-- Text -->
+        <div class="datas-text pull-right"><span class="bold">$0</span> Total Profit</div>
+
+        <div class="clearfix"></div>
+      </li> 
+
+    </ul> 
+  </div>
+</div>
+
+<!-- Today status ends -->
+
+<!-- Dashboard Graph starts -->
+
+<div class="row-fluid">
+  <div class="span8">
+
+    <!-- Widget -->
+    <div class="widget wblue">
+      <!-- Widget head -->
+      <div class="widget-head">
+        <div class="pull-left">Dashboard</div>
+        <div class="widget-icons pull-right">
+          <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
+          <a href="#" class="wclose"><i class="icon-remove"></i></a>
+        </div>
+        <div class="clearfix"></div>
+      </div>             
+
+      <!-- Widget content -->
+      <div class="widget-content">
+        <div class="padd">
+
+          <!-- Bar chart (Blue color). jQuery Flot plugin used. -->
+          <div id="bar-chart"></div>
+
+
+        </div>
+      </div>
+      <!-- Widget ends -->
+
+    </div>
+  </div>
+
+  <div class="span4">
+
+    <div class="widget wblue">
+
+      <div class="widget-head">
+        <div class="pull-left">Today Status</div>
+        <div class="widget-icons pull-right">
+          <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
+          <a href="#" class="wclose"><i class="icon-remove"></i></a>
+        </div>
+        <div class="clearfix"></div>
+      </div>             
+
+      <div class="widget-content">
+        <div class="padd">
+
+          <!-- Visitors, pageview, bounce rate, etc., Sparklines plugin used -->
+          <ul class="current-status">
+            <li>
+              <span id="status1"></span> <span class="bold">Visits : 2000</span> <i class="icon-arrow-up green"></i>
+            </li>
+            <li>
+              <span id="status2"></span> <span class="bold">Unique Visitors : 1,345</span> <i class="icon-arrow-down red"></i>
+            </li>
+            <li>
+              <span id="status3"></span> <span class="bold">Pageviews : 2000</span> <i class="icon-arrow-up green"></i>
+            </li>
+            <li>
+              <span id="status4"></span> <span class="bold">Pages / Visit : 2000</span> <i class="icon-arrow-down red"></i>
+            </li>
+            <li>
+              <span id="status5"></span> <span class="bold">Avg. Visit Duration : 2000</span> <i class="icon-arrow-down red"></i>
+            </li>
+            <li>
+              <span id="status6"></span> <span class="bold">Bounce Rate : 2000</span> <i class="icon-arrow-up green"></i>
+            </li>   
+            <li>
+              <span id="status7"></span> <span class="bold">% New Visits : 2000</span> <i class="icon-arrow-up green"></i>
+            </li>                                                                                                            
+          </ul>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!-- Dashboard graph ends -->
+
+<!-- Chats, File upload and Recent Comments -->
+<div class="row-fluid">
+
+  
+
+  <div class="span12">
+    <div class="widget wblue">
+      <div class="widget-head">
+        <div class="pull-left">Curve Chart</div>
+        <div class="widget-icons pull-right">
+          <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
+          <a href="#" class="wclose"><i class="icon-remove"></i></a>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="widget-content">
+        <div class="padd">
+          
+          <!-- Curve chart -->
+
+          <div id="curve-chart"></div>
+
+          <hr />
+          <!-- Hover location -->
+          <div id="hoverdata">Mouse hovers at
+          (<span id="x">0</span>, <span id="y">0</span>). <span id="clickdata"></span></div>          
+
+          <!-- Skil this line. <div class="uni"><input id="enableTooltip" type="checkbox">Enable tooltip</div> -->
+
+        </div>
+      </div>
+      <div class="widget-foot">
+          <!-- Footer goes here -->
+      </div>
+    </div> 
+  </div>
+
+
+
+
+
+
+</div>
+<div id='dashboard_page'></div>
+
+
+<!-- jQuery Flot -->
+<script src="/public/js/excanvas.min.js"></script>
+<script src="/public/js/jquery.flot.js"></script>
+<script src="/public/js/jquery.flot.resize.js"></script>
+<script src="/public/js/jquery.flot.pie.js"></script>
+<script src="/public/js/jquery.flot.stack.js"></script>
+
+<script src="/public/js/_admin.js"></script>

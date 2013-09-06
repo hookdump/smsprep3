@@ -4,18 +4,19 @@ var usersController = function(app, config, lib, passport) {
   // Main site ----------------------------
   app.get('/', function(req, res) {
     if (req.user) {
-      res.redirect('/dashboard');
+      res.redirect('/admin');
     } else {
-      res.render('index', { title: config.title, cur_section: "index" });
+      // res.render('index', { title: config.title, cur_section: "index" });
+      res.render('landing', { layout: 'clean_layout', title: 'smsPREP', cur_section: 'landing' });
     }
   });
 
   // Login ----------------------------
   app.get('/login', function(req, res) {
-    res.render('login', { title: config.title });
+    res.render('login', { layout: 'empty_layout', title: config.title });
   });
   app.post('/login',
-    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login', failureFlash: true } )
+    passport.authenticate('local', { successRedirect: '/admin', failureRedirect: '/login', failureFlash: true } )
   );
 
   // Logout ----------------------------
