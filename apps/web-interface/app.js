@@ -91,6 +91,7 @@ app.configure(function(){
     res.locals.cur_admin = ( req.url === '/admin' ) ? active_str : "";
     res.locals.cur_messages = ( req.url === '/admin/messages' ) ? active_str : "";
     res.locals.cur_students = ( req.url === '/admin/students' ) ? active_str : "";
+    res.locals.cur_content = ( req.url === '/admin/content' ) ? active_str : "";
     res.locals.cur_partners = ( req.url === '/admin/partners' ) ? active_str : "";
     res.locals.cur_crons = ( req.url === '/admin/crons' ) ? active_str : "";
     
