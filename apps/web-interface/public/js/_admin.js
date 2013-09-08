@@ -31,7 +31,7 @@ $(function () {
             grid: {
                 borderWidth: 0, hoverable: true, color: "#777"
             },
-            colors: ["#52b9e9", "#0aa4eb"],
+            colors: ["#43c83c", "#23a81c"],
             bars: {
                   show: true,
                   lineWidth: 0,

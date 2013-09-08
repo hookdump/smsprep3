@@ -25,9 +25,7 @@ var adminController = function(app, config, lib, passport) {
 
   // Messages ----------------------------
   app.get('/admin/messages', lib.Utils.requireRole('admin'), function(req, res) {
-    lib.Student.listAll(function(err, myList) {
-      res.render('admin/messages', { title: config.title, cur_section: "students", page_title: "Messages", bread_current: "Messages", students: myList });
-    });
+    res.render('admin/messages', { title: config.title, cur_section: "messages", page_title: "Messages", bread_current: "Messages"});
   });
 
   // Fetch Messages ----------------------------
@@ -64,6 +62,42 @@ var adminController = function(app, config, lib, passport) {
 
     });
   });
+
+
+
+
+
+
+
+  // Students ----------------------------
+  app.get('/admin/students', lib.Utils.requireRole('admin'), function(req, res) {
+    lib.Student.listAll(function(err, myList) {
+      res.render('admin/students', { title: config.title, cur_section: "students", page_title: "Students", bread_current: "Students", students: myList });
+    });
+  });
+
+
+
+  // Content ----------------------------
+  app.get('/admin/content', lib.Utils.requireRole('admin'), function(req, res) {
+    res.render('admin/content', { title: config.title, cur_section: "content", page_title: "Content", bread_current: "Content" });
+  });
+
+
+
+  // Crons ----------------------------
+  app.get('/admin/crons', lib.Utils.requireRole('admin'), function(req, res) {
+    res.render('admin/crons', { title: config.title, cur_section: "crons", page_title: "Crons", bread_current: "Crons" });
+  });
+
+
+
+  // Partners ----------------------------
+  app.get('/admin/partners', lib.Utils.requireRole('admin'), function(req, res) {
+    res.render('admin/partners', { title: config.title, cur_section: "partners", page_title: "Partners", bread_current: "Partners" });
+  });
+
+
 
 }
 
