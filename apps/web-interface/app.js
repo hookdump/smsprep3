@@ -20,7 +20,7 @@ var appConfig = {
     , title:  'smsPREP'
     , port: Lib.Config.services.web.port
     , upload_dir: __dirname + "/public/upload/"
-    , logs: false
+    , logs: true
 };
 log.info('starting ' + appConfig.name + ' @ ' + Lib.Config.env + '');
 
@@ -51,9 +51,18 @@ app.configure(function(){
   app.set('layout', 'admin_layout');
   app.use(express.favicon());
 
+  /*
   if (appConfig.logs) {
-    app.use(express.logger('dev'));
+    var logger = express.logger('dev');
+
+    app.use(function(req, res, next) {
+      if (/^\/admin\/messages\/load/.test(req.url)) return logger(req, res, next);
+      next();
+    });
+
+    // app.use(express.logger('dev'));
   }
+  */
 
   app.use(express.bodyParser());
   app.use(express.methodOverride()); 

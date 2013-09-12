@@ -8,8 +8,10 @@ var Checks    	= require('./checks');
 var Handlers  	= require('./handlers');
 
 Core.init = function(lib) {
+	log.green('initializing core lib...');
 	this.Lib	= lib;
 	Checks.init(lib);
+	Handlers.init(lib);
 };
 
 Core.sendCronQuestion = function(tz, schedule, callback) {
@@ -99,7 +101,8 @@ Core.processMessage = function(student, message, command, callback) {
 			
 			this(null, message.toUpperCase());
 		},
-		function _active(_err, msg) {
+		function _active(err, msg) {
+			log.error('starting core chain', err);
 			var next = this;
 			Checks.isActive(student, msg, function(err, newMsg, abort, addPayload) {
 				if (addPayload) payload = payload.concat(addPayload);
@@ -108,6 +111,7 @@ Core.processMessage = function(student, message, command, callback) {
 			});
 		},
 		function _confirmed(err, _msg) {
+			log.error('checking active', err);
 			var next = this;
 			Checks.isConfirmed(student, _msg, function(err, newMsg, abort, addPayload) {
 				if (addPayload) payload = payload.concat(addPayload);
@@ -116,14 +120,19 @@ Core.processMessage = function(student, message, command, callback) {
 			});
 		},
 		function _commandStop(err, _msg) {
+			log.error('checking confirmed', err);
 			var next = this;
 			Handlers.commandStop(student, _msg, function(err, newMsg, abort, addPayload) {
+				log.warn('after stop msg: ' + newMsg);
+				log.warn('after stop abort: ' + abort);
+				log.red(addPayload);
 				if (addPayload) payload = payload.concat(addPayload);
 				if (abort) 		return callback(null, payload); 
 				next(err, newMsg);
 			});
 		},
 		function _requestNextQuestion(err, _msg) {
+			log.error('checking stop', err);
 			var next = this;
 			Handlers.nextQuestion(student, _msg, function(err, newMsg, abort, addPayload) {
 				if (addPayload) payload = payload.concat(addPayload);
@@ -132,6 +141,7 @@ Core.processMessage = function(student, message, command, callback) {
 			});
 		},
 		function _handleAnswer(err, _msg) {
+			log.error('checking N', err);
 			var next = this;
 			Handlers.handleAnswer(student, _msg, function(err, newMsg, abort, addPayload) {
 				if (addPayload) payload = payload.concat(addPayload);
@@ -140,6 +150,7 @@ Core.processMessage = function(student, message, command, callback) {
 			});
 		},
 		function _finish(err, _msg) {
+			log.error('checking answer', err);
 			// Passed all checks. Process message! :)
 			log.warn('passed all checks. MSG: ' + _msg);
 
