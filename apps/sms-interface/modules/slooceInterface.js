@@ -30,6 +30,9 @@ slooceInterface.initializePhone = function(phone, cb) {
 	if (phone.charAt(0) === '9') {
 		log.highlight('sms', 'Test Initialization: ' + phone);
 		return cb(null);
+	} else if (phone.charAt(0) === '9') {
+		log.highlight('sms', 'Automated Test Initialization: ' + phone);
+		return cb(null);
 	} else {
 		request.get({url: endpoint}, function (err, response, body) {
 			log.error('initializing phone ' + phone, err);
@@ -78,6 +81,9 @@ slooceInterface.stopUser = function(phone, cb) {
 	if (phone.charAt(0) === '9') {
 		log.highlight('sms', 'Test STOP: #' + phone + ' >> OK');
 		return cb(null);
+	} else if (phone.charAt(0) === '8') {
+		log.highlight('sms', 'Automated Test STOP: #' + phone + ' >> OK');
+		return cb(null);
 	} else {
 		request.post({url: endpoint, body: xml}, function (err, response, body) {
 			log.error('sending STOP request to slooce', err);
@@ -106,12 +112,15 @@ slooceInterface.deliverMessage = function(phone, message, databaseOnly, cb) {
 	// Endpoint + XML Setup
 	var endpoint 	= self.prepareEndpoint(slooceConfig.outgoingEndpoint, slooceConfig, phone);
 	var xml 		= self.buildXmlBody(slooceConfig, message);
-	var isTesting 	= (phone.charAt(0) === '9') || databaseOnly;
+	var isAutomatedTest = (phone.charAt(0) === '8');
+	var isTesting 	= (phone.charAt(0) === '9') || isAutomatedTest || databaseOnly;
 
 	// Store Message (async)
-	self.Lib.Message.create({from: 'smsprep', to: phone, msg: message, test: isTesting}, function(err, data) {
-		log.highlight('sms', 'outgoing SMS stored in database');
-	});
+	if (!isAutomatedTest) {
+		self.Lib.Message.create({from: 'smsprep', to: phone, msg: message, test: isTesting}, function(err, data) {
+			log.highlight('sms', 'outgoing SMS stored in database');
+		});
+	}
 
 	// Testing vs. Production delivery
 	if (isTesting) {
