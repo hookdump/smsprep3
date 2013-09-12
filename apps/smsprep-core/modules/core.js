@@ -58,7 +58,7 @@ Core.receiveMessage = function(phone, message, command, callback) {
 
 		// Find student
 		self.Lib.Student.findOne({ phone: phone }, function(err, student) {
-			var msgSummary = ' [' + phone + ': ' + message + ']';
+			var msgSummary = ' [' + phone + ': ' + message + '] [@@' + command + ']';
 
 			if (err) {
 				log.error('loading phone #' + phone, err);
