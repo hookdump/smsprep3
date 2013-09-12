@@ -43,7 +43,7 @@ Api.Student = {
 
 				// Send welcome message:
 				log.success('sending welcome message...');
-				var welcomePayload = [{delay: 5000}, {phone: studentData.phone, message: Api.Lib.Utils.getMessage('*welcome', studentData) }];
+				var welcomePayload = [{phone: studentData.phone, message: Api.Lib.Utils.getMessage('*welcome', studentData) }];
 				Api.Lib.Bus.publish('sms.out', {payload: welcomePayload});
 				
 				log.success('calling back...');
@@ -130,7 +130,16 @@ Api.Student = {
 
 	sendMessage: function(findQuery, msg, callback) {
 		log.apiMethod('student.send');
-		callback(null, {success: true});
+
+		Api.Lib.Student.loadData( findQuery, function(err, myStudent) {
+
+			var customPayload = [{phone: myStudent.phone, message: msg }];
+			log.warn('API: Delivering custom message for #' + myStudent.phone + ': ' + msg);
+			Api.Lib.Bus.publish('sms.out', {payload: customPayload});
+			callback(null, {success: true});
+
+		});
+		
 	},
 
 };
