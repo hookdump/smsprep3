@@ -46,7 +46,7 @@ Checks.isConfirmed = function(student, msg, callback) {
 			student.confirm(function(err) {
 
 				// 2. Build response.
-				var payload1 = {phone: student.phone, message: 'Welcome! You\'ll be getting your first question in a few seconds...'};
+				var payload1 = {phone: student.phone, message: 'Your phone number has been confirmed! You\'ll be getting your first question in a few seconds...'};
 				var payload2 = {delay: 5000};
 
 				// 3. Add payload, change message to N, and return control to main handler

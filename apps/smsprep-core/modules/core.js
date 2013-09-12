@@ -49,9 +49,12 @@ Core.receiveMessage = function(phone, message, command, callback) {
 	var self = this;
 
 	// Store Message (async)
-	var isTesting 	= (phone.charAt(0) === '9');
-	self.Lib.Message.create({from: phone, to: 'smsprep', msg: message, test: isTesting}, function(err, data) {
-		log.highlight('sms', 'incoming SMS stored in database');
+	var createMsg = {from: phone, to: 'smsprep', msg: message};
+	if (phone.charAt(0) === '9') createMsg.test = true;
+	if (phone.charAt(0) === '8') createMsg.isAutomatedTest = true;
+
+	self.Lib.Message.create(createMsg, function(err, data) {
+		if (!createMsg.isAutomatedTest) log.highlight('sms', 'incoming SMS stored in database');
 
 		// Find student
 		self.Lib.Student.findOne({ phone: phone }, function(err, student) {

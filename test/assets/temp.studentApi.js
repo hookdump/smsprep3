@@ -1,5 +1,5 @@
 var tStudent = {
-	phone: '91112223333'
+	phone: '81112223333'
 	, timezone: 'PST'
 	, schedule: 'morning'
 };

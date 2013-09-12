@@ -66,7 +66,7 @@ describe('smsprep-core service', function() {
 	}
 
 	it('handle messages from inexistent students', function(done) {
-		hitMessage('98887776060', 'HELLO', function (err, response, body) {
+		hitMessage('88887776060', 'HELLO', function (err, response, body) {
 			should.not.exist(err);
 			response.statusCode.should.equal(200);
 
@@ -94,7 +94,7 @@ describe('smsprep-core service', function() {
 
 			// Welcome message
 			should.exist(body.payload[0].message);
-			body.payload[0].message.should.include('Welcome');
+			body.payload[0].message.should.include('Your phone number has been confirmed');
 			should.equal(body.payload[0].phone, testStudent.data.phone);
 			should.not.exist(body.payload[0].delay);
 			should.not.exist(body.payload[0].wtf);

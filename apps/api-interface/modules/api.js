@@ -39,8 +39,14 @@ Api.Student = {
 			// Activate phone
 			slooceInterface.initializePhone(studentData.phone, function(err) {
 				log.error('triggering phone initialization', err);
-
 				log.success('phone initialized!');
+
+				// Send welcome message:
+				log.success('sending welcome message...');
+				var welcomePayload = [{phone: studentData.phone, message: Api.Lib.Utils.getMessage('*welcome', studentData) }];
+				Api.Lib.Bus.publish('sms.out', {payload: welcomePayload});
+				
+				log.success('calling back...');
 				return callback(err, sendBack);
 			});
 

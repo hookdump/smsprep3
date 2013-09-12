@@ -1,6 +1,6 @@
 var now = new Date();
 var tStudent = {
-	phone: 		'99999990001'
+	phone: 		'89999990001'
 	, lessons: 	['AAA', 'BBB', 'CCC']
 	, schedule: 'morning'
 	, email: 	'foo@bar.com'
