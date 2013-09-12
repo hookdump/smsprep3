@@ -7,6 +7,7 @@ var contentController = function(app, config, lib, passport) {
   log.loading('content controllers');
 
   // Content ----------------------------
+  /*
   app.get('/content', function(req, res) {
 
     Step(
@@ -35,12 +36,16 @@ var contentController = function(app, config, lib, passport) {
     );
     
   });
+*/
 
+  /*
   // Content: Import ----------------------------
   app.get('/content/import/:filename', function(req, res) {
     res.render('content_import', { title: config.title, cur_section: "content_import", import_filename: req.params.filename });  
   });
+*/
 
+/*
   // Content review ----------------------------
   app.get('/content/:lesson', function(req, res) {
     var full_code = req.params.lesson;
@@ -56,6 +61,7 @@ var contentController = function(app, config, lib, passport) {
     });
     
   });
+
 
   // Content review ----------------------------
   app.get('/content/:lesson/:question', function(req, res) {
@@ -86,13 +92,14 @@ var contentController = function(app, config, lib, passport) {
       }
     });
   });
-  
+*/
 
 }
 
 
 
 var contentIo = function(socket, config, lib) {
+  /*
   socket.on('content.import', function (data) {
     var import_filename = data.import_filename;
     log.notice('starting file import: ' + import_filename);
@@ -118,6 +125,7 @@ var contentIo = function(socket, config, lib) {
     });
 
   });
+*/
 }
 
 module.exports.web = contentController;

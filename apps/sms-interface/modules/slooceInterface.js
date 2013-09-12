@@ -106,13 +106,15 @@ slooceInterface.stopUser = function(phone, cb) {
 slooceInterface.deliverMessage = function(phone, message, databaseOnly, cb) {
 	var self = this;
 	var slooceConfig = self.Lib.Config.connections.slooce;
+	var isAutomatedTest = (phone.charAt(0) === '8');
 
-	log.highlight('sms', 'preparing SMS delivery for ' + phone + ' (' + message.length + ')');
+	if (!isAutomatedTest) {
+		log.highlight('sms', 'preparing SMS delivery for ' + phone + ' (' + message.length + ')');
+	}
 
 	// Endpoint + XML Setup
 	var endpoint 	= self.prepareEndpoint(slooceConfig.outgoingEndpoint, slooceConfig, phone);
 	var xml 		= self.buildXmlBody(slooceConfig, message);
-	var isAutomatedTest = (phone.charAt(0) === '8');
 	var isTesting 	= (phone.charAt(0) === '9') || isAutomatedTest || databaseOnly;
 
 	// Store Message (async)
@@ -124,7 +126,9 @@ slooceInterface.deliverMessage = function(phone, message, databaseOnly, cb) {
 
 	// Testing vs. Production delivery
 	if (isTesting) {
-		log.highlight('sms', 'Test delivery: {' + message + '} => #' + phone + ' >> OK');
+		if (!isAutomatedTest) {
+			log.highlight('sms', 'Test delivery: {' + message + '} => #' + phone + ' >> OK');
+		}
 		return cb(null);
 	} else {
 		request.post({url: endpoint, body: xml}, function (err, response, body) {
@@ -158,7 +162,11 @@ slooceInterface.sendMessages = function(payload, databaseOnly) {
 
 				// Message block
 				if (nextMessage.phone && nextMessage.message) {
-					log.highlight('sms', 'sending message to ' + nextMessage.phone + ': ' + nextMessage.message);
+					var isAutomatedTest = (nextMessage.phone.charAt(0) === '8');
+					if (!isAutomatedTest) {
+						log.highlight('sms', 'sending message to ' + nextMessage.phone + ': ' + nextMessage.message);
+					}
+					
 					self.deliverMessage(nextMessage.phone, nextMessage.message, databaseOnly, function(err) {
 						sendNext(queue);
 					});

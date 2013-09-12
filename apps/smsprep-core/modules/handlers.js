@@ -19,9 +19,6 @@ Handlers.init = function(lib) {
 Handlers.nextQuestion = function(student, msg, callback) {
 	var self = this;
 
-	log.debug('debug: CORE HANDLERS LIB:');
-	log.warn(self.Lib);
-
 	if (msg === 'N' || msg === 'NEXT') {
 
 		student.getNextQuestion(true, function(err, nextQuestionText) {

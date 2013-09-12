@@ -1,4 +1,9 @@
-var Core = require('../../smsprep-core/modules/core');
+var Core  = require('../../smsprep-core/modules/core');
+var fs    = require('fs');
+var _     = require('underscore');
+
+var htmlImporter  = require('../modules/htmlImporter.js');
+var Step          = require('step');
 
 var adminController = function(app, config, lib, passport) {
   log.loading('admin controllers');
@@ -78,9 +83,56 @@ var adminController = function(app, config, lib, passport) {
 
   // Content ----------------------------
   app.get('/admin/content', lib.Utils.requireRole('admin'), function(req, res) {
-    res.render('admin/content', { title: config.title, cur_section: "content", page_title: "Content", bread_current: "Content" });
+
+    // List HTML files:
+    fs.readdir(config.upload_dir, function(err, files) {
+      log.notice('listing files...');
+
+      var filteredFiles = _(files).reject(function(file) {
+        return (file.match(/[.]/) === null);
+      });
+
+      // lessons: loadedLessons
+      res.render('admin/content', { title: config.title, files: filteredFiles, cur_section: "content", page_title: "Content", bread_current: "Content" });
+    });
+    
   });
 
+  app.post('/admin/content/upload', lib.Utils.requireRole('admin'), function(req, res) {
+
+    log.debug('reading temp path: ' + req.files.uploadFile.path);
+    fs.readFile(req.files.uploadFile.path, function (err, data) {
+      log.debug('data len = ' + data.length);
+      var newPath = config.upload_dir + req.files.uploadFile.name;
+      log.debug('writing new file: ' + newPath);
+      fs.writeFile(newPath, data, function (err) {
+        log.error(err, 'writing new file');
+        log.green('done!');
+        res.redirect("back");
+      });
+    });
+
+  });
+
+  // Content: Import ----------------------------
+  app.get('/admin/content/import/:filename', function(req, res) {
+    var file = config.upload_dir + req.params.filename;
+    log.notice('processing file: ' + file);
+    
+    log.notice('loading file...');
+    var raw_data = fs.readFileSync(file).toString();
+
+    var reportProgress = function(value, msg, questions) {
+      log.notice('importing: ' + value + '%');
+    }
+
+    log.notice('parsing + importing...');
+    htmlImporter.processRawData(raw_data, lib, reportProgress, function() {
+      log.success('import completed!');
+      res.redirect("back");
+    });
+
+  });
 
 
   // Crons ----------------------------

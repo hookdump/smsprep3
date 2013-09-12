@@ -130,7 +130,16 @@ Api.Student = {
 
 	sendMessage: function(findQuery, msg, callback) {
 		log.apiMethod('student.send');
-		callback(null, {success: true});
+
+		Api.Lib.Student.loadData( findQuery, function(err, myStudent) {
+
+			var customPayload = [{phone: myStudent.phone, message: msg }];
+			log.warn('API: Delivering custom message for #' + myStudent.phone + ': ' + msg);
+			Api.Lib.Bus.publish('sms.out', {payload: customPayload});
+			callback(null, {success: true});
+
+		});
+		
 	},
 
 };
