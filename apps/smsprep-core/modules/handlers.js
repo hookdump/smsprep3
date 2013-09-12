@@ -6,6 +6,7 @@ var _       	= require('underscore');
 var Step    	= require('step');
 
 Handlers.init = function(lib) {
+	log.green('initializing core handlers lib...');
 	this.Lib	= lib;
 };
 
@@ -17,6 +18,9 @@ Handlers.init = function(lib) {
 
 Handlers.nextQuestion = function(student, msg, callback) {
 	var self = this;
+
+	log.debug('debug: CORE HANDLERS LIB:');
+	log.warn(self.Lib);
 
 	if (msg === 'N' || msg === 'NEXT') {
 
@@ -51,20 +55,37 @@ Handlers.handleAnswer = function(student, msg, callback) {
 }
 
 Handlers.commandStop = function(student, msg, callback) {
-	var self = this;
+	var myself = this;
 
-	if (msg === 'STOP') {
+	if (msg === 'STOP' || msg === '@@Q') {
 
-		log.red('[stop] Got a STOP request from user. Pinging slooce...');
-		Lib.Bus.publish('sms.stop', {phone: student.phone});
-		var stopPayload = [{phone: student.phone, message: 'stopped!!!'}];
-		return callback(null, msg, stopPayload);
+		if (msg === 'STOP') {
+			log.red('[stop] Got a STOP request from user');
+		} else {
+			log.red('[stop] Got a STOP command from Slooce');
+		}
 
-	} else if (msg === '@@Q') {
+		// Send goodbye message if needed
+		var retPayload = [];
+		if (student.active) {
+			log.red('[stop] User was active before. Preparing goodbye response...');
+			retPayload.push( {phone: student.phone, message: myself.Lib.Utils.getMessage('*stop', student) } );
 
-		log.red('[stop] Got a STOP command from Slooce. Deactivating user...');
-		log.warn('TODO!');
-		return callback(null, msg, true);
+		}
+
+		// Deactivate student
+		log.red('[stop] Deactivating student...');
+		student.deactivate(function(err) {
+
+			// Ping slooce
+			if (msg === 'STOP') {
+				log.red('[stop] Pinging slooce...');
+				myself.Lib.Bus.publish('sms.stop', {phone: student.phone});
+			}
+
+			log.red('[stop] Calling back to handler...');
+			return callback(null, msg, true, retPayload);
+		});
 
 	} else {
 

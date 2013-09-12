@@ -6,6 +6,7 @@ var _       	= require('underscore');
 var Step    	= require('step');
 
 Checks.init = function(lib) {
+	log.green('initializing core checks lib...');
 	this.Lib	= lib;
 };
 

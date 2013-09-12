@@ -32,8 +32,6 @@ var adminController = function(app, config, lib, passport) {
   app.get('/admin/messages/load', lib.Utils.requireRole('admin'), function(req, res) {
     var lastStamp = req.query['lastStamp'];
     var involvedNumber = req.query['involvedNumber'] || null;
-
-    log.debug('last stamp = ' + lastStamp);
     lib.Message.loadRecent(lastStamp, involvedNumber, function(err, results) {
       res.json({success: true, messages: results})
     });
