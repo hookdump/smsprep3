@@ -1,4 +1,4 @@
-// Instance: smsprep
+// Instance: eprep
 // Config: connections
 
 var myConfig = {

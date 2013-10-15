@@ -1,4 +1,4 @@
-// Instance: smsprep
+// Instance: eprep
 // Config: services
 
 module.exports = {
