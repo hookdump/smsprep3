@@ -174,7 +174,7 @@ slooceInterface.sendMessages = function(payload, databaseOnly) {
 
 				// Delay block
 				if (nextMessage.delay) {
-					log.highlight('sms', 'waiting ' + nextMessage.delay + ' seconds');
+					log.highlight('sms', 'waiting ' + nextMessage.delay + 'ms');
 					setTimeout(function() {
 						sendNext(queue);
 					}, nextMessage.delay);
