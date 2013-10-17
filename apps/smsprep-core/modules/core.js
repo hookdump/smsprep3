@@ -113,17 +113,8 @@ Core.processMessage = function(student, message, command, callback) {
 				next(err, newMsg);
 			});
 		},
-		function _confirmed(err, _msg) {
-			log.error('checking active', err);
-			var next = this;
-			Checks.isConfirmed(student, _msg, function(err, newMsg, abort, addPayload) {
-				if (addPayload) payload = payload.concat(addPayload);
-				if (abort) 		return callback(null, payload); 
-				next(err, newMsg);
-			});
-		},
 		function _commandStop(err, _msg) {
-			log.error('checking confirmed', err);
+			log.error('checking active', err);
 			var next = this;
 			Handlers.commandStop(student, _msg, function(err, newMsg, abort, addPayload) {
 				log.warn('after stop msg: ' + newMsg);
@@ -134,8 +125,17 @@ Core.processMessage = function(student, message, command, callback) {
 				next(err, newMsg);
 			});
 		},
-		function _requestNextQuestion(err, _msg) {
+		function _confirmed(err, _msg) {
 			log.error('checking stop', err);
+			var next = this;
+			Checks.isConfirmed(student, _msg, function(err, newMsg, abort, addPayload) {
+				if (addPayload) payload = payload.concat(addPayload);
+				if (abort) 		return callback(null, payload); 
+				next(err, newMsg);
+			});
+		},
+		function _requestNextQuestion(err, _msg) {
+			log.error('checking confirmed', err);
 			var next = this;
 			Handlers.nextQuestion(student, _msg, function(err, newMsg, abort, addPayload) {
 				if (addPayload) payload = payload.concat(addPayload);
