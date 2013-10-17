@@ -5,3 +5,7 @@ tmp/
 compass_app_log.txt
 .DS_Store
 apps/web-interface/public/upload/
+services.js
+connections.js
+apps/web-interface/views/*.ejs
+apps/web-interface/views/admin/
