@@ -1,6 +1,6 @@
 # prepare configs, instance = $2
 echo ""
-echo "Deploying configuration for this instance..."
+echo "Deploying configuration for this instance (v2)..."
 make deploy_config INSTANCE=$2
 
 echo ""

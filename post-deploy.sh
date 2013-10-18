@@ -5,9 +5,8 @@ make install
 
 # prepare configs, instance = $2
 echo ""
-echo "Deploying configuration for this instance..."
-cp conf/$2.connections.js conf/connections.js
-cp conf/$2.services.js conf/services.js
+echo "Deploying configuration for this instance (v2)..."
+make deploy_config INSTANCE=$2
 
 echo ""
 echo "Starting service 1/5..."
