@@ -33,9 +33,18 @@ passport.deserializeUser(function(id, done) {
   });
 });
 passport.use(new LocalStrategy( function(uname, pass, done) {
+  log.debug('Finding user...');
   Lib.User.findOne({ username: uname }, function(err, user) {
-    if (err) { return done(err); }
-    if (!user) { return done(null, false, { message: 'Incorrect username.' }); }
+    log.debug('Found user!');
+    if (err) { 
+      log.debug('Error authenticating user!');
+      log.warn(err);
+      return done(err); 
+    }
+    if (!user) { 
+      log.debug('Could not find user!');
+      return done(null, false, { message: 'Incorrect username.' }); 
+    }
     if (!user.validPassword(pass)) { return done(null, false, { message: 'Incorrect password.' }); }
 
     log.success('user ' + user.username + ' authenticated!');
@@ -107,9 +116,14 @@ app.configure(function(){
 
     // user
     if (req.user) {
+      log.warn('>>> I am logged in');
+      log.warn( req.user.username );
+
       res.locals.username = req.user.username;
       res.locals.loggedin = true;
     } else {
+      log.warn('>>> I am NOT logged in');
+
       res.locals.loggedin = false;
     }
 
