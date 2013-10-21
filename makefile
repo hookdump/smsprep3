@@ -85,9 +85,13 @@ watch.staging.api:
 
 db.staging:
 	mongo alex.mongohq.com:10018/app15779401 -u heroku -p b0031d17596868daa5eb577e5214d9fc
-
 db.production:
 	mongo linus.mongohq.com:10093/app15670097 -u heroku -p ff57e846d04b6cb160a02fd121599c33	
+
+db.eprep.staging:
+	mongo paulo.mongohq.com:10089/app18672561 -u heroku -p 17a819929bf7f82aef5e696cab335526
+db.eprep.production:
+	mongo paulo.mongohq.com:10076/app18466651 -u heroku -p d036dec5cfd621324d4cee30eaa6ddaa	
 
 bouncy:
 	# $(if $(findstring $(ENV),"development") , @~/servers )
