@@ -92,8 +92,12 @@ var adminController = function(app, config, lib, passport) {
         return (file.match(/[.]/) === null);
       });
 
-      // lessons: loadedLessons
-      res.render('admin/content', { title: config.title, files: filteredFiles, cur_section: "content", page_title: "Content", bread_current: "Content" });
+      lib.Content.Lesson.loadSummary(function(err, lessonGroups, lessons) {
+
+        res.render('admin/content', { title: config.title, files: filteredFiles, lessonGroups: lessonGroups, lessons: lessons, cur_section: "content", page_title: "Content", bread_current: "Content" });
+      
+      });
+
     });
     
   });
