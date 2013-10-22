@@ -50,6 +50,8 @@ core:
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.core.log )
 watch.staging.core:
 	deploy staging exec 'tail -f /home/ubuntu/.forever/staging.core.log'
+watch.production.core:
+	deploy production exec 'tail -f /home/ubuntu/.forever/production.core.log'
 
 sms:
 	-@forever -s stop $(ENV).sms-interface > /dev/null 2>&1
@@ -58,6 +60,8 @@ sms:
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.sms.log )
 watch.staging.sms:
 	deploy staging exec 'tail -f /home/ubuntu/.forever/staging.sms.log'
+watch.production.sms:
+	deploy production exec 'tail -f /home/ubuntu/.forever/production.sms.log'
 
 web:
 	-@forever -s stop $(ENV).web-interface > /dev/null 2>&1
@@ -66,6 +70,8 @@ web:
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.web.log )
 watch.staging.web:
 	deploy staging exec 'tail -f /home/ubuntu/.forever/staging.web.log'
+watch.production.web:
+	deploy production exec 'tail -f /home/ubuntu/.forever/production.web.log'
 
 scheduler:
 	-@forever -s stop $(ENV).scheduler > /dev/null 2>&1
@@ -74,6 +80,8 @@ scheduler:
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.scheduler.log )
 watch.staging.scheduler:
 	deploy staging exec 'tail -f /home/ubuntu/.forever/staging.scheduler.log'
+watch.production.scheduler:
+	deploy staging exec 'tail -f /home/ubuntu/.forever/production.scheduler.log'
 
 api:
 	-@forever -s stop $(ENV).api-interface > /dev/null 2>&1
@@ -82,6 +90,8 @@ api:
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.api.log )
 watch.staging.api:
 	deploy staging exec 'tail -f /home/ubuntu/.forever/staging.api.log'
+watch.production.api:
+	deploy production exec 'tail -f /home/ubuntu/.forever/production.api.log'
 
 db.staging:
 	mongo alex.mongohq.com:10018/app15779401 -u heroku -p b0031d17596868daa5eb577e5214d9fc
