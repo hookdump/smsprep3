@@ -74,7 +74,8 @@ slooceInterface.buildXmlBody = function(slooceConfig, message) {
 	}
 	xml += '</message>';
 
-	log.highlight('sms', 'building XML (len=' + message.length + ') with password=' + slooceConfig.partnerPassword);
+	var myLen = (message) ? message.length : 0;
+	log.highlight('sms', 'building XML (len=' + myLen + ') with password=' + slooceConfig.partnerPassword);
 
 	return xml;
 };
