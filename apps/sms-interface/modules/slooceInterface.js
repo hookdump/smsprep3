@@ -16,17 +16,16 @@ slooceInterface.noop = function() {
 	log.info('slooce interface noop');
 };
 
+
 slooceInterface.initializePhone = function(phone, cb) {
 	var self = this;
 	var slooceConfig = self.Lib.Config.connections.slooce;
 
 	log.highlight('sms', 'starting phone initialization for ' + phone);
 
-	// Endpoint Setup
-	var endpoint = slooceConfig.initializationEndpoint;
-	endpoint = endpoint.replace("{partnerId}", 	slooceConfig.partnerId)
-	endpoint = endpoint.replace("{keyword}", 	slooceConfig.globalKeyword);
-	endpoint = endpoint.replace("{phone}", 		phone);
+	// Endpoint + XML Setup
+	var endpoint 	= self.prepareEndpoint(slooceConfig.initializationEndpoint, slooceConfig, phone);
+	var xml 		= self.buildXmlBody(slooceConfig, null);
 
 	// Testing vs. Production delivery
 	if (phone.charAt(0) === '9') {
@@ -36,11 +35,20 @@ slooceInterface.initializePhone = function(phone, cb) {
 		log.highlight('sms', 'Automated Test Initialization: ' + phone);
 		return cb(null);
 	} else {
-		request.get({url: endpoint}, function (err, response, body) {
+
+		request.post({url: endpoint, body: xml}, function (err, response, body) {
 			log.error('initializing phone ' + phone, err);
 			log.highlight('sms', 'Initialization: #' + phone + ' >> [' + response.statusCode + ']');
-			log.warn(body);
 
+			var success = (response.statusCode >= 200 && response.statusCode <= 202);
+			if (!success) {
+				log.warn('response:');
+				log.red(response);
+
+				log.warn('body:');
+				log.red(body);
+			}
+			
 			return cb(err);
 		});
 	}
