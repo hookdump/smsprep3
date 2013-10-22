@@ -50,8 +50,8 @@ core:
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.core.log )
 watch.staging.core:
 	deploy staging exec 'tail -f /home/ubuntu/.forever/staging.core.log'
-watch.production.core:
-	deploy production exec 'tail -f /home/ubuntu/.forever/production.core.log'
+watch.core@eprep:
+	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.core.log'
 
 sms:
 	-@forever -s stop $(ENV).sms-interface > /dev/null 2>&1
@@ -60,8 +60,8 @@ sms:
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.sms.log )
 watch.staging.sms:
 	deploy staging exec 'tail -f /home/ubuntu/.forever/staging.sms.log'
-watch.production.sms:
-	deploy production exec 'tail -f /home/ubuntu/.forever/production.sms.log'
+watch.sms@eprep:
+	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.sms.log'
 
 web:
 	-@forever -s stop $(ENV).web-interface > /dev/null 2>&1
@@ -70,8 +70,8 @@ web:
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.web.log )
 watch.staging.web:
 	deploy staging exec 'tail -f /home/ubuntu/.forever/staging.web.log'
-watch.production.web:
-	deploy production exec 'tail -f /home/ubuntu/.forever/production.web.log'
+watch.web@eprep:
+	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.web.log'
 
 scheduler:
 	-@forever -s stop $(ENV).scheduler > /dev/null 2>&1
@@ -80,7 +80,7 @@ scheduler:
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.scheduler.log )
 watch.staging.scheduler:
 	deploy staging exec 'tail -f /home/ubuntu/.forever/staging.scheduler.log'
-watch.production.scheduler:
+watch.scheduler@eprep:
 	deploy staging exec 'tail -f /home/ubuntu/.forever/production.scheduler.log'
 
 api:
@@ -90,7 +90,7 @@ api:
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.api.log )
 watch.staging.api:
 	deploy staging exec 'tail -f /home/ubuntu/.forever/staging.api.log'
-watch.production.api:
+watch.api@eprep:
 	deploy production exec 'tail -f /home/ubuntu/.forever/production.api.log'
 
 db.staging:
