@@ -58,8 +58,7 @@ sms:
 	@NODE_ENV=$(ENV) forever  --uid $(ENV).sms-interface -a -l $(ENV).sms.log --minUptime 5000 --spinSleepTime 5000 start ./apps/sms-interface/app.js
 	$(if $(findstring $(ENV),"development") , @tail -n 0 -f ~/.forever/development.sms.log )
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.sms.log )
-watch.staging.sms:
-	deploy staging exec 'tail -f /home/ubuntu/.forever/staging.sms.log'
+
 watch.sms@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.sms.log'
 
@@ -68,8 +67,7 @@ web:
 	@NODE_ENV=$(ENV) forever  --uid $(ENV).web-interface -a -l $(ENV).web.log --minUptime 5000 --spinSleepTime 5000 start ./apps/web-interface/app.js
 	$(if $(findstring $(ENV),"development") , @tail -n 0 -f ~/.forever/development.web.log )
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.web.log )
-watch.staging.web:
-	deploy staging exec 'tail -f /home/ubuntu/.forever/staging.web.log'
+
 watch.web@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.web.log'
 
@@ -78,20 +76,18 @@ scheduler:
 	@NODE_ENV=$(ENV) forever  --uid $(ENV).scheduler -a -l $(ENV).scheduler.log --minUptime 5000 --spinSleepTime 5000 start ./apps/scheduler/app.js
 	$(if $(findstring $(ENV),"development") , @tail -n 0 -f ~/.forever/development.scheduler.log )
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.scheduler.log )
-watch.staging.scheduler:
-	deploy staging exec 'tail -f /home/ubuntu/.forever/staging.scheduler.log'
+
 watch.scheduler@eprep:
-	deploy staging exec 'tail -f /home/ubuntu/.forever/production.scheduler.log'
+	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.scheduler.log'
 
 api:
 	-@forever -s stop $(ENV).api-interface > /dev/null 2>&1
 	@NODE_ENV=$(ENV) forever  --uid $(ENV).api-interface -a -l $(ENV).api.log --minUptime 5000 --spinSleepTime 5000 start ./apps/api-interface/app.js
 	$(if $(findstring $(ENV),"development") , @tail -n 0 -f ~/.forever/development.api.log )
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.api.log )
-watch.staging.api:
-	deploy staging exec 'tail -f /home/ubuntu/.forever/staging.api.log'
+
 watch.api@eprep:
-	deploy production exec 'tail -f /home/ubuntu/.forever/production.api.log'
+	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.api.log'
 
 db.staging:
 	mongo alex.mongohq.com:10018/app15779401 -u heroku -p b0031d17596868daa5eb577e5214d9fc

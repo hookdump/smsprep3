@@ -32,10 +32,10 @@ var myConfig = {
 var slooceConfig = {
 	partnerId: 			'eprepsms876'
 	, partnerPassword: 	'9jgA76FGQ23SAD'
-	, outgoingEndpoint: 'http://sloocetech.net:8084/spi-war/spi/{partnerId}/{phone}/{keyword}/messages/mt'
-	, stopEndpoint: 	'http://sloocetech.net:8084/spi-war/spi/{partnerId}/{phone}/{keyword}/messages/stop'
 	, globalKeyword: 	'EPREPSMS'
-	, initializationEndpoint: 'http://sloocetech.net:8084/widgets/y/w0548qos?mdn={phone}'
+	, outgoingEndpoint: 		'http://sloocetech.net:8084/spi-war/spi/{partnerId}/{phone}/{keyword}/messages/mt'
+	, initializationEndpoint: 	'http://sloocetech.net:8084/spi-war/spi/{partnerId}/{phone}/{keyword}/messages/start'
+	, stopEndpoint: 			'http://sloocetech.net:8084/spi-war/spi/{partnerId}/{phone}/{keyword}/messages/stop'	
 };
 
 myConfig['test']['slooce'] 			= slooceConfig;

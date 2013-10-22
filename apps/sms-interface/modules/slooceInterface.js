@@ -24,6 +24,8 @@ slooceInterface.initializePhone = function(phone, cb) {
 
 	// Endpoint Setup
 	var endpoint = slooceConfig.initializationEndpoint;
+	endpoint = endpoint.replace("{partnerId}", 	slooceConfig.partnerId)
+	endpoint = endpoint.replace("{keyword}", 	slooceConfig.globalKeyword);
 	endpoint = endpoint.replace("{phone}", 		phone);
 
 	// Testing vs. Production delivery
@@ -57,12 +59,14 @@ slooceInterface.prepareEndpoint = function(endpointTemplate, slooceConfig, phone
 slooceInterface.buildXmlBody = function(slooceConfig, message) {
 	var xml = "";
 	xml += '<?xml version="1.0" encoding="ISO-8859-1" ?>';
-	xml += '<message id="1294302114388-1294447192618">';
+	xml += '<message id="222-111">';
 	xml += '<partnerpassword>' + slooceConfig.partnerPassword + '</partnerpassword>';
 	if (message) {
 		xml += '<content>' + message + '</content>';
 	}
 	xml += '</message>';
+
+	log.highlight('sms', 'building XML (len=' + message.length + ') with password=' + slooceConfig.partnerPassword);
 
 	return xml;
 };
