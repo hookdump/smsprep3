@@ -85,15 +85,22 @@ var adminController = function(app, config, lib, passport) {
   app.get('/admin/content', lib.Utils.requireRole('admin'), function(req, res) {
 
     // List HTML files:
+    log.notice('loading files...');
     fs.readdir(config.upload_dir, function(err, files) {
-      log.notice('listing files...');
-
       var filteredFiles = _(files).reject(function(file) {
         return (file.match(/[.]/) === null);
       });
 
-      // lessons: loadedLessons
-      res.render('admin/content', { title: config.title, files: filteredFiles, cur_section: "content", page_title: "Content", bread_current: "Content" });
+      log.notice('loading lessons summary...');
+      lib.Content.Lesson.loadSummary(function(err, lessonGroups, lessons) {
+
+        log.warn(lessonGroups);
+        log.green(lessons);
+
+        res.render('admin/content', { title: config.title, files: filteredFiles, lessonGroups: lessonGroups, lessons: lessons, cur_section: "content", page_title: "Content", bread_current: "Content" });
+      
+      });
+
     });
     
   });
