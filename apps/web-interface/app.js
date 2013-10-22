@@ -116,14 +116,11 @@ app.configure(function(){
 
     // user
     if (req.user) {
-      log.warn('>>> I am logged in');
-      log.warn( req.user.username );
-
+      log.gray('# logged in as: ' + req.user.username );
       res.locals.username = req.user.username;
       res.locals.loggedin = true;
     } else {
-      log.warn('>>> I am NOT logged in');
-
+      log.gray('# not logged in');
       res.locals.loggedin = false;
     }
 

@@ -1,6 +1,27 @@
 <div class="row-fluid">
 
-	<h2>Upload HTML table</h2>
+	<h2>Review Content</h2>
+
+		<% lessonGroups.forEach(function(lgroup) { %>
+
+			<h4><%=lgroup%></h4>
+			<ul>
+			<% for(var y=0; y<lessons[lgroup].length; y++) { %>
+				<% var lesson = lessons[lgroup][y] %>
+				<li>
+					<a href='/admin/content/lesson/<%=lesson.code%>'><b><%=lesson.code%></b> (<%=lesson.count%>)</a>
+				</li>
+
+			<% } %>
+			</ul>
+
+		<% }); %>
+	
+</div>
+
+<div class="row-fluid">
+
+	<h2>Upload HTML Spreadsheet</h2>
 
 	<form role="form" method="POST" action="/admin/content/upload" enctype="multipart/form-data">
 		<div class="form-group">
@@ -15,7 +36,7 @@
 
 
 <div class="row-fluid">
- 	<h1>Import Content</h1>
+ 	<h2>Import Content</h2>
 	<ul>
 	<% for(var x=0; x<files.length; x++) { %>
 		<% var filename = files[x] %>
