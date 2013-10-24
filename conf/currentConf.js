@@ -15,6 +15,4 @@ var currentConf = {
 if (currentConf['instance'] == 'smsprep') 	currentConf.name = 'smsPREP';
 if (currentConf['instance'] == 'eprep') 	currentConf.name = 'ePrep';
 
-console.log(currentConf.name);
-
 module.exports = currentConf;

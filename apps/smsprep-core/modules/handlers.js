@@ -51,6 +51,27 @@ Handlers.handleAnswer = function(student, msg, callback) {
 	}
 }
 
+Handlers.commandHelp = function(student, msg, callback) {
+	var myself = this;
+
+	if (msg === 'HELP' || msg === '@@H') {
+
+		log.red('[help] Got a HELP request');
+
+		// Send goodbye message if needed
+		var retPayload = [];
+		retPayload.push( {phone: student.phone, message: myself.Lib.Utils.getMessage('*help', student) } );
+		return callback(null, msg, true, retPayload);
+
+	} else {
+
+		// Keep message intact, do not abort.
+		return callback(null, msg, false);
+
+	}
+
+}
+
 Handlers.commandStop = function(student, msg, callback) {
 	var myself = this;
 

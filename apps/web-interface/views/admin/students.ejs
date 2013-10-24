@@ -15,6 +15,7 @@
           <th>Cron</th>
           <th>Lessons</th>
           <th>Status</th>
+          <th>Answers</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -53,9 +54,9 @@
               <% } else { %>
                 <span class='label label-important'>unconfirmed</span>
               <% } %>
-
+            </td>
+            <td>
               <span class='label'><%= stu.answers.length %></span>
-
             </td>
             <td>
               <a href='/admin/students/details/<%=stu._id%>' class='btn btn-primary details_student'><i class="icon-search"></i></a> 
