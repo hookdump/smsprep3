@@ -29,6 +29,8 @@ var myConfig = {
 	instance: 'eprep'
 };
 
+console.log(myConfig.instance);
+
 // Add slooce configuration to all environments:
 var slooceConfig = {
 	partnerId: 			'eprepsms876'

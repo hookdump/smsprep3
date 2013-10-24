@@ -12,7 +12,11 @@ var currentConf = {
 	, version: packageJson.version
 }
 
-if (currentConf.instance == 'smsprep') currentConf.appName = 'smsPREP';
-if (currentConf.instance == 'eprep') currentConf.appName = 'ePrep';
+console.log(currentConf);
+
+if (currentConf['instance'] == 'smsprep') 	currentConf.name = 'smsPREP';
+if (currentConf['instance'] == 'eprep') 	currentConf.name = 'ePrep';
+
+console.log(currentConf.name);
 
 module.exports = currentConf;
