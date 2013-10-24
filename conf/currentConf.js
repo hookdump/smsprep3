@@ -7,8 +7,16 @@ var packageJson		= require('../package.json');
 var currentConf = {
 	services: servicesConf[env]
 	, connections: connectionsConf[env]
+	, instance: connectionsConf['instance']
 	, env: env
 	, version: packageJson.version
 }
+
+console.log(currentConf);
+
+if (currentConf['instance'] == 'smsprep') 	currentConf.name = 'smsPREP';
+if (currentConf['instance'] == 'eprep') 	currentConf.name = 'ePrep';
+
+console.log(currentConf.name);
 
 module.exports = currentConf;

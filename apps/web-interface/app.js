@@ -17,8 +17,8 @@ var express         = require('express')
 // Set app config variables
 var appConfig = {
       name:   'web-interface'
-    , title:  'smsPREP'
-    , port: Lib.Config.services.web.port
+    , title:  Lib.Config.name
+    , port:   Lib.Config.services.web.port
     , upload_dir: __dirname + "/public/upload/"
     , logs: true
 };

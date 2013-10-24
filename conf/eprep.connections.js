@@ -25,8 +25,11 @@ var myConfig = {
 		, rabbitmq_in: 	'amqp://fGmb-Ksd:TasnULDyzq4LASSt4-IzYSB7YYYlGNY6@leaping-snowdrop-4.bigwig.lshift.net:10827/zMg0fDLzxkH2'
 		, rabbitmq_out: 'amqp://fGmb-Ksd:TasnULDyzq4LASSt4-IzYSB7YYYlGNY6@leaping-snowdrop-4.bigwig.lshift.net:10826/zMg0fDLzxkH2'
 		, redis: 		'redis://redistogo:f417a50781ec32ff4f9a6bdb6e5899d6@scat.redistogo.com:10248/'
-	}
+	},
+	instance: 'eprep'
 };
+
+console.log(myConfig.instance);
 
 // Add slooce configuration to all environments:
 var slooceConfig = {
