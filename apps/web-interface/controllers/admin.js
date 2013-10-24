@@ -79,7 +79,12 @@ var adminController = function(app, config, lib, passport) {
     });
   });
 
-
+  app.get('/admin/students/details/:id', lib.Utils.requireRole('admin'), function(req, res) {
+    var studentId = req.params.id;
+    lib.Student.loadData({_id: studentId}, function(err, details) {
+      res.render('admin/student_details', { title: config.title, cur_section: "students", page_title: "Student &raquo; #" + details.phone, bread_current: "Students", student: details });
+    });
+  });
 
   // Content ----------------------------
   app.get('/admin/content', lib.Utils.requireRole('admin'), function(req, res) {

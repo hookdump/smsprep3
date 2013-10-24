@@ -28,7 +28,7 @@
 	
 }
 
-.logMessages, .logTesting {
+.limitHeight {
 	height: 450px;
 	overflow: scroll;
 }
