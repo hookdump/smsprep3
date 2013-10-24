@@ -25,7 +25,11 @@
           <tr>
             <td><%=stu.phone%></td>
             <td><%=stu.externalId%></td>
-            <td><%=stu.timezone%> (<%=stu.schedule%>)</td>
+            <td><%=stu.timezone%><br />
+              <% stu.schedule.forEach(function(le) { %>
+                <span class='label'><%=le%></span>
+              <% }); %>
+           </td>
             <td>
               <% stu.lessongroups.forEach(function(lg) { %>
                 <span class='label label-success'><%=lg%></span>
