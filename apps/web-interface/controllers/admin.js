@@ -86,6 +86,13 @@ var adminController = function(app, config, lib, passport) {
     });
   });
 
+  app.get('/admin/students/delete/:id', lib.Utils.requireRole('admin'), function(req, res) {
+    var studentId = req.params.id;
+    lib.Student.deleteStudent(studentId, function(err) {
+      res.redirect('/admin/students');
+    });
+  });
+
   // Content ----------------------------
   app.get('/admin/content', lib.Utils.requireRole('admin'), function(req, res) {
 
