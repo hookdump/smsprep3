@@ -1,0 +1,215 @@
+<ul class="hidden templateItems">
+  <!-- Chat by us. Use the class "by-me". -->
+  <li class="by-me">
+    <!-- Use the class "pull-left" in avatar -->
+    <div class="avatar pull-left">
+    <img src="/public/img/user_smsprep.jpg" alt=""/>
+    </div>
+
+    <div class="chat-content">
+    <!-- In meta area, first include "name" and then "time" -->
+    <div class="chat-meta"><span class='time-ago'>X</span> <span class="pull-right to-number">#123123123</span></div>
+    <span class='body'></span>
+    <div class="clearfix"></div>
+    </div>
+  </li> 
+
+  <!-- Chat by other. Use the class "by-other". -->
+  <li class="by-other">
+    <!-- Use the class "pull-right" in avatar -->
+    <div class="avatar pull-right">
+    <img src="/public/img/user_student.jpg" alt=""/>
+    </div>
+
+    <div class="chat-content">
+    <!-- In the chat meta, first include "time" then "name" -->
+    <div class="chat-meta"><span class='time-ago'>X</span> <span class="pull-right from-number">#12223334444</span></div>
+    <span class='body'></span>
+    <div class="clearfix"></div>
+    </div>
+  </li>  
+</ul>
+
+<!-- Chats, File upload and Recent Comments -->
+<div class="row-fluid">
+
+
+
+
+
+
+  <div class="span6">
+    
+    <!-- Chat Widget -->
+    <div class="widget ">
+      <!-- Widget title -->
+      <div class="widget-head">
+        <div class="pull-left">Student Data</div>
+        <div class="widget-icons pull-right">
+          <a href="#" class="wconfig"><i class="icon-cog"></i></a>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="widget-content">
+
+        <!-- Widget content -->
+        <table class="table table-bordered">
+          
+          <tbody>
+            <tr>
+              <td>ID</td>
+              <td><%=student._id%></td>
+            </tr>
+
+            <tr>
+              <td>ExternalID</td>
+              <td><%=student.externalId%></td>
+            </tr>
+
+            <tr>
+              <td>Phone</td>
+              <td><%=student.phone%></td>
+            </tr>
+
+            <tr>
+              <td>Partner</td>
+              <td><%=student.partner%></td>
+            </tr>
+            <tr>
+              <td>Active</td>
+              <td>
+              <% if (student.active) { %>
+                <span class='label label-success'>active</span>
+              <% } else { %>
+                <span class='label label-important'>inactive</span>
+              <% } %>
+              </td>
+            </tr>
+            <tr>
+              <td>Initialized</td>
+              <td>
+              <% if (student.initialized) { %>
+                <span class='label label-success'>initialized</span>
+              <% } else { %>
+                <span class='label label-important'>uninitialized</span>
+              <% } %>              
+              </td>
+            </tr>
+            <tr>
+              <td>Confirmed</td>
+              <td>
+              <% if (student.confirmed) { %>
+                <span class='label label-success'>confirmed</span>
+              <% } else { %>
+                <span class='label label-important'>unconfirmed</span>
+              <% } %>
+              </td>
+            </tr>
+            <tr>
+              <td>Joined</td>
+              <td><%=student.joined%></td>
+            </tr>
+
+            <tr>
+              <td>Timezone</td>
+              <td><%=student.timezone || ''%></td>
+            </tr>
+            <tr>
+              <td>ZIP</td>
+              <td><%=student.zipcode || ''%></td>
+            </tr>
+
+            <tr>
+              <td>Schedule</td>
+              <td><%=student.schedule || ''%></td>
+            </tr>
+
+            <tr>
+              <td>Lessons</td>
+              <td><%=student.lessons%></td>
+            </tr>
+            <tr>
+              <td>Lesson Groups</td>
+              <td><%=student.lessongroups%></td>
+            </tr>
+
+            <tr>
+              <td>Email</td>
+              <td><%=student.email || ''%></td>
+            </tr>
+            <tr>
+              <td>First Name</td>
+              <td><%=student.firstname || ''%></td>
+            </tr>
+            <tr>
+              <td>Last Name</td>
+              <td><%=student.lastname || ''%></td>
+            </tr>
+
+            <tr>
+              <td>Channel</td>
+              <td><%=student.channel || ''%></td>
+            </tr>
+
+            <tr>
+              <td>Answers</td>
+              <td><%=student.answers.length%></td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+  <div class="span6">
+    
+    <!-- Chat Widget -->
+    <div class="widget ">
+      <!-- Widget title -->
+      <div class="widget-head">
+        <div class="pull-left">Messages</div>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="widget-content">
+        <!-- Widget content -->
+        <div class="padd">
+          
+          <ul class="chats logMessages">
+
+ 
+
+          </ul>
+
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+</div>
+
+<div id='messages_page'></div>
+<div id='details_uid' style='display: none'><%=student._id%></div>
+<div id='details_phone' style='display: none'><%=student.phone%></div>
+
+<script src="/public/js/_student_details.js"></script>

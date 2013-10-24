@@ -7,5 +7,3 @@ compass_app_log.txt
 apps/web-interface/public/upload/
 services.js
 connections.js
-apps/web-interface/views/*.ejs
-apps/web-interface/views/admin/
