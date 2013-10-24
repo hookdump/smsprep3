@@ -49,7 +49,10 @@
               <span class='label'><%= stu.answers.length %></span>
 
             </td>
-            <td>asdasd</td>
+            <td>
+              <a href='/admin/students/delete/<%=stu._id%>' class='btn btn-danger del_student'><i class="icon-remove"></i></a>
+
+            </td>
           </tr>
         <% }); %>
 
@@ -72,4 +75,4 @@
 
 <div id='crons_page'></div>
 
-<script src="/public/js/_crons.js"></script>
+<script src="/public/js/_students.js"></script>
