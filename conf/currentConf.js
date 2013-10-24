@@ -12,8 +12,6 @@ var currentConf = {
 	, version: packageJson.version
 }
 
-console.log(currentConf);
-
 if (currentConf['instance'] == 'smsprep') 	currentConf.name = 'smsPREP';
 if (currentConf['instance'] == 'eprep') 	currentConf.name = 'ePrep';
 

@@ -25,7 +25,15 @@
             <td><%=stu.phone%></td>
             <td><%=stu.externalId%></td>
             <td><%=stu.timezone%> (<%=stu.schedule%>)</td>
-            <td><%=stu.lessons%></td>
+            <td>
+              <% stu.lessongroups.forEach(function(lg) { %>
+                <span class='label label-success'><%=lg%></span>
+              <% }); %>
+
+              <% stu.lessons.forEach(function(le) { %>
+                <span class='label'><%=le%></span>
+              <% }); %>
+            </td>
             <td>
 
               <% if (stu.active) { %>

@@ -85,6 +85,14 @@ describe('smsprep-core service', function() {
 		})
 	});
 
+	it('handle HELP command', function(done) {
+		hitMessage(confStudent.data.phone, 'HELP', function (err, response, body) {
+			body.success.should.exist;
+			body.payload.should.have.lengthOf(0);
+			done();
+		})
+	});
+
 	it('handle confirmation message', function(done) {
 		hitMessage(testStudent.data.phone, 'CONFIRM', function (err, response, body) {
 
