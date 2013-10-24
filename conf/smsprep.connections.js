@@ -25,7 +25,8 @@ var myConfig = {
 		, rabbitmq_in: 	'amqp://mytTXRE7:HKLs4D221aQB6Qh47QhXVMAgDblV5vZh@scared-vilthuril-1.bigwig.lshift.net:10007/7ldXPgMKM76dlWQGqvk7VA'
 		, rabbitmq_out: 'amqp://mytTXRE7:HKLs4D221aQB6Qh47QhXVMAgDblV5vZh@scared-vilthuril-1.bigwig.lshift.net:10006/7ldXPgMKM76dlWQGqvk7VA'
 		, redis: 		'redis://redistogo:a35642f27259c398d99aaa1d1684f361@squawfish.redistogo.com:9412/'
-	}
+	},
+	instance: 'smsprep'
 };
 
 // Add slooce configuration to all environments:
