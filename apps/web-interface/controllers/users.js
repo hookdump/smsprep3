@@ -7,7 +7,7 @@ var usersController = function(app, config, lib, passport) {
       res.redirect('/admin');
     } else {
       // res.render('index', { title: config.title, cur_section: "index" });
-      res.render('landing', { layout: 'clean_layout', title: 'smsPREP', cur_section: 'landing' });
+      res.render('landing', { layout: 'clean_layout', title: lib.Config.name, cur_section: 'landing' });
     }
   });
 

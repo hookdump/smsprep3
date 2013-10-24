@@ -29,6 +29,8 @@ var myConfig = {
 	instance: 'smsprep'
 };
 
+console.log(myConfig.instance);
+
 // Add slooce configuration to all environments:
 var slooceConfig = {
 	partnerId: 			'p9328904'
