@@ -48,10 +48,11 @@ core:
 	@NODE_ENV=$(ENV) forever --uid $(ENV).smsprep-core -a -l $(ENV).core.log --minUptime 5000 --spinSleepTime 5000 start ./apps/smsprep-core/app.js
 	$(if $(findstring $(ENV),"development") , @tail -n 0 -f ~/.forever/development.core.log )
 	$(if $(findstring $(ENV),"test") , @tail -n 0 -f ~/.forever/test.core.log )
-watch.staging.core:
-	deploy staging exec 'tail -f /home/ubuntu/.forever/staging.core.log'
+
 watch.core@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.core.log'
+watch.core@eprep.staging:
+	deploy eprep.staging exec 'tail -f /home/ubuntu/.forever/staging.core.log'
 
 sms:
 	-@forever -s stop $(ENV).sms-interface > /dev/null 2>&1
@@ -61,6 +62,8 @@ sms:
 
 watch.sms@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.sms.log'
+watch.sms@eprep.staging:
+	deploy eprep.staging exec 'tail -f /home/ubuntu/.forever/staging.sms.log'
 
 web:
 	-@forever -s stop $(ENV).web-interface > /dev/null 2>&1
@@ -70,6 +73,8 @@ web:
 
 watch.web@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.web.log'
+watch.web@eprep.staging:
+	deploy eprep.staging exec 'tail -f /home/ubuntu/.forever/staging.web.log'
 
 scheduler:
 	-@forever -s stop $(ENV).scheduler > /dev/null 2>&1
@@ -79,6 +84,8 @@ scheduler:
 
 watch.scheduler@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.scheduler.log'
+watch.scheduler@eprep.staging:
+	deploy eprep.staging exec 'tail -f /home/ubuntu/.forever/staging.scheduler.log'
 
 api:
 	-@forever -s stop $(ENV).api-interface > /dev/null 2>&1
@@ -88,6 +95,8 @@ api:
 
 watch.api@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.api.log'
+watch.api@eprep.staging:
+	deploy eprep.staging exec 'tail -f /home/ubuntu/.forever/staging.api.log'
 
 db.staging:
 	mongo alex.mongohq.com:10018/app15779401 -u heroku -p b0031d17596868daa5eb577e5214d9fc

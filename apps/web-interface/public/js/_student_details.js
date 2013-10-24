@@ -2,9 +2,12 @@ $(function () {
 
 	if (!$('#messages_page').is('*')) return;
 
-	var lastStamp = 0;
-	var validPhone = true;
-	var testPhone = null;
+	var detailsPhone 	= $('#details_phone').text();
+	var detailsUid 		= $('#details_uid').text();
+
+	var lastStamp 		= 0;
+	var validPhone 		= true;
+	var testPhone 		= detailsPhone;
 
 	var renderedMsgs = [];
 
@@ -20,7 +23,7 @@ $(function () {
 	}, 3000);
 
 	function refreshMessages() {
-		_fetchMessages(lastStamp, null);
+		_fetchMessages(lastStamp, detailsPhone);
 	}
 
 	function _emulateMessage(from, msg, cb) {
@@ -47,7 +50,7 @@ $(function () {
 	function _fetchMessages(stamp, testNumber) {
 		var endpoint = '/admin/messages/load';
 
-		console.log('fetching messages (lastStamp=' + lastStamp + ')');
+		console.log('fetching messages (lastStamp=' + lastStamp + ') #' + testNumber);
 
 		// stamp: null => stamp: 0
 		if (!stamp) stamp = 0;
@@ -162,7 +165,7 @@ $(function () {
 		$('.testingConfig').fadeOut('fast', function() {
 			$('.testingMessage').fadeIn('fast', function() {
 				
-				_fetchMessages(0, testPhone);
+				_fetchMessages(0, detailsPhone);
 				showEmulating(false);
 
 			});
@@ -217,7 +220,7 @@ $(function () {
 	}
 
 	function validatePhone() {
-		var phone = $('.testingConfig_phone').val();
+		var phone = detailsPhone;
 		var valid = false;
 		if (phone.length == 11) {
 			if (phone[0] == '9' || phone[0] == '1') {

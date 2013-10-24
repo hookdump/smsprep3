@@ -15,6 +15,7 @@
           <th>Cron</th>
           <th>Lessons</th>
           <th>Status</th>
+          <th>Answers</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -25,7 +26,15 @@
             <td><%=stu.phone%></td>
             <td><%=stu.externalId%></td>
             <td><%=stu.timezone%> (<%=stu.schedule%>)</td>
-            <td><%=stu.lessons%></td>
+            <td>
+              <% stu.lessongroups.forEach(function(lg) { %>
+                <span class='label label-success'><%=lg%></span>
+              <% }); %>
+
+              <% stu.lessons.forEach(function(le) { %>
+                <span class='label'><%=le%></span>
+              <% }); %>
+            </td>
             <td>
 
               <% if (stu.active) { %>
@@ -45,9 +54,9 @@
               <% } else { %>
                 <span class='label label-important'>unconfirmed</span>
               <% } %>
-
+            </td>
+            <td>
               <span class='label'><%= stu.answers.length %></span>
-
             </td>
             <td>
               <a href='/admin/students/details/<%=stu._id%>' class='btn btn-primary details_student'><i class="icon-search"></i></a> 
