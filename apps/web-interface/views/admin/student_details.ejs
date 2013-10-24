@@ -66,6 +66,12 @@
               <td>ExternalID</td>
               <td><%=student.externalId%></td>
             </tr>
+
+            <tr>
+              <td>Phone</td>
+              <td><%=student.phone%></td>
+            </tr>
+
             <tr>
               <td>Partner</td>
               <td><%=student.partner%></td>
@@ -107,16 +113,16 @@
 
             <tr>
               <td>Timezone</td>
-              <td><%=student.timezone%></td>
+              <td><%=student.timezone || ''%></td>
             </tr>
             <tr>
               <td>ZIP</td>
-              <td><%=student.zipcode%></td>
+              <td><%=student.zipcode || ''%></td>
             </tr>
 
             <tr>
               <td>Schedule</td>
-              <td><%=student.schedule%></td>
+              <td><%=student.schedule || ''%></td>
             </tr>
 
             <tr>

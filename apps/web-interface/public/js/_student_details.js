@@ -8,6 +8,8 @@ $(function () {
 
 	var renderedMsgs = [];
 
+	$('#injectTitle').html(" <a href='/admin/students' class='btn btn-primary'>&laquo; Back to List</a>");
+
 	console.log('initializing messages page...');
 	refreshMessages();
 	validatePhone();
