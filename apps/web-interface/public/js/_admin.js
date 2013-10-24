@@ -12,17 +12,19 @@ $(function () {
 
     var d1 = [];
     for (var i = 0; i <= 30; i += 1)
-        d1.push([i, parseInt(Math.random() * 30)]);
+        d1.push([i, 0]);
 
+/*
     var d2 = [];
     for (var i = 0; i <= 30; i += 1)
         d2.push([i, parseInt(Math.random() * 30)]);
-
+*/
 
     var stack = 0, bars = true, lines = false, steps = false;
     
     function plotWithOptions() {
-        $.plot($("#bar-chart"), [ d1, d2 ], {
+        // $.plot($("#bar-chart"), [ d1, d2 ], {
+        $.plot($("#bar-chart"), [ d1 ], {
             series: {
                 stack: stack,
                 lines: { show: lines, fill: true, steps: steps },
@@ -31,7 +33,8 @@ $(function () {
             grid: {
                 borderWidth: 0, hoverable: true, color: "#777"
             },
-            colors: ["#43c83c", "#23a81c"],
+            // colors: ["#43c83c", "#23a81c"],
+            colors: ["#23a81c"],
             bars: {
                   show: true,
                   lineWidth: 0,
