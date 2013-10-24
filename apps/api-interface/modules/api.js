@@ -45,9 +45,20 @@ Api.Student = {
 				log.success('sending welcome message...');
 				var welcomePayload = [{phone: studentData.phone, message: Api.Lib.Utils.getMessage('*welcome', studentData) }];
 				Api.Lib.Bus.publish('sms.out', {payload: welcomePayload});
+
+				if (!err) {
+					Api.Lib.Student.initializeStudent(findQuery, function(err, affected) {
+						log.error('initializing user after slooce start', err);
+
+						log.success('calling back...');
+						return callback(err, sendBack);
+					});
+				} else {
+					log.success('calling back...');
+					return callback(err, sendBack);
+				}
 				
-				log.success('calling back...');
-				return callback(err, sendBack);
+				
 			});
 
 		});

@@ -73,15 +73,24 @@ Handlers.commandStop = function(student, msg, callback) {
 		// Deactivate student
 		log.red('[stop] Deactivating student...');
 		student.deactivate(function(err) {
+			log.error('deactivating student', err);
 
 			// Ping slooce
 			if (msg === 'STOP') {
 				log.red('[stop] Pinging slooce...');
 				myself.Lib.Bus.publish('sms.stop', {phone: student.phone});
+				
+				log.red('[stop] Calling back to handler...');
+				return callback(null, msg, true, retPayload);
+			} else {
+				log.red('[stop] Received ping from slooce!');
+				student.uninitialize(function(err, aff) {
+					log.error('uninitializing student', err);
+					log.red('[stop] Calling back to handler...');
+					return callback(null, msg, true, retPayload);
+				});
 			}
 
-			log.red('[stop] Calling back to handler...');
-			return callback(null, msg, true, retPayload);
 		});
 
 	} else {
