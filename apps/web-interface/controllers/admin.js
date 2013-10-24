@@ -144,7 +144,15 @@ var adminController = function(app, config, lib, passport) {
 
   // Crons ----------------------------
   app.get('/admin/crons', lib.Utils.requireRole('admin'), function(req, res) {
-    res.render('admin/crons', { title: config.title, cur_section: "crons", page_title: "Crons", bread_current: "Crons" });
+
+    lib.CronDelivery.loadRecent(function(err, recentCrons) {
+      lib.CronDelivery.loadUpcoming(function(err, upcomingCrons) {
+
+        res.render('admin/crons', { title: config.title, cur_section: "crons", page_title: "Crons", bread_current: "Crons", recent_crons: recentCrons, upcoming_crons: upcomingCrons });
+
+      });
+    });
+    
   });
 
 
