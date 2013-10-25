@@ -4,6 +4,9 @@
 	border-right: 1px solid #FFFFFF;
 }
 
+.table .label {
+	margin-bottom: 3px;
+}
 
 .testPhoneContainer {
 	margin: -6px 0px 0px 0px;
