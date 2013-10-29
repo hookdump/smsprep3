@@ -14,7 +14,7 @@ var myself = {
 			var myCommand 	= event.data.command;
 
 			var options = {};
-			var options.isCron = (event.data.isCron) ? true : false;
+			options.isCron = (event.data.isCron) ? true : false;
 
 			Core.receiveMessage(myPhone, myMessage, myCommand, options, function(err, response) {
 				log.highlight('sms', 'delivering response for [' + myPhone + ': Payload (' + response.length + ')]');
