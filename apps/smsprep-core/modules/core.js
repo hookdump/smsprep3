@@ -45,7 +45,7 @@ Core.sendCronQuestion = function(tz, schedule, callback) {
 
 };
 
-Core.receiveMessage = function(phone, message, command, callback) {
+Core.receiveMessage = function(phone, message, command, options, callback) {
 	var self = this;
 
 	// Store Message (async)
@@ -80,7 +80,7 @@ Core.receiveMessage = function(phone, message, command, callback) {
 				// Success
 				log.highlight('sms', 'incoming message from student ' + student._id + msgSummary);
 
-				self.processMessage(student, message, command, function(err, payload) {
+				self.processMessage(student, message, command, options, function(err, payload) {
 					return callback(err, payload);
 				});
 			}  
@@ -90,7 +90,7 @@ Core.receiveMessage = function(phone, message, command, callback) {
 
 };
 
-Core.processMessage = function(student, message, command, callback) {
+Core.processMessage = function(student, message, command, options, callback) {
 	var self = this;
 	var payload = [];
 
@@ -145,7 +145,7 @@ Core.processMessage = function(student, message, command, callback) {
 		function _requestNextQuestion(err, _msg) {
 			log.error('checking confirmed', err);
 			var next = this;
-			Handlers.nextQuestion(student, _msg, function(err, newMsg, abort, addPayload) {
+			Handlers.nextQuestion(student, _msg, options, function(err, newMsg, abort, addPayload) {
 				if (addPayload) payload = payload.concat(addPayload);
 				if (abort) 		return callback(null, payload); 
 				next(err, newMsg);
