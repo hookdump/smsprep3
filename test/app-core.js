@@ -57,7 +57,7 @@ describe('smsprep-core service', function() {
 	};
 
 	var hitMessage = function(phone, message, cb) {
-		Core.receiveMessage(phone, message, null, function(err, response) {
+		Core.receiveMessage(phone, message, null, {}, function(err, response) {
 			log.highlight('sms', 'emulating response for [' + phone + ': Payload (' + response.length + ')]');
 			if (response.length > 0) log.success(response);
 
