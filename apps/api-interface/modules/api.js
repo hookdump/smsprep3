@@ -36,6 +36,12 @@ Api.Student = {
 		log.apiMethod('student.start');
 		Api.Student.upsert(findQuery, studentData, 'start', function(err, sendBack) {
 
+			// Abort START method on validation failure!
+			if (err) {
+				log.error('validating/upserting student', err);
+				return callback(err, sendBack);
+			}
+
 			// Activate phone
 			slooceInterface.initializePhone(studentData.phone, function(err) {
 				log.error('triggering phone initialization', err);

@@ -96,6 +96,9 @@ describe('smsprep-core service', function() {
 	it('handle confirmation message', function(done) {
 		hitMessage(testStudent.data.phone, 'CONFIRM', function (err, response, body) {
 
+			var lBefore = testStudent.data.lessons;
+			var lgBefore = testStudent.data.lessongroups;
+
 			// Should respond with 2 messages + 1 delay
 			body.success.should.exist;
 			body.payload.should.have.lengthOf(3);
@@ -115,6 +118,10 @@ describe('smsprep-core service', function() {
 			// Check if the user is actually confirmed
 			Lib.Student.loadData(testStudent.query, function(err, studentData) {
 				studentData.confirmed.should.equal(true);
+
+				studentData.lessons.length.should.equal(lBefore.length);
+				studentData.lessongroups.length.should.equal(lgBefore.length);
+
 				done();
 			});
 
