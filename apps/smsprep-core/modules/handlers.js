@@ -16,12 +16,12 @@ Handlers.init = function(lib) {
 // Payload formats is:
 // [{phone: 12223334444, message: 'testing'}, {delay: 5}]
 
-Handlers.nextQuestion = function(student, msg, callback) {
+Handlers.nextQuestion = function(student, msg, options, callback) {
 	var self = this;
 
 	if (msg === 'N' || msg === 'NEXT') {
 
-		student.getNextQuestion(true, function(err, nextQuestionText) {
+		student.getNextQuestion(true, options, function(err, nextQuestionText) {
 			return callback(err, msg, false, [{phone: student.phone, message: nextQuestionText}]);
 		});
 

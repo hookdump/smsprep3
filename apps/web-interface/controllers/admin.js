@@ -50,7 +50,7 @@ var adminController = function(app, config, lib, passport) {
 
     log.debug('emulating msg from #' + myphone + ': ' + mymsg);
     
-    Core.receiveMessage(myphone, mymsg, null, function(err, response) {
+    Core.receiveMessage(myphone, mymsg, null, {}, function(err, response) {
       
       // done! now refresh messages.
       lib.Message.loadRecent(lastStamp, null, function(err, results) {
