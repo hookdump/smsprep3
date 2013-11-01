@@ -13,7 +13,10 @@ var myself = {
 			var myMessage 	= event.data.msg;
 			var myCommand 	= event.data.command;
 
-			Core.receiveMessage(myPhone, myMessage, myCommand, function(err, response) {
+			var options = {};
+			options.isCron = (event.data.isCron) ? true : false;
+
+			Core.receiveMessage(myPhone, myMessage, myCommand, options, function(err, response) {
 				log.highlight('sms', 'delivering response for [' + myPhone + ': Payload (' + response.length + ')]');
 				Lib.Bus.publish('sms.out', {payload: response});
 			});
@@ -24,7 +27,7 @@ var myself = {
 		Lib.Bus.subscribe('send.welcome', function (event) {
 			var myPhone 	= event.data.phone;
 
-			Core.receiveMessage(myPhone, null, 'SEND_WELCOME', function(err, response) {
+			Core.receiveMessage(myPhone, null, 'SEND_WELCOME', {}, function(err, response) {
 				log.highlight('sms', 'sending welcome to [' + myPhone + ']');
 				Lib.Bus.publish('sms.out', {payload: response});
 			});

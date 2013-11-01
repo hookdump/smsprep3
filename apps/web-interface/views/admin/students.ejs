@@ -10,13 +10,13 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>Phone</th>
-          <th>ExternalID</th>
-          <th>Cron</th>
+          <th width='100'>Phone</th>
+          <th width='50'>eID</th>
+          <th width='110'>Cron</th>
           <th>Lessons</th>
-          <th>Status</th>
-          <th>Answers</th>
-          <th>Actions</th>
+          <th width='140'>Status</th>
+          <th width='50'>Q's</th>
+          <th width='90'>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -25,9 +25,10 @@
           <tr>
             <td><%=stu.phone%></td>
             <td><%=stu.externalId%></td>
-            <td><%=stu.timezone%><br />
+            <td>
+              <span class='label label-inverse'><%=stu.timezone%></span> 
               <% stu.schedule.forEach(function(le) { %>
-                <span class='label'><%=le%></span>
+                <span class='label'><%=le%></span> 
               <% }); %>
            </td>
             <td>
@@ -42,21 +43,21 @@
             <td>
 
               <% if (stu.active) { %>
-                <span class='label label-success'>active</span>
+                <span class='label label-success'>ACTIVE</span>
               <% } else { %>
-                <span class='label label-important'>inactive</span>
+                <span class='label label-important'>ACTIVE</span>
               <% } %>
 
               <% if (stu.initialized) { %>
-                <span class='label label-success'>initialized</span>
+                <span class='label label-success'>INIT</span>
               <% } else { %>
-                <span class='label label-important'>uninitialized</span>
+                <span class='label label-important'>INIT</span>
               <% } %>
 
               <% if (stu.confirmed) { %>
-                <span class='label label-success'>confirmed</span>
+                <span class='label label-success'>CONF</span>
               <% } else { %>
-                <span class='label label-important'>unconfirmed</span>
+                <span class='label label-important'>CONF</span>
               <% } %>
             </td>
             <td>

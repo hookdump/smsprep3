@@ -50,7 +50,9 @@ Checks.isConfirmed = function(student, msg, callback) {
 				var payload2 = {delay: 5000};
 
 				// 3. Add payload, change message to N, and return control to main handler
+				//return callback(null, msg, false, [payload1, payload2]);
 				return callback(null, 'N', false, [payload1, payload2]);
+
 			});
 
 		} else {

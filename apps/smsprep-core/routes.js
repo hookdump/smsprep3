@@ -13,7 +13,7 @@ exports.init = function(app, config, lib) {
     var phone = req.params.phone;
     var msg = req.params.message;
 
-    Core.receiveMessage(phone, msg, null, function(err, response) {
+    Core.receiveMessage(phone, msg, null, {}, function(err, response) {
       // Lib.Bus.publish('sms.out', {payload: response});
 
       log.highlight('sms', 'emulating response for [' + phone + ': Payload (' + response.length + ')]');

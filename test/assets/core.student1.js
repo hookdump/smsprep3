@@ -2,6 +2,7 @@ var now = new Date();
 var tStudent = {
 	phone: 		'89999990001'
 	, lessons: 	['AAA', 'BBB', 'CCC']
+	, lessongroups: ['LGROUP']
 	, schedule: 'morning'
 	, email: 	'foo@bar.com'
 	, fullname: 'John Doe'
