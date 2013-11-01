@@ -21,7 +21,7 @@ var myConfig = {
 		, redis: 		'redis://redistogo:9458afdf3dabc41600b14369ee329920@beardfish.redistogo.com:10567/'
 	},
 	production: {
-		mongo: 			'mongodb://heroku:d036dec5cfd621324d4cee30eaa6ddaa@paulo.mongohq.com:10076/app18466651'
+		mongo: 			'mongodb://heroku:b3b16a7636862e906d32fb2f0a1986af@hanso.mongohq.com:10044/app18466651'
 		, rabbitmq_in: 	'amqp://fGmb-Ksd:TasnULDyzq4LASSt4-IzYSB7YYYlGNY6@leaping-snowdrop-4.bigwig.lshift.net:10827/zMg0fDLzxkH2'
 		, rabbitmq_out: 'amqp://fGmb-Ksd:TasnULDyzq4LASSt4-IzYSB7YYYlGNY6@leaping-snowdrop-4.bigwig.lshift.net:10826/zMg0fDLzxkH2'
 		, redis: 		'redis://redistogo:f417a50781ec32ff4f9a6bdb6e5899d6@scat.redistogo.com:10248/'
