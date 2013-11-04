@@ -109,6 +109,7 @@ $(function () {
 			} else {
 				var tpl = $('.templateItems').find('.by-other').clone().hide();
 				
+				if (msg.msg == null) msg.msg = '[null]';
 				var text = msg.msg.replace('\n', '<br />');
 				$(tpl).find('.body').html( text );
 
