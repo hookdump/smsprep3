@@ -98,8 +98,8 @@ app.configure(function(){
 
   app.use(function(req, res, next){
 
-    res.locals.error_flash = req.flash('error');
-    res.locals.success_flash = req.flash('success');
+    res.locals.error_flash = req.flash('error') || null;
+    res.locals.success_flash = req.flash('success') || null;
 
     log.route(req.method, req.url);
 
