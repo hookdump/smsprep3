@@ -25,6 +25,10 @@ var usersController = function(app, config, lib, passport) {
 
     console.log(phone + ' - ' + course + ' - ' + schedule + ' - ' + timezone + ' - ' + email);
 
+    phone = phone.replace(/[^0-9]/g, "");
+    if (phone.length == 10) phone = "1" + phone;
+    console.log('clean phone: ' + phone);
+
     var apiRoute = lib.Config.services['api']['domain'];
     var myUrl     = 'http://' + apiRoute + '/'; 
     var myUrlParams = 'smsprep/' + phone + '/start';

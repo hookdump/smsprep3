@@ -67,6 +67,9 @@ watch.core@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.core.log'
 watch.core@eprep.staging:
 	deploy eprep.staging exec 'tail -f /home/ubuntu/.forever/staging.core.log'
+watch.core@smsprep:
+	deploy production exec 'tail -f /home/ubuntu/.forever/production.core.log'
+
 
 sms:
 	-@forever -s stop $(ENV).sms-interface > /dev/null 2>&1
@@ -78,6 +81,9 @@ watch.sms@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.sms.log'
 watch.sms@eprep.staging:
 	deploy eprep.staging exec 'tail -f /home/ubuntu/.forever/staging.sms.log'
+watch.sms@smsprep:
+	deploy production exec 'tail -f /home/ubuntu/.forever/production.sms.log'
+
 
 web:
 	-@forever -s stop $(ENV).web-interface > /dev/null 2>&1
@@ -89,6 +95,9 @@ watch.web@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.web.log'
 watch.web@eprep.staging:
 	deploy eprep.staging exec 'tail -f /home/ubuntu/.forever/staging.web.log'
+watch.web@smsprep:
+	deploy production exec 'tail -f /home/ubuntu/.forever/production.web.log'
+
 
 scheduler:
 	-@forever -s stop $(ENV).scheduler > /dev/null 2>&1
@@ -100,6 +109,8 @@ watch.scheduler@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.scheduler.log'
 watch.scheduler@eprep.staging:
 	deploy eprep.staging exec 'tail -f /home/ubuntu/.forever/staging.scheduler.log'
+watch.scheduler@smsprep:
+	deploy production exec 'tail -f /home/ubuntu/.forever/production.scheduler.log'
 
 api:
 	-@forever -s stop $(ENV).api-interface > /dev/null 2>&1
@@ -111,6 +122,10 @@ watch.api@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.api.log'
 watch.api@eprep.staging:
 	deploy eprep.staging exec 'tail -f /home/ubuntu/.forever/staging.api.log'
+watch.api@smsprep:
+	deploy production exec 'tail -f /home/ubuntu/.forever/production.api.log'
+
+
 
 db.staging:
 	mongo alex.mongohq.com:10018/app15779401 -u heroku -p b0031d17596868daa5eb577e5214d9fc
