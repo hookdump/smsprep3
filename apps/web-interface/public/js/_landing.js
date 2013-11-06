@@ -3,7 +3,7 @@ $(function () {
 	var usingAnalytics = $('#using_analytics').is('*');
 	if (!usingAnalytics) {
 		console.log('NOT using analytics');
-		function _trackEvent(a,b) {
+		var _trackEvent = function(a,b) {
 			console.log('noop!');
 		};
 	} else {
