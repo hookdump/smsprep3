@@ -20,8 +20,9 @@ var usersController = function(app, config, lib, passport) {
     var course = req.body.course;
     var schedule = req.body.schedule;
     var timezone = req.body.timezone;
+    var email = req.body.email || null;
 
-    console.log(phone + ' - ' + course + ' - ' + schedule + ' - ' + timezone);
+    console.log(phone + ' - ' + course + ' - ' + schedule + ' - ' + timezone + ' - ' + email);
 
     var apiRoute = lib.Config.services['api']['domain'];
     var myUrl     = 'http://' + apiRoute + '/'; 
@@ -41,13 +42,16 @@ var usersController = function(app, config, lib, passport) {
       timezone: timezone,
       schedule: schedule
     };
-    myBody2 = JSON.stringify(myBody);
+    if (email) {
+      myBody.email = email;
+    }
 
     console.log('requesting...');
     var requestClient = requestJSON.newClient(myUrl);
     requestClient.post(myUrlParams, myBody, function(err2, res2, body2) {
       console.log(res.statusCode);
-      res.redirect('/?success=1');  
+      req.flash('success', '1');
+      res.redirect('/');  
     });
     
   });
