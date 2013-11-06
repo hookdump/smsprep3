@@ -1,50 +1,87 @@
-<div style='margin-top: 150px; text-align: center'>
-	<img src='/public/img/logo.png' style='margin-bottom: 50px' />
+<div id='landing_container'>
+	<img src='/public/img/logo.png' class='landing_logo'/>
 
-	<form  style='width: 400px; margin: -20px auto 0px auto' class="form-horizontal" method="POST" action="/landing/signup">
+	<div class="panel panel-info landing_message">
+		<div class="panel-heading">
+			<b>Stressed about the SAT/ACT? Try real practice questions via SMS.</b>
+			<br />It's fun. It's simple. It's free.
+		</div>
 		
-		<div class="control-group" style='margin-bottom: 5px'>
-			<label class="control-label">11-digit cellphone number</label>
-			<div class='controls'>
-				<input name='phonenumber' id='phonenumber' type='text' />
+	</div>
+
+	<div class="cta_panel">
+		<a href="#" class="cta_button btn btn-lg btn-primary">Try it for free now!</a>
+	</div>
+
+	<form class="form-horizontal signup_form" role="form" method="POST" action="/landing/signup">
+
+		<div class="form-group panel panel-info fieldgroup">
+			<label for="phonenumber" class="col-sm-6 control-label">What is your cellphone number?</label>
+			<div class="col-sm-6">
+				<input required class="form-control" id="phonenumber" placeholder="11-digit cellphone number" name="phonenumber" 
+				data-validation-regex-regex="<%=allowed_first_digit%>[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" data-validation-regex-message="Please enter a valid 11-digit cellphone number">
+				<p class="help-block"></p>
 			</div>
 		</div>
 
-		<div class="control-group" style='margin-bottom: 5px'>
-			<label class="control-label">Timezone</label>
-			<div class='controls'>
-				<select name='timezone' id='timezone' size='1'>
+		<div class="form-group panel panel-info fieldgroup">
+			<label for="timezone" class="col-sm-6 control-label">What timezone are you in?</label>
+			<div class="col-sm-6">
+				<select name='timezone' id='timezone' size='1' class='sel2'>
 					<option value='PST'>PST</option>
 					<option value='MST'>MST</option>
 					<option value='CST'>CST</option>
-					<option value='EST'>EST</option>
+					<option value='EST' selected>EST</option>
 				</select>
-
+				<p class="help-block"></p>
 			</div>
 		</div>
-		
-		<div class="control-group" style='margin-bottom: 5px'>
-			<label class="control-label">11-digit cellphone number</label>
-			<div class='controls'>
-				<input name='phonenumber' id='phonenumber' type='text' />
+ 
+		<div class="form-group panel panel-info fieldgroup">
+			<label for="course" class="col-sm-6 control-label">What course are you preparing?</label>
+			<div class="col-sm-6">
+				<select name='course' id='course' size='1' class='sel2'>
+					<option value='ACT'>ACT</option>
+					<option value='SAT' selected>SAT</option>
+				</select>
+				<p class="help-block"></p>
 			</div>
 		</div>
 
-
-		<div class="control-group" style='margin-bottom: 5px'>
-			<label><input type='checkbox' value='ACT' /> ACT</label>
-			<label><input type='checkbox' value='SAT' /> SAT</label>
+		<div class="form-group panel panel-info fieldgroup">
+			<label for="schedule" class="col-sm-6 control-label">When would you like to practice?</label>
+			<div class="col-sm-6">
+				<select required multiple name='schedule' id='schedule' class='sel2' >
+					<option value='morning'>Morning</option>
+					<option value='afternoon' selected>Afternoon</option>
+					<option value='evening'>Evening</option>
+					<option value='night'>Night</option>
+				</select>
+				<p class="help-block"></p>
+			</div>
 		</div>
 
-		<div class="control-group" style='margin-bottom: 5px'>
-			<label><input type='checkbox' value='morning' /> Morning</label>
-			<label><input type='checkbox' value='afternoon' /> Afternoon</label>
-			<label><input type='checkbox' value='evening' /> Evening</label>
-			<label><input type='checkbox' value='night' /> Night</label>
+		<div class="form-group panel panel-info fieldgroup">
+			<label for="schedule" class="col-sm-6 control-label">What is your email? (optional)</label>
+			<div class="col-sm-6">
+				<input class="form-control" id="email" name="email" type="email" placeholder="your@email.com">
+				<p class="help-block"></p>
+			</div>
 		</div>
 
-		<br />
-		<input class='btn' type='submit' value='Sign up!'>
+		<div class="form-group">
+			<div class="col-sm-12" style='text-align: center'>
+				<div style='width: 84px; display: inline-block; position: absolute; left: 111px; opacity: 0.5; margin-top: 2px; '>
+					<button type="button" class="btn btn-danger btn-sm cancelBtn">Cancel</button>
+				</div>
+				<button type="submit" class="btn btn-primary">Get my free account!</button>
+			</div>
+		</div>
 	</form>
-	
+
+
+
+
+
 </div>
+<script src="/public/js/_landing.js"></script>
