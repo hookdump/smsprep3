@@ -10,7 +10,8 @@ var usersController = function(app, config, lib, passport) {
     } else {
       // res.render('index', { title: config.title, cur_section: "index" });
       var allowedFirstDigit = (lib.Config.env != 'production') ? '[19]' : '[1]';
-      res.render('landing', { layout: 'clean_layout', title: lib.Config.name, cur_section: 'landing', allowed_first_digit: allowedFirstDigit });
+      var use_analytics = (lib.Config.env == 'production') ? '1' : '';
+      res.render('landing', { layout: 'clean_layout', title: lib.Config.name, cur_section: 'landing', allowed_first_digit: allowedFirstDigit, use_analytics: use_analytics });
     }
   });
 
