@@ -2,17 +2,29 @@
 <html lang="en">
   <head>
     <title><%= title %></title>
+    <link rel='stylesheet' href='/public/vendor/bootstrap3/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='/public/vendor/select2/select2.css' />
+    <link rel='stylesheet' href='/public/vendor/select2/select2-bootstrap.css' />
+    <link rel='stylesheet' href='/public/vendor/countdown/jquery.countdown.css' />
 
-    <link rel='stylesheet' href='/public/style/bootstrap.css' />
+    <link rel='stylesheet' href='/public/style/_landing.css' />
+    <script src="/public/js/jquery.js"></script> <!-- jQuery -->
+    <script src="/public/vendor/bootstrap3/js/bootstrap.min.js"></script>
+    <script src="/public/vendor/select2/select2.min.js"></script>
+    <script src="/public/vendor/jqBootstrapValidation/jqBootstrapValidation.js"></script>
+    <script src="/public/vendor/countdown/jquery.countdown.min.js"></script>
   </head>
   <body style='padding-top: 0px'>
     <div class="content">
-      <div class="container main_container">
+      <div class="container main_container phonebg">
         <%-body%>
       </div>
     </div>
 
-    <div style='position: absolute; right: 8px; bottom: 4px; width: 100%; text-align: right'><a href='http://toptal.com'>toptal.com</a></div>
-    <div style='position: absolute; bottom: 4px; width: 100%; text-align: center; color: #AAAAAA'>team@smsprep.com</div>
+    <div style='position: absolute; right: 8px; bottom: 4px; width: 100%; z-index: 999; text-align: right'>
+      <span style='color: #AAAAAA'>team@smsprep.com</span><br />
+      powered by <a href='http://toptal.com'>toptal.com</a>
+    </div>
+    
   </body>
 </html>

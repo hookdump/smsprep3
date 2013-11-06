@@ -3,11 +3,15 @@ INSTANCE = "smsprep"
 
 help:
 	@echo ""
-	@echo "smsPREP Building Script"
-	@echo "-----------------------"
+	@echo "smsPREP Build Script"
+	@echo "--------------------"
 	@echo ""
 	@echo "install: 	Install the required modules"
 	@echo "uninstall: 	Clean up the installed modules"
+
+	@echo ""
+
+	@echo "deploy_config INSTANCE=[smsprep|eprep]:	Deploys the proper config files"
 
 	@echo ""
 
@@ -15,19 +19,29 @@ help:
 	@echo "sms:		Start the sms module"
 	@echo "web:		Start the web site"
 	@echo "api:		Start the api module"
-	@echo "scheduler:		Start the scheduler module"
+	@echo "scheduler:	Start the scheduler module"
 	@echo "bouncy:		Start the listener module"
 
 	@echo ""
 
-	@echo "lcore, lsms, lweb, lapi, lbouncy: Tail the logs in real time"
-
-	@echo ""
-
-	@echo "ls: 		List the running services"
 	@echo "stopall: 	Stop all the running services"
 	@echo "test: 		Run tests"
 	@echo "test-w: 	Run tests in Watch Mode"
+
+	@echo ""
+	@echo '--- DB CONNECTIONS ---------------------'
+	@echo "db.staging"
+	@echo "db.production"
+	@echo "db.eprep.staging"
+	@echo "db.eprep.production"
+
+
+	@echo ""
+	@echo '--- TAIL SERVER LOGS -------------------'
+	@echo "watch.SERVICE@eprep"
+	@echo "watch.SERVICE@eprep.staging"
+
+
 
 install:
 	@npm install

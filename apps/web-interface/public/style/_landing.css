@@ -1,0 +1,86 @@
+html, body, .content {
+	height: 100%;
+}
+
+.cta_panel {
+	text-align: center;
+}
+
+.main_container {
+	height: 100%;
+}
+
+
+.phonebg {
+	background: url('../img/phone500rot.png') no-repeat right 180px;
+	height: 100%;
+}
+.phonebg2 {
+	background: url('../img/phone500rot2.png') no-repeat right 180px;
+	height: 100%;
+}
+
+#landing_container {
+	width: 520px;
+	margin: 40px auto 0px auto;
+}
+
+.signup_form {
+	display: none;
+}
+
+.landing_logo {
+	text-align: center;
+	display: block;
+	margin: 0px auto 20px auto;
+}
+
+.landing_message {
+	margin-bottom: 30px;
+}
+
+.landing_form {
+	width: 400px;
+	margin: -20px auto 0px auto;
+}
+
+#phonenumber {
+	width: 100%;
+}
+#schedule {
+	width: 226px;
+}
+#timezone {
+	width: 100px;
+}
+#course {
+	width: 100px;
+}
+
+.fieldgroup {
+	background-color: #FAFAFA;
+	border: 1px solid #D0D0D0;
+	padding-top: 8px;;
+	margin-left: 0px !important;
+	margin-right: 0px !important;
+}
+
+.form-group.warning input.form-control {
+	border-color: #fa6d81;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(250, 109, 129, 0.6);
+	outline: 0 none;
+}
+
+.help-block ul {
+	list-style: none;
+	padding-left: 6px;
+	font-size: 12px;
+	color: red;
+}
+
+#myCountdown {
+	height: 60px;
+	padding-top: 6px;
+	border: 0px;
+	background-color: white;
+}
