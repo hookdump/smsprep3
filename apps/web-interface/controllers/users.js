@@ -1,3 +1,5 @@
+var request = require('request');
+
 var usersController = function(app, config, lib, passport) {
   log.loading('users controllers');
 
@@ -7,8 +9,26 @@ var usersController = function(app, config, lib, passport) {
       res.redirect('/admin');
     } else {
       // res.render('index', { title: config.title, cur_section: "index" });
+      console.log( 'success - ' + req.query.success );
       res.render('landing', { layout: 'clean_layout', title: lib.Config.name, cur_section: 'landing' });
     }
+  });
+
+  // Landing signup -------------------
+  app.post('/landing/signup', function(req,res) {
+    var phone = req.body.phonenumber;
+
+    // Create user
+    var myUrl     = 'http://api.smsprep.com/smsprep/' + phone + '/start'; 
+    var myBody    = {
+      
+    };
+
+    request.post('http://service.com/upload', myBody, function() {
+
+    });
+
+    res.redirect('/?success=1');
   });
 
   // Login ----------------------------

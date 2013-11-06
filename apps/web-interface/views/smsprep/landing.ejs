@@ -1,5 +1,50 @@
-<div style='margin-top: 200px; text-align: center'>
+<div style='margin-top: 150px; text-align: center'>
 	<img src='/public/img/logo.png' style='margin-bottom: 50px' />
-	<p><b>Stay tuned. We're up to something big.</b></p>
-	<p>team@smsprep.com</p>
+
+	<form  style='width: 400px; margin: -20px auto 0px auto' class="form-horizontal" method="POST" action="/landing/signup">
+		
+		<div class="control-group" style='margin-bottom: 5px'>
+			<label class="control-label">11-digit cellphone number</label>
+			<div class='controls'>
+				<input name='phonenumber' id='phonenumber' type='text' />
+			</div>
+		</div>
+
+		<div class="control-group" style='margin-bottom: 5px'>
+			<label class="control-label">Timezone</label>
+			<div class='controls'>
+				<select name='timezone' id='timezone' size='1'>
+					<option value='PST'>PST</option>
+					<option value='MST'>MST</option>
+					<option value='CST'>CST</option>
+					<option value='EST'>EST</option>
+				</select>
+
+			</div>
+		</div>
+		
+		<div class="control-group" style='margin-bottom: 5px'>
+			<label class="control-label">11-digit cellphone number</label>
+			<div class='controls'>
+				<input name='phonenumber' id='phonenumber' type='text' />
+			</div>
+		</div>
+
+
+		<div class="control-group" style='margin-bottom: 5px'>
+			<label><input type='checkbox' value='ACT' /> ACT</label>
+			<label><input type='checkbox' value='SAT' /> SAT</label>
+		</div>
+
+		<div class="control-group" style='margin-bottom: 5px'>
+			<label><input type='checkbox' value='morning' /> Morning</label>
+			<label><input type='checkbox' value='afternoon' /> Afternoon</label>
+			<label><input type='checkbox' value='evening' /> Evening</label>
+			<label><input type='checkbox' value='night' /> Night</label>
+		</div>
+
+		<br />
+		<input class='btn' type='submit' value='Sign up!'>
+	</form>
+	
 </div>
