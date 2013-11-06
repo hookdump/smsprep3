@@ -2,9 +2,12 @@ $(function () {
 
 	var usingAnalytics = $('#using_analytics').is('*');
 	if (!usingAnalytics) {
+		console.log('NOT using analytics');
 		function _trackEvent(a,b) {
 			console.log('noop!');
 		};
+	} else {
+		console.log('using analytics');
 	}
 
 	$('.sel2').select2({width: 'element'});
