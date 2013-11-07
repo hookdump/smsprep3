@@ -1,4 +1,4 @@
-$(function () {
+$(document).ready(function () {
 
     console.log('dash?');
     if (!$('#dashboard_page').is('*')) {
@@ -11,35 +11,56 @@ $(function () {
     /* Bar Chart starts */
 
     var d1 = [];
-    for (var i = 0; i <= 30; i += 1)
-        d1.push([i, 0]);
+    //for (var i = 0; i <= 30; i += 1)
+    //    d1.push([i, parseInt(Math.random() * 30)]);
 
-/*
+    var keys = _.keys(msgStats);
+    keys.forEach(function(k) {
+        d1.push([ k, msgStats[k] ]);
+    });
+
+    /*
     var d2 = [];
     for (var i = 0; i <= 30; i += 1)
         d2.push([i, parseInt(Math.random() * 30)]);
-*/
+    */
 
     var stack = 0, bars = true, lines = false, steps = false;
     
     function plotWithOptions() {
-        // $.plot($("#bar-chart"), [ d1, d2 ], {
+        //$.plot($("#bar-chart"), [ d1, d2 ], {
+        console.log(d1);
+
         $.plot($("#bar-chart"), [ d1 ], {
             series: {
                 stack: stack,
                 lines: { show: lines, fill: true, steps: steps },
                 bars: { show: bars, barWidth: 0.8 }
             },
+            xaxis: {
+                mode: "time",
+                timeformat: "%y-%m-%d",
+                minTickSize: [1, "hour"]
+            },
+
+            yaxis: {
+            },
+            "lines": {"show": "true"},
+            "points": {"show": "true"},
+            clickable:true,
+            hoverable: true,
+
+
             grid: {
                 borderWidth: 0, hoverable: true, color: "#777"
             },
-            // colors: ["#43c83c", "#23a81c"],
+            //colors: ["#FF0000", "#009900"],
             colors: ["#23a81c"],
             bars: {
-                  show: true,
-                  lineWidth: 0,
-                  fill: true,
-                  fillColor: { colors: [ { opacity: 0.9 }, { opacity: 0.8 } ] }
+              show: true,
+              lineWidth: 0,
+              fill: true,
+              fillColor: { colors: [ { opacity: 0.9 }, { opacity: 0.8 } ] }
             }
         });
     }
@@ -65,7 +86,7 @@ $(function () {
 
 
 /* Curve chart starts */
-
+/*
 $(function () {
     var sin = [], cos = [];
     for (var i = 0; i < 14; i += 0.5) {
@@ -109,6 +130,7 @@ $(function () {
         }).appendTo("body").fadeIn(200);
     }
 
+
     var previousPoint = null;
     $("#curve-chart").bind("plothover", function (event, pos, item) {
         $("#x").text(pos.x.toFixed(2));
@@ -139,3 +161,4 @@ $(function () {
     });
 
 });
+*/
