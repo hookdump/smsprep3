@@ -12,7 +12,9 @@
         <!-- Graph -->
         <div class="pull-left"><i class="icon-group"></i></div>
         <!-- Text -->
-        <div class="datas-text pull-right"><span class="bold">0</span> Students</div>
+        <div class="datas-text pull-right"><span class="bold"><%=info.students_new%></span> New Today</div>
+        <div class="datas-text pull-right datas-margin"><span class="bold"><%=info.students_active%></span> Active Today</div>
+        <div class="datas-text pull-right datas-margin"><span class="bold"><%=info.students_total%></span> Students</div>
 
         <div class="clearfix"></div>
       </li>
@@ -22,8 +24,8 @@
         <!-- Graph -->
         <div class="pull-left"><i class="icon-envelope"></i></div>
         <!-- Text -->
-        <div class="datas-text pull-right"><span class="bold">0%</span> Q's Answered</div>
-        <div class="datas-text pull-right datas-margin"><span class="bold">0</span> Q's Delivered</div>
+        <div class="datas-text pull-right"><span class="bold"><%=info.q_answered_percent%>%</span> Msgs Delivered</div>
+        <div class="datas-text pull-right datas-margin"><span class="bold"><%=info.q_delivered%></span> Q's Delivered</div>
 
         <div class="clearfix"></div>
       </li>
@@ -32,7 +34,7 @@
         <!-- Graph -->
         <div class="pull-left"><i class="icon-book"></i></div>
         <!-- Text -->
-        <div class="datas-text pull-right"><span class="bold">0</span> Questions</div>
+        <div class="datas-text pull-right"><span class="bold"><%=info.q_count%></span> Questions</div>
 
         <div class="clearfix"></div>
       </li> 
@@ -41,7 +43,7 @@
         <!-- Graph -->
         <div class="pull-left"><i class="icon-time"></i></div>
         <!-- Text -->
-        <div class="datas-text pull-right"><span class="bold">0</span> Crons Today</div>
+        <div class="datas-text pull-right"><span class="bold"><%=info.crons_delivered%></span> Crons Today</div>
 
         <div class="clearfix"></div>
       </li>
@@ -215,12 +217,12 @@
 
 
 
-
-
-
 </div>
 <div id='dashboard_page'></div>
 
+<script type='text/javascript'>
+  var msgStats = <%-JSON.stringify(info.messageStats)%>;
+</script>
 
 <!-- jQuery Flot -->
 <script src="/public/js/excanvas.min.js"></script>
