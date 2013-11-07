@@ -3,9 +3,7 @@ $(function () {
 	var usingAnalytics = $('#using_analytics').is('*');
 	if (!usingAnalytics) {
 		console.log('NOT using analytics');
-		function _trackEvent(a,b) {
-			console.log('noop!');
-		};
+		var _gaq = [];
 	} else {
 		console.log('using analytics');
 	}
@@ -16,7 +14,7 @@ $(function () {
 	$('.cta_button').click(function(e) {
 		e.preventDefault();
 		console.log('cta click!');
-		_trackEvent('landing', 'initial_cta_click');
+		ga('send', 'event', 'landing', 'initial_cta_click');
 
 		$('.main_container').removeClass('phonebg').addClass('phonebg2');
 		$('.cta_panel').slideUp('fast', function() {
@@ -27,7 +25,7 @@ $(function () {
 
 	$('#formsubmit').click(function(ev) {
 		console.log('form submit!');
-		_trackEvent('landing', 'account_creation');
+		ga('send', 'event', 'landing', 'account_creation');
 	});
 
 	$('.cancelBtn').click(function() {
