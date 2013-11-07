@@ -17,7 +17,37 @@ var adminController = function(app, config, lib, passport) {
       var info = {};
       lib.CronDelivery.loadRecent(function(err, lastCrons) {
         info.lastCrons = lastCrons;
-        res.render('admin', { title: config.title, cur_section: "admin", page_title: "Dashboard", bread_current: "Dashboard", info: info });  
+
+        /*
+        Lib.Redis.client.get("SUPER KEY", "1", function(a, b) {
+          log.yellow(a);
+          log.debug(b);
+        });
+        */
+
+        lib.Message.loadStats(30, function(err, messageStats) {
+
+          info.messageStats = messageStats;
+
+          lib.Student.loadStats(function(err2, studentStats) {
+
+            info.students_total = studentStats.total;
+            info.students_active = studentStats.activeToday;
+            info.students_new = studentStats.newToday;
+
+            info.q_delivered = 0;
+            info.q_answered_percent = 0;
+            info.crons_delivered = 0;
+
+            info.q_count = 0;
+
+            res.render('admin', { title: config.title, cur_section: "admin", page_title: "Dashboard", bread_current: "Dashboard", info: info });  
+
+          });
+
+        });
+
+        
       });
 
     } else {
