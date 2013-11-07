@@ -14,13 +14,17 @@ $(function () {
 	$('#injectTitle').html(" <a href='/admin/students' class='btn btn-primary'>&laquo; Back to List</a>");
 
 	console.log('initializing messages page...');
-	refreshMessages();
+
+	setTimeout(function() {
+		refreshMessages();	
+	}, 2000);
+
 	validatePhone();
 	showEmulating(false);
 
 	setInterval(function() {
 		refreshMessages();
-	}, 3000);
+	}, 20000);
 
 	function refreshMessages() {
 		_fetchMessages(lastStamp, detailsPhone);
@@ -68,6 +72,7 @@ $(function () {
 			, url: endpoint
 			, data: myData
 			, success: function(data) {
+				console.log('success! rendering...: ' + testNumber);
 				renderMessages(data.messages, testNumber);				
 			}
 		};
@@ -81,6 +86,8 @@ $(function () {
 		var avoidTesting = false;
 		
 		var tplBySmsprep = $('.templateItems').find('.by-me').clone();
+
+		console.log('rendering ' + msgs.length + ' msgs...');
 
 		msgs.forEach(function(msg) {
 			console.log(msg);
@@ -134,7 +141,7 @@ $(function () {
 			}
 
 			// we can add to global:
-			if (!avoidGlobal && !specificNumber) {
+			if (!avoidGlobal) {
 				$(tpl).prependTo(resultsDiv);
 				$(tpl).slideDown('fast');
 			}

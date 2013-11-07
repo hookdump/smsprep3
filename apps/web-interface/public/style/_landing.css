@@ -36,7 +36,25 @@ html, body, .content {
 }
 
 .landing_message {
-	margin-bottom: 30px;
+	margin-bottom: 5px;
+	text-align: center;
+}
+.landing_message .panel-heading {
+	padding-bottom: 16px;
+}
+.landing_message h2, .landing_message h3, .landing_message h4 {
+	margin: 8px;
+}
+.landing_message h2 {
+	color: #0a577d;
+	margin: 22px;
+}
+small {
+	text-align: center;
+	display: block;
+	color: #BBBBBB;
+	background-color: white;
+	margin-bottom: 26px;
 }
 
 .landing_form {

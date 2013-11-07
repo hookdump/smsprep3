@@ -113,7 +113,8 @@
 
             <tr>
               <td>Timezone</td>
-              <td><%=student.timezone || ''%></td>
+              <td>
+                <span class='label label-inverse'><%=student.timezone || ''%></span></td>
             </tr>
             <tr>
               <td>ZIP</td>
@@ -122,16 +123,20 @@
 
             <tr>
               <td>Schedule</td>
-              <td><%=student.schedule || ''%></td>
+              <td><span class='label'><%=student.schedule || ''%></span></td>
             </tr>
 
             <tr>
               <td>Lessons</td>
-              <td><%=student.lessons%></td>
+              <td><% student.lessons.forEach(function(l){ %>
+                  <span class='label'><%=l%></span>
+                <% }); %></td>
             </tr>
             <tr>
               <td>Lesson Groups</td>
-              <td><%=student.lessongroups%></td>
+              <td><% student.lessongroups.forEach(function(lg) { %>
+                <span class='label label-success'><%=lg%></span>
+              <% }); %></td>
             </tr>
 
             <tr>

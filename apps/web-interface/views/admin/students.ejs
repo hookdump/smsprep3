@@ -49,9 +49,9 @@
               <% } %>
 
               <% if (stu.initialized) { %>
-                <span class='label label-success'>INIT</span>
+                <a href='/admin/students/init_slooce/<%=stu._id%>'><span class='label label-success'>INIT</span></a>
               <% } else { %>
-                <span class='label label-important'>INIT</span>
+                <a href='/admin/students/init_slooce/<%=stu._id%>'><span class='label label-important'>INIT</span></a>
               <% } %>
 
               <% if (stu.confirmed) { %>
@@ -66,7 +66,6 @@
             <td>
               <a href='/admin/students/details/<%=stu._id%>' class='btn btn-primary details_student'><i class="icon-search"></i></a> 
               <a href='/admin/students/delete/<%=stu._id%>' class='btn btn-danger del_student'><i class="icon-remove"></i></a>
-
             </td>
           </tr>
         <% }); %>

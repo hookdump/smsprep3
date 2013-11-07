@@ -10,7 +10,8 @@ var usersController = function(app, config, lib, passport) {
     } else {
       // res.render('index', { title: config.title, cur_section: "index" });
       var allowedFirstDigit = (lib.Config.env != 'production') ? '[19]' : '[1]';
-      res.render('landing', { layout: 'clean_layout', title: lib.Config.name, cur_section: 'landing', allowed_first_digit: allowedFirstDigit });
+      var use_analytics = (lib.Config.env == 'production') ? '1' : '';
+      res.render('landing', { layout: 'clean_layout', title: lib.Config.name, cur_section: 'landing', allowed_first_digit: allowedFirstDigit, use_analytics: use_analytics });
     }
   });
 
@@ -23,6 +24,10 @@ var usersController = function(app, config, lib, passport) {
     var email = req.body.email || null;
 
     console.log(phone + ' - ' + course + ' - ' + schedule + ' - ' + timezone + ' - ' + email);
+
+    phone = phone.replace(/[^0-9]/g, "");
+    if (phone.length == 10) phone = "1" + phone;
+    console.log('clean phone: ' + phone);
 
     var apiRoute = lib.Config.services['api']['domain'];
     var myUrl     = 'http://' + apiRoute + '/'; 

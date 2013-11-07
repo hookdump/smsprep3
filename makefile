@@ -67,6 +67,9 @@ watch.core@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.core.log'
 watch.core@eprep.staging:
 	deploy eprep.staging exec 'tail -f /home/ubuntu/.forever/staging.core.log'
+watch.core@smsprep:
+	deploy production exec 'tail -f /home/ubuntu/.forever/production.core.log'
+
 
 sms:
 	-@forever -s stop $(ENV).sms-interface > /dev/null 2>&1
@@ -78,6 +81,9 @@ watch.sms@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.sms.log'
 watch.sms@eprep.staging:
 	deploy eprep.staging exec 'tail -f /home/ubuntu/.forever/staging.sms.log'
+watch.sms@smsprep:
+	deploy production exec 'tail -f /home/ubuntu/.forever/production.sms.log'
+
 
 web:
 	-@forever -s stop $(ENV).web-interface > /dev/null 2>&1
@@ -89,6 +95,9 @@ watch.web@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.web.log'
 watch.web@eprep.staging:
 	deploy eprep.staging exec 'tail -f /home/ubuntu/.forever/staging.web.log'
+watch.web@smsprep:
+	deploy production exec 'tail -f /home/ubuntu/.forever/production.web.log'
+
 
 scheduler:
 	-@forever -s stop $(ENV).scheduler > /dev/null 2>&1
@@ -100,6 +109,8 @@ watch.scheduler@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.scheduler.log'
 watch.scheduler@eprep.staging:
 	deploy eprep.staging exec 'tail -f /home/ubuntu/.forever/staging.scheduler.log'
+watch.scheduler@smsprep:
+	deploy production exec 'tail -f /home/ubuntu/.forever/production.scheduler.log'
 
 api:
 	-@forever -s stop $(ENV).api-interface > /dev/null 2>&1
@@ -111,16 +122,20 @@ watch.api@eprep:
 	deploy eprep.production exec 'tail -f /home/ubuntu/.forever/production.api.log'
 watch.api@eprep.staging:
 	deploy eprep.staging exec 'tail -f /home/ubuntu/.forever/staging.api.log'
+watch.api@smsprep:
+	deploy production exec 'tail -f /home/ubuntu/.forever/production.api.log'
+
+
 
 db.staging:
-	mongo alex.mongohq.com:10018/app15779401 -u heroku -p b0031d17596868daa5eb577e5214d9fc
+	mongo alex.mongohq.com:10018/app15779401 -u smsprep -p soke6544
 db.production:
-	mongo linus.mongohq.com:10093/app15670097 -u heroku -p ff57e846d04b6cb160a02fd121599c33	
+	mongo linus.mongohq.com:10093/app15670097 -u smsprep -p soke6545	
 
 db.eprep.staging:
-	mongo paulo.mongohq.com:10089/app18672561 -u heroku -p 17a819929bf7f82aef5e696cab335526
+	mongo paulo.mongohq.com:10089/app18672561 -u eprep -p soke6542
 db.eprep.production:
-	mongo hanso.mongohq.com:10044/app18466651 -u heroku -p b3b16a7636862e906d32fb2f0a1986af	
+	mongo hanso.mongohq.com:10044/app18466651 -u eprep -p soke6541	
 
 bouncy:
 	# $(if $(findstring $(ENV),"development") , @~/servers )
