@@ -56,6 +56,7 @@ deploy_config:
 	@cp conf/$(INSTANCE).connections.js conf/connections.js
 	@cp conf/$(INSTANCE).services.js conf/services.js
 	@cp -r apps/web-interface/views/$(INSTANCE)/* apps/web-interface/views/
+	@cp lib/texts_$(INSTANCE).js lib/texts.js
 
 core:
 	-@forever -s stop $(ENV).smsprep-core > /dev/null 2>&1
