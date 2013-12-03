@@ -15,7 +15,11 @@
         <div class='report_msg_2'>
       <% } %>
 
-        <%=msg.msg%>
+        <% if (msg.msg.indexOf("ePrep") > -1) { %>
+          Welcome to smsPREP! Reply CONFIRM to get started.\nAt any time, send HELP for help or STOP to end.\nInfo: smsprep.com\nMsg+DataRatesMayApply
+        <% } else { %>
+          <%=msg.msg%>
+        <% } %>
 
       </div>
     <% }); %>
