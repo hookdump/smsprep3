@@ -4,17 +4,25 @@
   <h1><%=stu.phone%></h1>
 
   <div class='report_msgs'>
-  <% stu.messages.forEach(function(msg) { %>
-    <% if (msg.from == 'smsprep') { %>
-      <div class='report_msg_1'>
-    <% } else { %>
-      <div class='report_msg_2'>
-    <% } %>
+  <% if (stu.messages) { %>
 
-      <%=msg.msg%>
 
-    </div>
-  <% }); %>
+
+    <% stu.messages.forEach(function(msg) { %>
+      <% if (msg.from == 'smsprep') { %>
+        <div class='report_msg_1'>
+      <% } else { %>
+        <div class='report_msg_2'>
+      <% } %>
+
+        <%=msg.msg%>
+
+      </div>
+    <% }); %>
+
+
+
+  <% } %>
   </div>
 
 <% }); %>
