@@ -14,7 +14,7 @@ $(function () {
 	$('.cta_button').click(function(e) {
 		e.preventDefault();
 		console.log('cta click!');
-		ga('send', 'event', 'landing', 'initial_cta_click');
+		if (usingAnalytics) ga('send', 'event', 'landing', 'initial_cta_click');
 
 		$('.main_container').removeClass('phonebg').addClass('phonebg2');
 		$('.cta_panel').slideUp('fast', function() {
@@ -25,7 +25,7 @@ $(function () {
 
 	$('#formsubmit').click(function(ev) {
 		console.log('form submit!');
-		ga('send', 'event', 'landing', 'account_creation');
+		if (usingAnalytics) ga('send', 'event', 'landing', 'account_creation');
 	});
 
 	$('.cancelBtn').click(function() {

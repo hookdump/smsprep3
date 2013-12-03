@@ -109,6 +109,30 @@ var adminController = function(app, config, lib, passport) {
     });
   });
 
+  // Students ----------------------------
+  app.get('/admin/students/report', lib.Utils.requireRole('admin'), function(req, res) {
+    lib.Student.listAll(function(err, studentsList) {
+      lib.Message.loadAll(function(err, msgList) {
+
+        var msgCollection = {};
+        msgList.forEach(function(msg) {
+          var number = (msg.to === 'smsprep') ? msg.from : msg.to;
+          if (!msgCollection[number]) {
+            msgCollection[number] = [];
+          }
+          msgCollection[number].push(msg);
+        });
+
+        studentsList.forEach(function(student) {
+          var number = student.phone;
+          student.messages = msgCollection[number];
+        });
+
+        res.render('admin/students_report', { title: config.title, cur_section: "students", page_title: "Students", bread_current: "Students", students: studentsList });
+      });
+    });
+  });
+
   app.get('/admin/students/init_slooce/:id', lib.Utils.requireRole('admin'), function(req, res) {
     var studentId = req.params.id;
     lib.Student.loadData({_id: studentId}, function(err, details) {
