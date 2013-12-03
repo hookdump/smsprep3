@@ -39,3 +39,20 @@
 #cronRowTemplate {
 	display: none;
 }
+
+.report_msgs {
+	padding: 12px;
+	background-color: #DFDFDF;
+}
+
+.report_msg_1 {
+	margin: 6px;
+	background-color: #EEFFEE;	
+	border: 1px solid #008800;
+}
+.report_msg_2 {
+	margin: 6px;
+	background-color: #EEEEFF;
+	border: 1px solid #0000AA;
+}
+
